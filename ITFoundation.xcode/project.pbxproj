@@ -401,6 +401,7 @@
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Dynamic;
+				MACOSX_DEPLOYMENT_TARGET = 10.2;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = ITFoundation;
 				SECTORDER_FLAGS = "";
