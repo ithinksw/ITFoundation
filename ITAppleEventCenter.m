@@ -182,6 +182,20 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     }
 }
 
+- (NSString *)sendAEWithRequestedArray:(NSArray *)array eventClass:(NSString*)eventClass eventID:(NSString*)eventID appPSN:(ProcessSerialNumber)psn
+{
+    //Build the send string
+    NSString *curString = [NSString stringWithFormat:@"{ form:'prop', want:type('prop'), seld:type('%s'), from:'null'() }", [[array objectAtIndex:0] UTF8String]];
+    int i;
+    for (i = 1; i < [array count]; i++) {
+        NSString *from = [NSString stringWithFormat:@"{ form:'prop', want:type('prop'), seld:type('%s'), from:obj %@ }",
+                    [[array objectAtIndex:i] UTF8String], curString];
+        curString = from;
+        NSLog(@"%@", from);
+    }
+    curString = [@"'----':obj " stringByAppendingString:curString];
+    return curString;
+}
 
 - (void)sendAEWithEventClass:(NSString*)eventClass eventID:(NSString*)eventID appPSN:(ProcessSerialNumber)psn
 {
@@ -192,7 +206,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
         AEEventID    eID    = *((unsigned long*)[eventID UTF8String]);
         AppleEvent event, reply;
     
-        AECreateAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event);
+        AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, nil, "");
     
         AESend(&event, &reply, kAENoReply, kAENormalPriority, kAEDefaultTimeout, nil, nil);
     
