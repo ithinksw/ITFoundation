@@ -1,9 +1,9 @@
 #import "ITCarbonSupport.h"
 
-NSString *NSStringFromFourCharCode(FourCharCode code) {
+NSString *NSStringFromFourCharCode(unsigned long code) {
     return [NSString stringWithUTF8String:&code];
 }
 
-FourCharCode FourCharCodeFromNSString(NSString *string) {
+unsigned long FourCharCodeFromNSString(NSString *string) {
     return (*((unsigned long*)[string UTF8String]));
 }

@@ -7,8 +7,8 @@
  *
  */
 
-#import <Carbon/Carbon.h>
 #import <Foundation/Foundation.h>
+#import <Carbon/Carbon.h>
 #import <CoreServices/CoreServices.h>
 
 //These functions check for a match with just the lastPathComponent, so it will handle people moving the app

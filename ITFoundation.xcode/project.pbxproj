@@ -145,12 +145,10 @@
 		};
 		08FB77AEFE84172EC02AAC07 = {
 			children = (
-				37B1C51C0612593F00F99008,
 				37B1C5280612596900F99008,
 				37B1C51F0612594A00F99008,
 				37B1C5190612593A00F99008,
 				37138AB80661A243006A543D,
-				37B1C5160612592F00F99008,
 				37B1C5220612595500F99008,
 				37B1C5250612596000F99008,
 				37B1C52B0612597100F99008,
@@ -295,22 +293,6 @@
 //372
 //373
 //374
-		370786C005C0B4D700E6D1BA = {
-			fileEncoding = 30;
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			path = ITOSAScript.h;
-			refType = 4;
-			sourceTree = "<group>";
-		};
-		370786C105C0B4D700E6D1BA = {
-			fileEncoding = 30;
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.objc;
-			path = ITOSAScript.m;
-			refType = 4;
-			sourceTree = "<group>";
-		};
 		37138AB80661A243006A543D = {
 			children = (
 				376AF4DD06597CA900F0979E,
@@ -352,18 +334,6 @@
 			settings = {
 			};
 		};
-		37B1C5160612592F00F99008 = {
-			children = (
-				370786C005C0B4D700E6D1BA,
-				370786C105C0B4D700E6D1BA,
-				37B9B08005C1C47E00702FDB,
-				37B9B08105C1C47E00702FDB,
-			);
-			isa = PBXGroup;
-			name = ITOSA;
-			refType = 4;
-			sourceTree = "<group>";
-		};
 		37B1C5190612593A00F99008 = {
 			children = (
 				7CA50B2F054E77A00074E1D9,
@@ -371,19 +341,6 @@
 			);
 			isa = PBXGroup;
 			name = ITDebug;
-			refType = 4;
-			sourceTree = "<group>";
-		};
-		37B1C51C0612593F00F99008 = {
-			children = (
-				3D97138805D9FD6B0033607F,
-				3D97138905D9FD6B0033607F,
-				7CA50B2B054E77950074E1D9,
-				7CA50B2C054E77950074E1D9,
-			);
-			isa = PBXGroup;
-			name = ITAppleEvent;
-			path = "";
 			refType = 4;
 			sourceTree = "<group>";
 		};
@@ -476,22 +433,6 @@
 			refType = 4;
 			sourceTree = "<group>";
 		};
-		37B9B08005C1C47E00702FDB = {
-			fileEncoding = 4;
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			path = ITOSAComponent.h;
-			refType = 4;
-			sourceTree = "<group>";
-		};
-		37B9B08105C1C47E00702FDB = {
-			fileEncoding = 4;
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.objc;
-			path = ITOSAComponent.m;
-			refType = 4;
-			sourceTree = "<group>";
-		};
 //370
 //371
 //372
@@ -556,37 +497,6 @@
 		};
 		3D97138105D9FBFA0033607F = {
 			fileRef = 7CA50B8B054E787D0074E1D9;
-			isa = PBXBuildFile;
-			settings = {
-			};
-		};
-		3D97138805D9FD6B0033607F = {
-			fileEncoding = 4;
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			path = ITAppleEventTools.h;
-			refType = 4;
-			sourceTree = "<group>";
-		};
-		3D97138905D9FD6B0033607F = {
-			explicitFileType = sourcecode.c.objc;
-			fileEncoding = 4;
-			isa = PBXFileReference;
-			path = ITAppleEventTools.m;
-			refType = 4;
-			sourceTree = "<group>";
-		};
-		3D97138A05D9FD6B0033607F = {
-			fileRef = 3D97138805D9FD6B0033607F;
-			isa = PBXBuildFile;
-			settings = {
-				ATTRIBUTES = (
-					Public,
-				);
-			};
-		};
-		3D97138B05D9FD6B0033607F = {
-			fileRef = 3D97138905D9FD6B0033607F;
 			isa = PBXBuildFile;
 			settings = {
 			};
@@ -687,37 +597,6 @@
 		};
 		7C97DC2F05B614300013E85F = {
 			fileRef = 7C97DC2D05B614300013E85F;
-			isa = PBXBuildFile;
-			settings = {
-			};
-		};
-		7CA50B2B054E77950074E1D9 = {
-			fileEncoding = 4;
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			path = ITAppleEventCenter.h;
-			refType = 4;
-			sourceTree = "<group>";
-		};
-		7CA50B2C054E77950074E1D9 = {
-			fileEncoding = 4;
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.objc;
-			path = ITAppleEventCenter.m;
-			refType = 4;
-			sourceTree = "<group>";
-		};
-		7CA50B2D054E77950074E1D9 = {
-			fileRef = 7CA50B2B054E77950074E1D9;
-			isa = PBXBuildFile;
-			settings = {
-				ATTRIBUTES = (
-					Public,
-				);
-			};
-		};
-		7CA50B2E054E77950074E1D9 = {
-			fileRef = 7CA50B2C054E77950074E1D9;
 			isa = PBXBuildFile;
 			settings = {
 			};
@@ -961,7 +840,6 @@
 			files = (
 				8DC2EF510486A6940098B216,
 				7CA50D7E054E7C600074E1D9,
-				7CA50B2D054E77950074E1D9,
 				7CA50B31054E77A00074E1D9,
 				3D2D8A13055E07D800F59C27,
 				2AB93A3205705A0C007E748F,
@@ -970,7 +848,6 @@
 				7C97DC2E05B614300013E85F,
 				3D97137B05D9FB7C0033607F,
 				3D97137F05D9FBF40033607F,
-				3D97138A05D9FD6B0033607F,
 				376AF4DF06597CA900F0979E,
 				7C058DF9072F10530082E1E9,
 				7C2D93BF07C2FD6700A487A9,
@@ -1002,7 +879,6 @@
 		8DC2EF540486A6940098B216 = {
 			buildActionMask = 2147483647;
 			files = (
-				7CA50B2E054E77950074E1D9,
 				7CA50B32054E77A00074E1D9,
 				3D2D8A12055E07D800F59C27,
 				2AB93A3305705A0C007E748F,
@@ -1011,7 +887,6 @@
 				7C97DC2F05B614300013E85F,
 				3D97137C05D9FB7C0033607F,
 				3D97138105D9FBFA0033607F,
-				3D97138B05D9FD6B0033607F,
 				376AF4E006597CA900F0979E,
 				7C058DFA072F10530082E1E9,
 				7C2D93C007C2FD6700A487A9,

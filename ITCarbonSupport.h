@@ -1,5 +1,4 @@
 #import <Foundation/Foundation.h>
-#import <Carbon/Carbon.h>
 
-NSString *NSStringFromFourCharCode(FourCharCode code);
-FourCharCode FourCharCodeFromNSString(NSString *string);
+NSString *NSStringFromFourCharCode(unsigned long code);
+unsigned long FourCharCodeFromNSString(NSString *string);
