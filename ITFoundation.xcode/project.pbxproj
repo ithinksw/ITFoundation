@@ -217,6 +217,8 @@
 			children = (
 				32DBCF5E0370ADEE00C91783,
 				7CA50D7D054E7C600074E1D9,
+				3D2D8A10055E07D800F59C27,
+				3D2D8A11055E07D800F59C27,
 			);
 			isa = PBXGroup;
 			name = "Other Sources";
@@ -236,6 +238,44 @@
 //322
 //323
 //324
+//3D0
+//3D1
+//3D2
+//3D3
+//3D4
+		3D2D8A10055E07D800F59C27 = {
+			expectedFileType = sourcecode.c.c;
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			path = queue.c;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		3D2D8A11055E07D800F59C27 = {
+			expectedFileType = sourcecode.c.h;
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			path = queue.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		3D2D8A12055E07D800F59C27 = {
+			fileRef = 3D2D8A10055E07D800F59C27;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		3D2D8A13055E07D800F59C27 = {
+			fileRef = 3D2D8A11055E07D800F59C27;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+//3D0
+//3D1
+//3D2
+//3D3
+//3D4
 //7C0
 //7C1
 //7C2
@@ -426,6 +466,7 @@
 				7CA50D7E054E7C600074E1D9,
 				7CA50B2D054E77950074E1D9,
 				7CA50B31054E77A00074E1D9,
+				3D2D8A13055E07D800F59C27,
 			);
 			isa = PBXHeadersBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -455,6 +496,7 @@
 			files = (
 				7CA50B2E054E77950074E1D9,
 				7CA50B32054E77A00074E1D9,
+				3D2D8A12055E07D800F59C27,
 			);
 			isa = PBXSourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
