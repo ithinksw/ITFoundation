@@ -17,25 +17,46 @@
 	   {
 	   data = [[NSMutableData alloc] init];
 	   lock = [[NSLock alloc] init];
+	   delegate = nil;
 	   }
     return self;
 }
 
--(id) initWithStream:(ITByteStream*)stream
+-(id) initWithDelegate:(id)d
+{
+    if (self == [super init])
+	   {
+	   data = [[NSMutableData alloc] init];
+	   lock = [[NSLock alloc] init];
+	   delegate = [d retain];
+	   }
+    return self;
+}
+
+-(id) initWithStream:(ITByteStream*)stream delegate:(id)d
 {
     if (self == [super init])
 	   {
 	   data = [stream->data copy];
 	   lock = [[NSLock alloc] init];
+	   delegate = [d retain];
 	   }
     return 0;
 }
 
--(void) dealloc
+-(oneway void) dealloc
 {
+    [lock lock];
     [data release];
+    [lock unlock];
     [lock release];
     [super dealloc];
+}
+
+-(void) setDelegate:(id <ITByteStreamDelegate>)d
+{
+    [delegate release];
+    delegate = [d retain];
 }
 
 -(int) availableDataLength
@@ -74,10 +95,19 @@
     return ret;
 }
 
--(void) writeData:(NSData*)_data
+-(void) writeData:(in NSData*)_data
 {
     [lock lock];
     [data appendData:_data];
     [lock unlock];
+    [delegate newDataAdded:self];
+}
+
+-(void) writeBytes:(char *)b len:(long)length
+{
+    [lock lock];
+    [data appendBytes:b length:length];
+    [lock unlock];
+    [delegate newDataAdded:self];
 }
 @end

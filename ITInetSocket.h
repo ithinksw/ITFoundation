@@ -63,14 +63,14 @@ typedef enum {
  * @abstract Delegate methods for ITInetSocket
  * @discussion ITInetSockets use these methods to communicate with their delegates
  */
-@protocol ITInetSocketDelegate
+@protocol ITInetSocketDelegate <ITByteStreamDelegate>
 /*!
  * @method dataReceived:
  * @abstract Alerts the delegate of data.
  * @discussion The delegate should check [sender readPipe] to get the data.
  * @param sender The socket that the messages came from.
  */
-- (void) dataReceived:(in ITInetSocket *)sender;
+- (void) dataReceived:(ITInetSocket *)sender;
 /*!
  * @method errorOccured:during:onSocket:
  * @abstract Alerts the delegate of an error condition.
@@ -79,14 +79,14 @@ typedef enum {
  * @param state What the socket was doing when the error occured.
  * @param sender The socket the error occured on.
  */
-- (void) errorOccured:(ITInetSocketError)err during:(ITInetSocketState)state onSocket:(in ITInetSocket*)sender;
+- (void) errorOccured:(ITInetSocketError)err during:(ITInetSocketState)state onSocket:(ITInetSocket*)sender;
 /*!
  * @method finishedConnecting:
  * @abstract Alerts the delegate of a successful connection attempt.
  * @discussion The delegate should send whatever initial data is required for the protocol (nickname for IRC, etc.)
  * @param sender The socket that established the connection.
  */
-- (void) finishedConnecting:(in ITInetSocket *)sender;
+- (void) finishedConnecting:(ITInetSocket *)sender;
 @end
 
 /*!
@@ -94,7 +94,7 @@ typedef enum {
  * @abstract An Internet socket class.
  * @discussion ITInetSocket is an Internet socket class supporting IPv6 and Rendezvous.
  */
-@interface ITInetSocket : NSObject {
+@interface ITInetSocket : NSObject <ITByteStreamDelegate> {
     @public
     /*!
      * @var sockfd

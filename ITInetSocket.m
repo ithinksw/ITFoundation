@@ -41,8 +41,8 @@
 	   sockfd = fd;
 	   delegate = [d retain];
 	   port = 0;
-	   writePipe = [[ITByteStream alloc] init];
-	   readPipe = [[ITByteStream alloc] init];
+	   writePipe = [[ITByteStream alloc] initWithDelegate:self];
+	   readPipe = [[ITByteStream alloc] initWithDelegate:d];
 	   ai = nil;
 	   sarr = nil;
 	   bufs = 512;
@@ -59,8 +59,8 @@
 	   sockfd = -1;
 	   delegate = [d retain];
 	   port = 0;
-	   writePipe = [[ITByteStream alloc] init];
-	   readPipe = [[ITByteStream alloc] init];
+	   writePipe = [[ITByteStream alloc] initWithDelegate:self];
+	   readPipe = [[ITByteStream alloc] initWithDelegate:d];
 	   ai = nil;
 	   sarr = nil;
 	   bufs = 512;
@@ -119,6 +119,7 @@
 
 -(void)disconnect
 {
+    NSLog(@"Got a disconnect");
     dieflag = 1;
     do {} while (dieflag == 1);
 }
@@ -147,6 +148,13 @@
 -(void)setBufferSize:(unsigned short)_bufs
 {
     bufs = _bufs;
+}
+
+-(void)newDataAdded:(ITByteStream*)sender
+{
+    NSLog(@"writePipe got something");
+    actionflag = 1;
+    NSLog(@"thread saw actionFlag");
 }
 @end
 
@@ -222,11 +230,12 @@
 {
     NSAutoreleasePool *ap = [[NSAutoreleasePool alloc] init];
     NSConnection *dcon = [[NSConnection alloc] initWithReceivePort:[data objectAtIndex:0] sendPort:[data objectAtIndex:1]];
-    NSProxy *dp = [dcon rootProxy];
+    NSProxy *dp = [[dcon rootProxy] retain];
     char *buf = malloc(bufs);
     unsigned long readLen = 0;
     signed int err;
-    NSLog(@"EYE MAEK CONNECT");
+    [readPipe setDelegate:dp];
+    NSLog(@"Connecting");
     err = connect(sockfd,ai_cur->ai_addr,ai_cur->ai_addrlen);
     if (err == -1)
 	   {
@@ -234,19 +243,21 @@
 	   [(id)dp errorOccured:ITInetCouldNotConnect during:ITInetSocketConnecting onSocket:self];
 	   goto dieaction;
 	   }
+    NSLog(@"Sending finishedConnecting");
     [(id)dp finishedConnecting:self];
 lstart:
 
-	   while (!actionflag && ![writePipe availableDataLength] && !dieflag)
+	   while (!actionflag && !dieflag)
 	   {
 		  NSData *d;
 		  readLen = recv(sockfd,buf,bufs,0);
+		  if (readLen == -1) {[(id)dp errorOccured:ITInetConnectionDropped during:ITInetSocketReading onSocket:self];goto dieaction;}
 		  if (readLen) {
-			 d = [NSData alloc];
-			 [d initWithBytesNoCopy:buf length:readLen freeWhenDone:NO];
-			 [readPipe writeData:d];
-			 [d release];
-			 [(id)dp dataReceived:self];
+			 NSLog(@"recv'd");
+			 NSLog(@"Doing writeData to readPipe");
+			 [readPipe writeBytes:buf len:readLen];
+			 [ap release];
+			 ap = [[NSAutoreleasePool alloc] init];
 		  }
 	   }
 
@@ -259,14 +270,18 @@ dieaction:
 	   free(buf);
 	   shutdown(sockfd,2);
 	   [dcon release];
+	   [dp release];
 	   [ap release];
 	   dieflag = 0;
 	   return;
 	   }
 
     {
+	   NSLog(@"Emptying writePipe");
 	   NSData *d = [writePipe readAllData];
 	   write(sockfd,[d bytes],[d length]);
+	   [ap release];
+	   ap = [[NSAutoreleasePool alloc] init];
 	   goto lstart;
 	   }
     goto dieaction;

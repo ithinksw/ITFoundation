@@ -9,28 +9,32 @@
 #import "ShowcaseController.h"
 #import "ITInetSocket.h"
 
+ITInetSocket *sock;
 
 @implementation ShowcaseController
 - (void)awakeFromNib
 {
-    ITInetSocket *sock = [[ITInetSocket alloc] initWithDelegate:self];
+    sock = [[ITInetSocket alloc] initWithDelegate:self];
     NSLog(@"rawr?");
     [sock connectToHost:@"irc.freenode.net" onPort:6667];
 }
 
-- (void) finishedConnecting:(in ITInetSocket *)sender {
-    NSString *ircini = @"NICK ITFTest\r\nUSER m0nk3ys . . :Not Tellin'\r\nJOIN #iThink\r\nPRIVMSG #iThink :w00t\r\nQUIT :!\r\n";
-    NSLog(@"Done connectin'");
-    NSData *d = [NSData dataWithBytes:[ircini cString] length:[ircini length]];
-    [sender->writePipe writeData:d];
-    NSLog(@"%@",sender->writePipe->data);
-}
-- (void) errorOccured:(ITInetSocketError)err during:(ITInetSocketState)state onSocket:(in ITInetSocket*)sender {NSLog(@"wtf");[sender retryConnection];}
-- (void) dataReceived:(in ITInetSocket *)sender
-{
-    ITByteStream *p = sender->readPipe;
-    NSData *d = [p readAllData];
-    NSLog(@"%@",d);
+- (void) finishedConnecting:(ITInetSocket *)sender {
+
 }
 
+- (void) errorOccured:(ITInetSocketError)err during:(ITInetSocketState)state onSocket:(in ITInetSocket*)sender {NSLog(@"wtf");[sender retryConnection];}
+- (void) dataReceived:(ITInetSocket *)sender
+{
+}
+
+- (void) newDataAdded:(ITByteStream*)sender {
+    static int firstTime = YES;
+    NSString *ircini = @"USER m0nk3ys . . :Not Telling\r\nNICK ITFTest\r\n", *irc2 = @"JOIN #iThink\r\nPRIVMSG #iThink :w00t\r\nQUIT :!\r\n";
+    NSLog(@"Writing something");
+    NSData *d = [NSData dataWithBytes:[firstTime?ircini:irc2 cString] length:[firstTime?ircini:irc2 length]];
+    [sock->writePipe writeData:d];
+    NSLog(@"Reading something");
+    firstTime = NO;
+}
 @end
