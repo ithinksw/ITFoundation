@@ -16,3 +16,4 @@
 
 #import <ITFoundation/ITAppleEventCenter.h>
 #import <ITFoundation/ITStringScanner.h>
+#import <ITFoundation/ITDebug.h>
