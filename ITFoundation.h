@@ -23,3 +23,5 @@
 
 #import <ITFoundation/ITCarbonSupport.h>
 #import <ITFoundation/ITAppleEventTools.h>
+
+#import <ITFoundation/ITXMLParser.h>
