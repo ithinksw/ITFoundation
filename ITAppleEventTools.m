@@ -48,6 +48,7 @@ NSAppleEventDescriptor *ITSendAEWithString(NSString *sendString, FourCharCode ev
 
 NSAppleEventDescriptor *ITSendAEWithKey(FourCharCode reqKey, FourCharCode evClass, FourCharCode evID,const ProcessSerialNumber *psn)
 {
+    return nil;
 }
 
 NSAppleEventDescriptor *ITSendPlainAE(FourCharCode eClass, FourCharCode eID,const ProcessSerialNumber *psn)
@@ -58,9 +59,9 @@ NSAppleEventDescriptor *ITSendPlainAE(FourCharCode eClass, FourCharCode eID,cons
     AppleEvent event, reply;
     OSStatus cerr,cerr2,err;
     NSAppleEventDescriptor *nsd, *nse, *nsr;
-    if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
+    if ((GetProcessPID(psn, &pid) == noErr) && (pid == 0)) {
         ITDebugLog(@"Error getting PID of application.");
-	return;
+	return nil;
     }
     cerr = AECreateDesc(typeProcessSerialNumber,(ProcessSerialNumber*)&psn,sizeof(ProcessSerialNumber),&dest);
     nsd = [[[NSAppleEventDescriptor alloc] initWithAEDescNoCopy:&dest] autorelease];
