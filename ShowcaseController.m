@@ -7,22 +7,29 @@
 //
 
 #import "ShowcaseController.h"
+#import "ITInetSocket.h"
 
 
 @implementation ShowcaseController
 - (void)awakeFromNib
 {
-    /*
-    ITInetServerSocket *sock = [[ITInetServerSocket alloc] initWithDelegate:self];
+    
+    ITInetSocket *sock = [[ITInetSocket alloc] initWithDelegate:self];
     NSLog(@"rawr?");
-    [sock setPort:4776];
-    [sock setServiceName:@"Test Rendezvous Service"];
-    [sock setServiceType:@"ittest" useForPort:NO];
-    [sock start];
-	*/
+    [sock connectToHost:@"66.111.58.80" onPort:4336];
 }
 
-- (void)newClientJoined:(ITInetSocket*)client
-{
+- (void) finishedConnecting:(in ITInetSocket *)sender {
+    NSLog(@"Done connectin'");
+    NSData *d = [NSData dataWithBytesNoCopy:"M00f!" length:5];
+    [sender->writePipe writeData:d];
 }
+- (void) errorOccured:(ITInetSocketError)err during:(ITInetSocketState)state onSocket:(in ITInetSocket*)sender {NSLog(@"wtf");[sender retryConnection];}
+- (void) dataReceived:(in ITInetSocket *)sender
+{
+    ITByteStream *p = sender->readPipe;
+    NSData *d = [p readAllData];
+    NSLog(@"%@",d);
+}
+
 @end

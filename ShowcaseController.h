@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <ITFoundation/ITFoundation.h>
+#import <ITFoundation/ITInetSocket.h>
 
-@interface ShowcaseController : NSObject <ITInetServerSocketOwner> {
+@interface ShowcaseController : NSObject <ITInetSocketDelegate> {
 
 }
 

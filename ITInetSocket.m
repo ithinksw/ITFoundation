@@ -18,6 +18,7 @@
 
 @interface ITInetSocket(Private)
 -(void)doConnSetupWithHost:(NSString*)host namedPort:(NSString*)namedPort;
+-(void)realDoConnection;
 -(void)spinoffReadLoop;
 -(void)socketReadLoop:(id)data;
 @end
@@ -118,10 +119,15 @@
 
 -(void)disconnect
 {
+    dieflag = 1;
+    do {} while (dieflag == 1);
 }
 
 -(void)retryConnection
 {
+    ai_cur = ai_cur->ai_next?ai_cur->ai_next:ai_cur;
+    [self disconnect];
+    [self realDoConnection];
 }
 
 -(ITInetSocketState)state
@@ -148,32 +154,27 @@
 -(NSString*)dumpv6Addrinfo:(struct addrinfo *)_ai
 {
     const char *cfmt =
-    "\{\n"
+    "{\n"
     "Flags = %x\n"
     "Family = %x\n"
     "Socktype = %x\n"
     "Protocol = %x\n"
     "Canonname = %s\n"
     "Sockaddr = \n"
-    "{\n"
+    "\t{\n"
     "\tLength = %x\n"
     "\tFamily = %x\n"
     "\tPort = %d\n"
     "\tFlowinfo = %x\n"
     "\tAddr = {%hx:%hx:%hx:%hx:%hx:%hx:%hx:%hx}\n"
     "\tScope = %x\n"
-    "}\n"
-    "Next = ";
+    "\t}\n"
+    "Next = %@\n"
+    "}\n";
     NSString *nsfmt = [NSString stringWithCString:cfmt];
-    NSMutableString *buf = [[[NSMutableString alloc] init] autorelease];
+    struct sockaddr_in6 *sa = (struct sockaddr_in6 *)_ai->ai_addr;
+    NSString *buf = [[NSMutableString alloc] initWithFormat:nsfmt,_ai->ai_flags,_ai->ai_family,_ai->ai_socktype,_ai->ai_protocol,_ai->ai_canonname?_ai->ai_canonname:"",sa->sin6_len,sa->sin6_family,sa->sin6_port,sa->sin6_flowinfo,sa->sin6_addr.__u6_addr.__u6_addr16[0],sa->sin6_addr.__u6_addr.__u6_addr16[1],sa->sin6_addr.__u6_addr.__u6_addr16[2],sa->sin6_addr.__u6_addr.__u6_addr16[3],sa->sin6_addr.__u6_addr.__u6_addr16[4],sa->sin6_addr.__u6_addr.__u6_addr16[5],sa->sin6_addr.__u6_addr.__u6_addr16[6],sa->sin6_addr.__u6_addr.__u6_addr16[7],sa->sin6_scope_id,_ai->ai_next?[self dumpv6Addrinfo:_ai->ai_next]:@"nil"];
 
-    do
-	   {
-		  struct sockaddr_in6 *sa = (struct sockaddr_in6 *)_ai->ai_addr;
-		  [buf appendFormat:nsfmt,_ai->ai_flags,_ai->ai_family,_ai->ai_socktype,_ai->ai_protocol,_ai->ai_canonname?_ai->ai_canonname:"",sa->sin6_len,sa->sin6_family,sa->sin6_port,sa->sin6_flowinfo,sa->sin6_addr.__u6_addr.__u6_addr16[0],sa->sin6_addr.__u6_addr.__u6_addr16[1],sa->sin6_addr.__u6_addr.__u6_addr16[2],sa->sin6_addr.__u6_addr.__u6_addr16[3],sa->sin6_addr.__u6_addr.__u6_addr16[4],sa->sin6_addr.__u6_addr.__u6_addr16[5],sa->sin6_addr.__u6_addr.__u6_addr16[6],sa->sin6_addr.__u6_addr.__u6_addr16[7],sa->sin6_scope_id];
-	   }
-    while (_ai = _ai->ai_next);
-    [buf appendString:@"nil\n}"];
     return buf;
 }
 @end
@@ -186,19 +187,26 @@
 	   const char *portNam = [namedPort cString], *hostCStr = [host cString];
 
 	   hints.ai_flags = 0;
-	   hints.ai_family = PF_INET6;
+	   hints.ai_family = PF_UNSPEC;
 	   hints.ai_socktype = SOCK_STREAM;
 	   hints.ai_protocol = IPPROTO_TCP;
+	   hints.ai_addrlen = 0;
 	   hints.ai_canonname = NULL;
 	   hints.ai_addr = NULL;
 	   hints.ai_next = NULL;
 
 	   err = getaddrinfo(hostCStr,portNam,&hints,&ai);
-	   if (err == EAI_NODATA) //it's a dotted-decimal IPv4 string, so we use v6compat stuff now
-	   {
-		  err = getaddrinfo([[NSString stringWithFormat:@"ffff::%s",hostCStr] cString],portNam,&hints,&ai);
-	   }
-	   NSLog([self dumpv6Addrinfo:ai]);
+
+	   NSLog(@"%s, h %@ p %@",gai_strerror(err),host,namedPort);
+	   NSLog(ai?[self dumpv6Addrinfo:ai]:@"");
+	   ai_cur = ai;
+	   [self realDoConnection];
+}
+
+-(void)realDoConnection
+{
+    sockfd = socket(ai_cur->ai_addr->sa_family,SOCK_STREAM,IPPROTO_TCP);
+    [self spinoffReadLoop];
 }
 
 -(void)spinoffReadLoop
@@ -217,22 +225,39 @@
     NSProxy *dp = [dcon rootProxy];
     char *buf = malloc(bufs);
     unsigned long readLen = 0;
-
-lstart:
-    do
+    signed int err;
+    NSLog(@"EYE MAEK CONNECT");
+    err = connect(sockfd,ai_cur->ai_addr,ai_cur->ai_addrlen);
+    if (err == -1)
 	   {
-		  NSData *d = [NSData alloc];
-		  readLen = recv(sockfd,buf,bufs,0);
-		  [d initWithBytesNoCopy:buf length:readLen];
-		  [readPipe writeData:d];
-		  [d release];
-		  [dp dataRecieved:self];
+	   perror("CAwh");
+	   [(id)dp errorOccured:ITInetCouldNotConnect during:ITInetSocketConnecting onSocket:self];
+	   goto dieaction;
 	   }
-    while (!actionflag);
+    [(id)dp finishedConnecting:self];
+lstart:
+
+	   while (!actionflag && ![writePipe availableDataLength])
+	   {
+		  NSData *d;
+		  readLen = recv(sockfd,buf,bufs,0);
+		  if (readLen) {
+			 d = [NSData alloc];
+			 [d initWithBytesNoCopy:buf length:readLen];
+			 [readPipe writeData:d];
+			 [d release];
+			 [(id)dp dataReceived:self];
+		  }
+	   }
+
     actionflag = 0;
+
     if (dieflag)
 	   {
+dieaction:
+	   perror("Awh");
 	   free(buf);
+	   shutdown(sockfd,2);
 	   [dcon release];
 	   [ap release];
 	   dieflag = 0;
@@ -244,5 +269,6 @@ lstart:
 	   write(sockfd,[d bytes],[d length]);
 	   goto lstart;
 	   }
+    goto dieaction;
 }
 @end

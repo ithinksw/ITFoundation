@@ -65,12 +65,12 @@ typedef enum {
  */
 @protocol ITInetSocketDelegate
 /*!
- * @method dataRecieved:
+ * @method dataReceived:
  * @abstract Alerts the delegate of data.
  * @discussion The delegate should check [sender readPipe] to get the data.
  * @param sender The socket that the messages came from.
  */
-- (void) dataRecieved:(in ITInetSocket *)sender;
+- (void) dataReceived:(in ITInetSocket *)sender;
 /*!
  * @method errorOccured:during:onSocket:
  * @abstract Alerts the delegate of an error condition.
@@ -103,8 +103,8 @@ typedef enum {
     int sockfd;
     int port;
     unsigned short bufs;
-    int dieflag;
-    int actionflag;
+    volatile int dieflag;
+    volatile int actionflag;
     id <ITInetSocketDelegate,NSObject> delegate;
     struct addrinfo *ai, *ai_cur;
     ITByteStream *readPipe, *writePipe;
