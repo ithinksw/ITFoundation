@@ -10,7 +10,7 @@
  *	Responsibility	: Joseph Spiros <joseph.spiros@ithinksw.com>
  *			: Matt Judy <matt.judy@ithinksw.com>
  *
- *	Copyright (c) 2002 iThink Software.
+ *	Copyright (c) 2002 - 2003 iThink Software.
  *	All Rights Reserved
  *
  */

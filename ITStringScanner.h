@@ -8,7 +8,7 @@
  *	Responsibility	: Alexander Strange <alexander.strange@ithinksw.com>
  *			: Joseph Spiros <joseph.spiros@ithinksw.com>
  *
- *	Copyright (c) 2002 iThink Software.
+ *	Copyright (c) 2002 - 2003 iThink Software.
  *	All Rights Reserved
  *
  */
