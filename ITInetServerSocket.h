@@ -27,10 +27,14 @@
 - (id)init;
 - (id)initWithDelegate:(id)d;
 
+- (BOOL)start;
+- (void)stop;
+
 - (int)sockfd;
 - (NSSet*)clients;
 - (id)delegate;
 - (short)port;
+
 - (void)setServiceType:(NSString*)type useForPort:(BOOL)p;
 - (void)setServiceName:(NSString*)name; // generally the computer's AppleTalk name
 - (void)setPort:(short)p;

@@ -78,7 +78,7 @@ static NSTimer *timer;
     [rndType release];
 }
 
-- (BOOL)registerSocket
+- (BOOL)start
 {
     if (!rndName || !rndType || !port) return NO;
     [ITInetServerSocket registerSocket:self];
