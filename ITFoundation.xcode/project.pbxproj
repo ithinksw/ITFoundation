@@ -161,8 +161,8 @@
 				7C058DF8072F10530082E1E9,
 				7CB02EB407D049BB00959EA0,
 				7CB02EB507D049BB00959EA0,
-				2AB93A3005705A0C007E748F,
-				2AB93A3105705A0C007E748F,
+				7C0462070801DC3700433407,
+				7C0462080801DC3700433407,
 				7C2D93BD07C2FD6700A487A9,
 				7C2D93BE07C2FD6700A487A9,
 			);
@@ -170,37 +170,6 @@
 			name = Categories;
 			refType = 4;
 			sourceTree = "<group>";
-		};
-		2AB93A3005705A0C007E748F = {
-			fileEncoding = 4;
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.h;
-			path = "ITCategory-NSArray.h";
-			refType = 4;
-			sourceTree = "<group>";
-		};
-		2AB93A3105705A0C007E748F = {
-			fileEncoding = 4;
-			isa = PBXFileReference;
-			lastKnownFileType = sourcecode.c.objc;
-			path = "ITCategory-NSArray.m";
-			refType = 4;
-			sourceTree = "<group>";
-		};
-		2AB93A3205705A0C007E748F = {
-			fileRef = 2AB93A3005705A0C007E748F;
-			isa = PBXBuildFile;
-			settings = {
-				ATTRIBUTES = (
-					Public,
-				);
-			};
-		};
-		2AB93A3305705A0C007E748F = {
-			fileRef = 2AB93A3105705A0C007E748F;
-			isa = PBXBuildFile;
-			settings = {
-			};
 		};
 //2A0
 //2A1
@@ -379,6 +348,37 @@
 //7C2
 //7C3
 //7C4
+		7C0462070801DC3700433407 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = "ITCategory-NSString.h";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		7C0462080801DC3700433407 = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
+			path = "ITCategory-NSString.m";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		7C0462090801DC3700433407 = {
+			fileRef = 7C0462070801DC3700433407;
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					Public,
+				);
+			};
+		};
+		7C04620A0801DC3700433407 = {
+			fileRef = 7C0462080801DC3700433407;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
 		7C058DF7072F10530082E1E9 = {
 			fileEncoding = 4;
 			isa = PBXFileReference;
@@ -639,12 +639,12 @@
 				8DC2EF510486A6940098B216,
 				7CA50D7E054E7C600074E1D9,
 				7CA50B31054E77A00074E1D9,
-				2AB93A3205705A0C007E748F,
 				7C97DC2E05B614300013E85F,
 				3D97137F05D9FBF40033607F,
 				7C058DF9072F10530082E1E9,
 				7C2D93BF07C2FD6700A487A9,
 				7CB02EB607D049BB00959EA0,
+				7C0462090801DC3700433407,
 			);
 			isa = PBXHeadersBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -673,12 +673,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CA50B32054E77A00074E1D9,
-				2AB93A3305705A0C007E748F,
 				7C97DC2F05B614300013E85F,
 				3D97138105D9FBFA0033607F,
 				7C058DFA072F10530082E1E9,
 				7C2D93C007C2FD6700A487A9,
 				7CB02EB707D049BB00959EA0,
+				7C04620A0801DC3700433407,
 			);
 			isa = PBXSourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;

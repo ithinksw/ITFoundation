@@ -11,7 +11,7 @@
 	[frameworksPaths addObject:[[self mainBundle] privateFrameworksPath]];
 	[frameworksPaths addObject:[[self mainBundle] sharedFrameworksPath]];
 	
-	while (libraryPath = [libraryEnumerator nextObject]) {
+	while ((libraryPath = [libraryEnumerator nextObject])) {
 		[frameworksPaths addObject:[libraryPath stringByAppendingPathComponent:@"Frameworks"]];
 		[frameworksPaths addObject:[libraryPath stringByAppendingPathComponent:@"PrivateFrameworks"]];
 	}
@@ -19,12 +19,12 @@
 	NSEnumerator *frameworksEnumerator = [frameworksPaths objectEnumerator];
 	NSString *frameworksPath;
 	
-	while (frameworksPath = [frameworksEnumerator nextObject]) {
+	while ((frameworksPath = [frameworksEnumerator nextObject])) {
 		NSArray *frameworkPaths = [NSBundle pathsForResourcesOfType:@"framework" inDirectory:frameworksPath];
 		NSEnumerator *frameworkEnumerator = [frameworkPaths objectEnumerator];
 		NSString *frameworkPath;
 		
-		while (frameworkPath = [frameworkEnumerator nextObject]) {
+		while ((frameworkPath = [frameworkEnumerator nextObject])) {
 			NSBundle *frameworkBundle = [NSBundle bundleWithPath:frameworkPath];
 			if (frameworkBundle && [[frameworkBundle bundleIdentifier] isEqualToString:frameworkIdentifier]) {
 				return frameworkBundle;

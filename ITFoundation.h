@@ -19,5 +19,5 @@
 
 #import <ITFoundation/ITCategory-NSObject.h>
 #import <ITFoundation/ITCategory-NSProxy.h>
-#import <ITFoundation/ITCategory-NSArray.h>
+#import <ITFoundation/ITCategory-NSString.h>
 #import <ITFoundation/ITCategory-NSBundle.h>

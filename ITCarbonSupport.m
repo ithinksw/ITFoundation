@@ -1,16 +1,10 @@
 #import "ITCarbonSupport.h"
+#import "ITCategory-NSString.h"
 
 NSString *NSStringFromFourCharCode(unsigned long code) {
-	return [NSString stringWithFormat:@"%.4s", &code];
+	return [NSString stringWithFourCharCode:code];
 }
 
 unsigned long FourCharCodeFromNSString(NSString *string) {
-	const unsigned char *c_s = [string UTF8String];
-	unsigned long tmp = *c_s++;
-	tmp <<= 8;
-	tmp |= *c_s++;
-	tmp <<= 8;
-	tmp |= *c_s++;
-	tmp <<= 8;
-	return tmp |= *c_s++;
+	return [string fourCharCode];
 }
