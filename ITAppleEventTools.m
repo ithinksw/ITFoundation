@@ -108,12 +108,8 @@ NSAppleEventDescriptor *ITSendAEWithKey(FourCharCode reqKey, FourCharCode evClas
 {
     //Add error checking...
     pid_t pid;
-    
-	unsigned char *chr = (unsigned char *)malloc(4*sizeof(unsigned char));
-	memcpy(chr, &reqKey, 4);
-	NSString *sendString = [NSString stringWithFormat:@"'----':obj { form:'prop', want:type('prop'), seld:type('%s'), from:'null'() }", chr];
-	free(chr);
-	const char *usendString = [sendString UTF8String];
+	NSString *sendString = [NSString stringWithFormat:@"'----':obj { form:'prop', want:type('prop'), seld:type('%c%c%c%c'), from:'null'() }", (reqKey >> 24), (reqKey >> 16) & 0xff, (reqKey >> 8) & 0xff, reqKey & 0xff];
+    const char *usendString = [sendString UTF8String];
     
     AppleEvent sendEvent, replyEvent;
     NSAppleEventDescriptor *send, *recv;
