@@ -52,7 +52,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
     AEBuildError buildError;
     OSStatus err;
-    OSErr err2, err3;
+    OSErr berr, err2, err3;
     
 	if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
 	    //NSLog(@"Error getting PID of application! Exiting.");
@@ -61,7 +61,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 	
     //NSLog(@"_sendString: %s", sendString);
 
-    err = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
+    berr = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
 //joe add the ITFDEBUG stuff back?
     //[self printCarbonDesc:&sendEvent];
 
@@ -95,8 +95,8 @@ static ITAppleEventCenter *_sharedAECenter = nil;
         free(result);
     }
 
-    AEDisposeDesc(&sendEvent);
-    AEDisposeDesc(&replyEvent);
+    if (!berr) AEDisposeDesc(&sendEvent);
+    if (!err) AEDisposeDesc(&replyEvent);
 
     return _finalString;
 }
@@ -185,7 +185,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
     AEBuildError buildError;
     OSStatus err;
-    OSErr err2, err3;
+    OSErr berr, err2, err3;
     
 	if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
 	    //NSLog(@"Error getting PID of application! Exiting.");
@@ -194,7 +194,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 	
     //NSLog(@"_sendString: %s", sendString);
 
-    err = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
+    berr = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
 
     //[self printCarbonDesc:&sendEvent];
 
@@ -222,8 +222,8 @@ static ITAppleEventCenter *_sharedAECenter = nil;
         }
     }
 
-    AEDisposeDesc(&sendEvent);
-    AEDisposeDesc(&replyEvent);
+    if (!berr) AEDisposeDesc(&sendEvent);
+    if (!err) AEDisposeDesc(&replyEvent);
 
     return result;
 }
@@ -245,7 +245,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     Size resultSize, charResultSize;
 
     AEBuildError buildError;
-    OSStatus err;
+    OSStatus berr,err;
     OSErr err2, err3;
     
 	if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
@@ -255,7 +255,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
     //NSLog(@"_sendString: %s", sendString);
 
-    err = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
+    berr = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
 
     //[self printCarbonDesc:&sendEvent];
 
@@ -289,8 +289,8 @@ static ITAppleEventCenter *_sharedAECenter = nil;
         free(result);
     }
 
-    AEDisposeDesc(&sendEvent);
-    AEDisposeDesc(&replyEvent);
+    if (!berr) AEDisposeDesc(&sendEvent);
+    if (!err) AEDisposeDesc(&replyEvent);
 
     return _finalString;
 }
@@ -312,7 +312,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     Size resultSize, charResultSize;
 
     AEBuildError buildError;
-    OSStatus err;
+    OSStatus berr, err;
     OSErr err2, err3;
     
 	if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
@@ -322,7 +322,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 	
     // //NSLog(@"_sendString: %s", sendString);
 
-    err = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
+    berr = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
 
     //[self printCarbonDesc:&sendEvent];
 
@@ -350,8 +350,8 @@ static ITAppleEventCenter *_sharedAECenter = nil;
         }
     }
 
-    AEDisposeDesc(&sendEvent);
-    AEDisposeDesc(&replyEvent);
+    if (!berr) AEDisposeDesc(&sendEvent);
+    if (!err) AEDisposeDesc(&replyEvent);
 
     return result;
 }
@@ -373,7 +373,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     Size resultSize, charResultSize;
 
     AEBuildError buildError;
-    OSStatus err;
+    OSStatus berr, err;
     OSErr err2, err3;
 
     for (i = 1; i < [array count]; i++) {
@@ -391,7 +391,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 	
     //NSLog(@"_sendString: %s", sendString);
 
-    err = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
+    berr = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
 
     //[self printCarbonDesc:&sendEvent];
 
@@ -423,6 +423,8 @@ static ITAppleEventCenter *_sharedAECenter = nil;
         }
         free(result);
     }
+    if (!berr) AEDisposeDesc(&sendEvent);
+    if (!err) AEDisposeDesc(&replyEvent);
     return _finalString;
 }
 
@@ -435,20 +437,20 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     int pid;
 
     AppleEvent event, reply;
-
+    OSStatus cerr,cerr2,err;
     //AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, nil, "");
     if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
 	    //NSLog(@"Error getting PID of application! Exiting.");
 	    return nil;
 	}
-	AECreateDesc(typeProcessSerialNumber,(ProcessSerialNumber*)&psn,sizeof(ProcessSerialNumber),&dest);
-    AECreateAppleEvent(eClass,eID,&dest,kAutoGenerateReturnID,kAnyTransactionID,&event);
+	cerr = AECreateDesc(typeProcessSerialNumber,(ProcessSerialNumber*)&psn,sizeof(ProcessSerialNumber),&dest);
+    cerr2 = AECreateAppleEvent(eClass,eID,&dest,kAutoGenerateReturnID,kAnyTransactionID,&event);
 //[self printCarbonDesc:&event];
-    AESend(&event, &reply, kAENoReply, kAENormalPriority, kAEDefaultTimeout, idleUPP, nil);
+    err = AESend(&event, &reply, kAENoReply, kAENormalPriority, kAEDefaultTimeout, idleUPP, nil);
 //[self printCarbonDesc:&reply];
-    AEDisposeDesc(&dest);
-    AEDisposeDesc(&event);
-    AEDisposeDesc(&reply);
+    if (!cerr2) AEDisposeDesc(&dest);
+    if (!cerr) AEDisposeDesc(&event);
+    if (!err) AEDisposeDesc(&reply);
 }
 
 - (void)printCarbonDesc:(AEDesc*)desc {
@@ -528,7 +530,7 @@ if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
     Size resultSize, charResultSize;
 
     AEBuildError buildError;
-    OSStatus err;
+    OSStatus berr, err;
     OSErr err2, err3;
     
 	if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
@@ -538,7 +540,7 @@ if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
 	
     //NSLog(@"_sendString: %s", sendString);
 
-    err = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
+    berr = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
 
     //[self printCarbonDesc:&sendEvent];
 
@@ -567,8 +569,8 @@ if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
     }
 
 
-AEDisposeDesc(&sendEvent);
-AEDisposeDesc(&replyEvent);
+if (!berr) AEDisposeDesc(&sendEvent);
+if (!err) AEDisposeDesc(&replyEvent);
 //NSLog(@"waffles say %d",result);
 return result;
 }
@@ -586,7 +588,7 @@ return result;
     AppleEvent sendEvent, replyEvent;
 
     AEBuildError buildError;
-    OSStatus err;
+    OSStatus berr, err;
     
 	if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
 	    //NSLog(@"Error getting PID of application! Exiting.");
@@ -595,7 +597,7 @@ return result;
 	
     //NSLog(@"_sendString: %s", sendString);
 
-    err = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
+    berr = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
 
     //[self printCarbonDesc:&sendEvent];
 
@@ -619,8 +621,8 @@ return result;
         free(result);
     }
 
-    AEDisposeDesc(&sendEvent);
-    AEDisposeDesc(&replyEvent);
+    if (!berr) AEDisposeDesc(&sendEvent);
+    if (!err) AEDisposeDesc(&replyEvent);
 
     return result;
 }
