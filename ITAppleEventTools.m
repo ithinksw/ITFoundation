@@ -39,7 +39,7 @@ NSAppleEventDescriptor *ITSendAEWithString(NSString *sendString, FourCharCode ev
         ITDebugLog(@"Error: %d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[sendString substringToIndex:buildError.fErrorPos]);
     }
     
-    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, /*kAEDefaultTimeout*/45, NULL, NULL);
+    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, /*kAEDefaultTimeout*/100, NULL, NULL);
     
     err = AESizeOfParam(&replyEvent, keyDirectObject, &resultType, &resultSize);
     if (resultSize == 0 || err != 0) {
@@ -86,7 +86,7 @@ NSAppleEventDescriptor *ITSendAEWithStringAndObject(NSString *sendString, const 
         ITDebugLog(@"Error: %d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[sendString substringToIndex:buildError.fErrorPos]);
     }
     err = AEPutParamDesc(&sendEvent, keyDirectObject, object);
-    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, /*kAEDefaultTimeout*/45, NULL, NULL);
+    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, /*kAEDefaultTimeout*/100, NULL, NULL);
     
     err = AESizeOfParam(&replyEvent, keyDirectObject, &resultType, &resultSize);
     if (resultSize == 0 || err != 0) {
@@ -133,7 +133,7 @@ NSAppleEventDescriptor *ITSendAEWithKey(FourCharCode reqKey, FourCharCode evClas
         ITDebugLog(@"Error: %d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[sendString substringToIndex:buildError.fErrorPos]);
     }
     
-    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, /*kAEDefaultTimeout*/45, NULL, NULL);
+    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, /*kAEDefaultTimeout*/100, NULL, NULL);
     
     err = AESizeOfParam(&replyEvent, keyDirectObject, &resultType, &resultSize);
     if (resultSize == 0 || err != 0) {
@@ -168,7 +168,7 @@ NSAppleEventDescriptor *ITSendAE(FourCharCode eClass, FourCharCode eID,const Pro
     cerr2 = AECreateAppleEvent(eClass,eID,&dest,kAutoGenerateReturnID,kAnyTransactionID,&event);
     nse = [[[NSAppleEventDescriptor alloc] initWithAEDescNoCopy:&event] autorelease];
     if (!cerr2) [nse logDesc];
-    err = AESend(&event, &reply, kAENoReply, kAENormalPriority, /*kAEDefaultTimeout*/45, NULL, NULL);
+    err = AESend(&event, &reply, kAENoReply, kAENormalPriority, /*kAEDefaultTimeout*/100, NULL, NULL);
     nsr = [[[NSAppleEventDescriptor alloc] initWithAEDescNoCopy:&reply] autorelease];
     [nsr logDesc];
     return nsr;
