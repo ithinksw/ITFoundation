@@ -20,19 +20,18 @@
 @interface ITOSAScript : NSObject {
     NSString *_source;
     ITOSAComponent *_component;
+    OSAID _scriptID;
 }
 
 - (id)initWithContentsOfFile:(NSString *)path;
 - (id)initWithSource:(NSString *)source;
 
 - (NSString *)source;
-- (void)setSource:(NSString *)newSource;
 - (ITOSAComponent *)component;
 - (void)setComponent:(ITOSAComponent *)newComponent;
 
-- (BOOL)compile;
+- (BOOL)compileAndReturnError:(NSDictionary **)errorInfo;
 - (BOOL)isCompiled;
-
-- (NSString *)execute;
+- (NSString *)executeAndReturnError:(NSDictionary **)errorInfo;
 
 @end

@@ -16,20 +16,31 @@
 
 @implementation ITOSAComponent
 
++ (ITOSAComponent *)AppleScriptComponent
+{
+    return [[[ITOSAComponent alloc] initWithSubtype:kAppleScriptSubtype] autorelease];
+}
+
++ (ITOSAComponent *)componentWithCarbonComponent:(Component)component
+{
+    return [[[ITOSAComponent alloc] initWithComponent:component] autorelease];
+}
+
 + (NSArray *)availableComponents
 {
     Component currentComponent = 0;
     ComponentDescription cd;
+    NSMutableArray *components = [[NSMutableArray alloc] init];
     
     cd.componentType = kOSAComponentType;
     cd.componentSubType = 0;
     cd.componentManufacturer = 0;
     cd.componentFlags = 0;
     cd.componentFlagsMask = 0;
-    
-    while ((currentComponent = FindNextComponent(0, &cd)) != 0) {
+    while ((currentComponent = FindNextComponent(currentComponent, &cd)) != 0) {
+        [components addObject:[ITOSAComponent componentWithCarbonComponent:currentComponent]];
     }
-    return [NSArray array];
+    return [NSArray arrayWithArray:[components autorelease]];
 }
 
 - (id)initWithSubtype:(unsigned long)subtype
@@ -63,11 +74,25 @@
         }
         
         information = [[NSMutableDictionary alloc] init];
-        [information setObject:[[[NSString alloc] initWithBytes:componentName length:GetHandleSize(componentName) encoding:NSASCIIStringEncoding] autorelease] forKey:@"ITComponentName"];
-        [information setObject:[[[NSString alloc] initWithBytes:componentInfo length:GetHandleSize(componentInfo) encoding:NSASCIIStringEncoding] autorelease] forKey:@"ITComponentInfo"];
-        [information setObject:[NSNumber numberWithUnsignedLong:description.componentSubType] forKey:@"ITComponentSubtype"];
-        [information setObject:[NSNumber numberWithUnsignedLong:description.componentManufacturer] forKey:@"ITComponentManufacturer"];
         
+        AEDesc name;
+        Ptr buffer;
+        Size length;
+        OSAScriptingComponentName(_componentInstance, &name);
+        length = AEGetDescDataSize(&name);
+        buffer = malloc(length);
+
+        AEGetDescData(&name, buffer, length);
+        AEDisposeDesc(&name);
+        [information setObject:[NSString stringWithCString:buffer length:length] forKey:@"ITOSAComponentName"];
+        free(buffer);
+        buffer = NULL;
+        
+        //[information setObject:[[[NSString alloc] initWithBytes:componentName length:GetHandleSize(componentName) encoding:NSASCIIStringEncoding] autorelease] forKey:@"ITOSAComponentName"];
+        [information setObject:[[[NSString alloc] initWithBytes:componentInfo length:GetHandleSize(componentInfo) encoding:NSASCIIStringEncoding] autorelease] forKey:@"ITOSAComponentInfo"];
+        [information setObject:[NSNumber numberWithUnsignedLong:description.componentSubType] forKey:@"ITOSAComponentSubtype"];
+        [information setObject:[NSNumber numberWithUnsignedLong:description.componentManufacturer] forKey:@"ITOSAComponentManufacturer"];
+        _information = [information copy];
     }
     return self;
 }
@@ -75,6 +100,11 @@
 - (void)dealloc
 {
     [_information release];
+}
+
+- (NSString *)description
+{
+    return [_information objectForKey:@"ITOSAComponentName"];
 }
 
 - (Component)component

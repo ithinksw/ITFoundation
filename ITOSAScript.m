@@ -35,6 +35,7 @@ Script Subtypes:
 {
     if ( (self = [super init]) ) {
         _source = [[NSString alloc] initWithContentsOfFile:path];
+        _scriptID = kOSANullScript;
     }
     return self;
 }
@@ -42,13 +43,18 @@ Script Subtypes:
 - (id)initWithSource:(NSString *)source
 {
     if ( (self = [super init]) ) {
-        [self setSource:source];
+        _source = [source copy];
+        _scriptID = kOSANullScript;
     }
     return self;
 }
 
 - (void)dealloc
 {
+    if (_scriptID != kOSANullScript) {
+        OSADispose([_component componentInstance], _scriptID);
+    }
+    
     [_source release];
     [super dealloc];
 }
@@ -56,12 +62,6 @@ Script Subtypes:
 - (NSString *)source
 {
     return _source;
-}
-
-- (void)setSource:(NSString *)newSource
-{
-    [_source release];
-    _source = [newSource copy];
 }
 
 - (ITOSAComponent *)component
@@ -74,26 +74,51 @@ Script Subtypes:
     _component = newComponent;
 }
 
-- (BOOL)compile
+- (BOOL)compileAndReturnError:(NSDictionary **)errorInfo
 {
-    return NO;
+    if ([_component componentInstance] == nil) {
+        //Set the error dictionary
+        return NO;
+    }
+    
+    AEDesc moof;
+    AECreateDesc(typeChar, [_source cString], [_source cStringLength], &moof);
+    if (OSACompile([_component componentInstance], &moof, kOSAModeNull, &_scriptID) != 0) {
+        NSLog(@"Compile error!");
+        return NO;
+    }
+    return YES;
 }
 
 - (BOOL)isCompiled
 {
-    return NO;
+    return (_scriptID != kOSANullScript);
 }
 
-- (NSString *)execute
+- (NSString *)executeAndReturnError:(NSDictionary **)errorInfo
 {
+    if ([_component componentInstance] == nil) {
+        //Set the error dictionary
+        return nil;
+    }
+    
     AEDesc scriptDesc, resultDesc;
     Size length;
     NSString *result;
     Ptr buffer;
+    OSAID resultID = kOSANullScript;
     
-    AECreateDesc(typeChar, [_source cString], [_source cStringLength], &scriptDesc);
+    //If not compiled, compile it
+    if (![self isCompiled]) {
+        if (![self compileAndReturnError:nil]) {
+            //Set the error info dictionary
+            return nil;
+        }
+    }
     
-    OSADoScript([_component componentInstance], &scriptDesc, kOSANullScript, typeChar, kOSAModeCanInteract, &resultDesc);
+    OSAExecute([_component componentInstance], _scriptID, kOSANullScript, kOSANullMode, &resultID);
+    
+    OSADisplay([_component componentInstance], resultID, typeChar, kOSAModeDisplayForHumans, &resultDesc);
     
     length = AEGetDescDataSize(&resultDesc);
     buffer = malloc(length);
@@ -110,6 +135,9 @@ Script Subtypes:
     }
     free(buffer);
     buffer = NULL;
+    
+    OSADispose([_component componentInstance], resultID);
+    
     return result;
 }
 
