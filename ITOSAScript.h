@@ -15,9 +15,11 @@
 #import <Foundation/Foundation.h>
 #import <Carbon/Carbon.h>
 
+@class ITOSAComponent;
+
 @interface ITOSAScript : NSObject {
     NSString *_source;
-    unsigned long _scriptSubtype;
+    ITOSAComponent *_component;
 }
 
 - (id)initWithContentsOfFile:(NSString *)path;
@@ -25,8 +27,11 @@
 
 - (NSString *)source;
 - (void)setSource:(NSString *)newSource;
-- (unsigned long)scriptSubtype;
-- (void)setScriptSubtype:(unsigned long)newSubtype;
+- (ITOSAComponent *)component;
+- (void)setComponent:(ITOSAComponent *)newComponent;
+
+- (BOOL)compile;
+- (BOOL)isCompiled;
 
 - (NSString *)execute;
 

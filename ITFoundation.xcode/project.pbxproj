@@ -153,6 +153,8 @@
 			children = (
 				370786C005C0B4D700E6D1BA,
 				370786C105C0B4D700E6D1BA,
+				37B9B08005C1C47E00702FDB,
+				37B9B08105C1C47E00702FDB,
 				7CA50B2B054E77950074E1D9,
 				7CA50B2C054E77950074E1D9,
 				7CA50B2F054E77A00074E1D9,
@@ -330,6 +332,37 @@
 		};
 		370786C305C0B4D700E6D1BA = {
 			fileRef = 370786C105C0B4D700E6D1BA;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		37B9B08005C1C47E00702FDB = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = ITOSAComponent.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		37B9B08105C1C47E00702FDB = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
+			path = ITOSAComponent.m;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		37B9B08205C1C47E00702FDB = {
+			fileRef = 37B9B08005C1C47E00702FDB;
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					Public,
+				);
+			};
+		};
+		37B9B08305C1C47E00702FDB = {
+			fileRef = 37B9B08105C1C47E00702FDB;
 			isa = PBXBuildFile;
 			settings = {
 			};
@@ -654,6 +687,7 @@
 				7CA50D7E054E7C600074E1D9,
 				7CA50B2D054E77950074E1D9,
 				370786C205C0B4D700E6D1BA,
+				37B9B08205C1C47E00702FDB,
 				7CA50B31054E77A00074E1D9,
 				3D2D8A13055E07D800F59C27,
 				2AB93A3205705A0C007E748F,
@@ -695,6 +729,7 @@
 				7CF6C939057D65BA007FEC13,
 				7C97DC2F05B614300013E85F,
 				370786C305C0B4D700E6D1BA,
+				37B9B08305C1C47E00702FDB,
 			);
 			isa = PBXSourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;

@@ -19,6 +19,7 @@ Script Subtypes:
 */
 
 #import "ITOSAScript.h"
+#import "ITOSAComponent.h"
 
 @implementation ITOSAScript
 
@@ -26,7 +27,6 @@ Script Subtypes:
 {
     if ( (self = [super init]) ) {
         _source = nil;
-        _scriptSubtype = kAppleScriptSubtype; //Default to AppleScript
     }
     return self;
 }
@@ -35,7 +35,6 @@ Script Subtypes:
 {
     if ( (self = [super init]) ) {
         _source = [[NSString alloc] initWithContentsOfFile:path];
-        _scriptSubtype = kAppleScriptSubtype; //Default to AppleScript
     }
     return self;
 }
@@ -44,7 +43,6 @@ Script Subtypes:
 {
     if ( (self = [super init]) ) {
         [self setSource:source];
-        _scriptSubtype = kAppleScriptSubtype; //Default to AppleScript
     }
     return self;
 }
@@ -66,14 +64,24 @@ Script Subtypes:
     _source = [newSource copy];
 }
 
-- (unsigned long)scriptSubtype
+- (ITOSAComponent *)component
 {
-    return _scriptSubtype;
+    return _component;
 }
 
-- (void)setScriptSubtype:(unsigned long)newSubtype
+- (void)setComponent:(ITOSAComponent *)newComponent
 {
-    _scriptSubtype = newSubtype;
+    _component = newComponent;
+}
+
+- (BOOL)compile
+{
+    return NO;
+}
+
+- (BOOL)isCompiled
+{
+    return NO;
 }
 
 - (NSString *)execute
@@ -85,7 +93,7 @@ Script Subtypes:
     
     AECreateDesc(typeChar, [_source cString], [_source cStringLength], &scriptDesc);
     
-    OSADoScript(OpenDefaultComponent(kOSAComponentType, _scriptSubtype), &scriptDesc, kOSANullScript, typeChar, kOSAModeCanInteract, &resultDesc);
+    OSADoScript([_component componentInstance], &scriptDesc, kOSANullScript, typeChar, kOSAModeCanInteract, &resultDesc);
     
     length = AEGetDescDataSize(&resultDesc);
     buffer = malloc(length);
