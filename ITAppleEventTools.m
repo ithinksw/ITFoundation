@@ -19,7 +19,9 @@ NSAppleEventDescriptor *ITSendAEWithString(NSString *sendString, FourCharCode ev
     
     AppleEvent sendEvent, replyEvent;
     NSAppleEventDescriptor *send, *recv;
-    AEDesc nthDesc;
+    AEDesc resultDesc;
+    DescType resultType;
+    Size resultSize;
     
     AEBuildError buildError;
     OSStatus berr,err;
@@ -39,10 +41,14 @@ NSAppleEventDescriptor *ITSendAEWithString(NSString *sendString, FourCharCode ev
     
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, NULL, NULL);
     
-    err = AEGetNthDesc(&replyEvent, 1, typeWildCard, nil, &nthDesc);
-    if (!err) ITDebugLog(@"Error getting Nth desc.");
+    err = AESizeOfParam(&replyEvent, keyDirectObject, &resultType, &resultSize);
+    if (resultSize == 0 || err != 0) {
+        return nil;
+    }
     
-    recv = [[[NSAppleEventDescriptor alloc] initWithAEDescNoCopy:&nthDesc] autorelease];
+    AEGetParamDesc(&replyEvent, keyDirectObject, resultType, &resultDesc);
+    
+    recv = [[[NSAppleEventDescriptor alloc] initWithAEDescNoCopy:&resultDesc] autorelease];
     if (!err) [recv logDesc];
     
     if (err) {
