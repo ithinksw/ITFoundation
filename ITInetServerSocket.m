@@ -17,8 +17,6 @@
 #import <fcntl.h>
 #import <unistd.h>
 
-/* Too bad Objective-C doesn't have class variables... */
-
 @interface ITInetServerSocket(Private)
 -(short)lookupPortForServiceType:(NSString*)name;
 -(void)setupConnection;
