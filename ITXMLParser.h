@@ -1,10 +1,21 @@
-#import <Foundation/Foundation.h>
-#import "ITXMLNode.h"
+/*
+ *	ITFoundation
+ *	ITXMLParser.h
+ *
+ *	Copyright (c) 2005 by iThink Software.
+ *	All Rights Reserved.
+ *
+ *	$Id$
+ *
+ */
 
-@interface ITXMLParser : NSObject
-{
-    NSString *_source;
-    NSString *_XMLPathSeparator;
+#import <Foundation/Foundation.h>
+
+@class ITXMLNode;
+
+@interface ITXMLParser : NSObject {
+	NSString *_source;
+	NSString *_XMLPathSeparator;
 }
 
 - (id)initWithContentsOfURL:(NSURL *)aURL;

@@ -1,9 +1,19 @@
+/*
+ *	ITFoundation
+ *	ITXMLNode.h
+ *
+ *	Copyright (c) 2005 by iThink Software.
+ *	All Rights Reserved.
+ *
+ *	$Id$
+ *
+ */
+
 #import <Foundation/Foundation.h>
 
-@interface ITXMLNode : NSObject
-{
-    NSMutableArray *_children;
-    NSString *_name;
+@interface ITXMLNode : NSObject {
+	NSMutableArray *_children;
+	NSString *_name;
 }
 
 //- (id)initWithSomeStuffHere;
@@ -15,4 +25,5 @@
 
 - (NSArray *)children;
 - (void)addChild:(ITXMLNode *)aChild;
+
 @end

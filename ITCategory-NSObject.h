@@ -1,24 +1,19 @@
 /*
- *	ITKit
- *  ITCategory-NSObject.h
- *    Category which extends NSObject
+ *	ITFoundation
+ *	ITCategory-NSObject.h
  *
- *  Original Author : Joseph Spiros <joseph.spiros@ithinksw.com>
- *   Responsibility : Joseph Spiros <joseph.spiros@ithinksw.com>
+ *	Copyright (c) 2005 by iThink Software.
+ *	All Rights Reserved.
  *
- *  Copyright (c) 2002 - 2004 iThink Software.
- *  All Rights Reserved
+ *	$Id$
  *
  */
 
+#import <Foundation/Foundation.h>
 
-#import <Cocoa/Cocoa.h>
-
-
-@interface NSObject (ITCategory)
+@interface NSObject (ITFoundationCategory)
 
 + (NSArray *)subclasses;
 + (NSArray *)directSubclasses;
-
 
 @end

@@ -1,6 +1,6 @@
 #import "ITCategory-NSBundle.h"
 
-@implementation NSBundle (ITCategory)
+@implementation NSBundle (ITFoundationCategory)
 
 + (NSBundle *)bundleForFrameworkWithIdentifier:(NSString *)frameworkIdentifier {
 	NSMutableArray *frameworksPaths = [NSMutableArray array];

@@ -1,29 +1,25 @@
 /*
  *	ITFoundation
- *	ITVirtualMemoryInfo
- *	  Class that provides utilities for getting information
- *	  on Mac OS X's mach kernel's Virtual Memory settings
- *	  and status
+ *	ITVirtualMemoryInfo.h
  *
- *	Original Author	: Joseph Spiros <joseph.spiros@ithinksw.com>
- *   Responsibility : Matt Judy <mjudy@ithinksw.com>
- *   Responsibility : Joseph Spiros <joseph.spiros@ithinksw.com>
+ *	Class that provides utilities for getting information on Mac OS X's mach
+ *		kernel's virtual memory settings and status.
  *
- *	Copyright (c) 2002 - 2003 iThink Software.
- *	All Rights Reserved
+ *	Copyright (c) 2005 by iThink Software.
+ *	All Rights Reserved.
+ *
+ *	$Id$
  *
  */
 
 #import <Foundation/Foundation.h>
 #import <mach/mach.h>
 
-/* For this platform, as of this Mach version,
- * the default page size is 4096, or 4k */
+/* For Mac OS X the default page size is 4096 (4K) */
 #define DEFAULT_PAGE_SIZE 4096
 
-
 @interface ITVirtualMemoryInfo : NSObject {
-    vm_statistics_data_t stat;
+	vm_statistics_data_t stat;
 }
 
 - (id)init;

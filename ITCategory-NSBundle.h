@@ -9,9 +9,9 @@
  *
  */
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
-@interface NSBundle (ITCategory)
+@interface NSBundle (ITFoundationCategory)
 
 + (NSBundle *)bundleForFrameworkWithIdentifier:(NSString *)frameworkIdentifier;
 

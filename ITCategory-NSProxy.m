@@ -1,6 +1,6 @@
 #import "ITCategory-NSProxy.h"
 
-@implementation NSProxy (ITCategory)
+@implementation NSProxy (ITFoundationCategory)
 
 - (NSString *)_copyDescription {
 	return [[self description] retain];

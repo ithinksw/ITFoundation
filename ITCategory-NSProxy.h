@@ -13,9 +13,9 @@
  *
  */
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
-@interface NSProxy (ITCategory)
+@interface NSProxy (ITFoundationCategory)
 
 - (NSString *)_copyDescription;
 

@@ -1,9 +1,13 @@
 /*
- *  ITDebug.h
- *  ITFoundation
+ *	ITFoundation
+ *	ITDebug.h
  *
- *  Created by Joseph Spiros on Fri Sep 12 2003.
- *  Copyright (c) 2003 __MyCompanyName__. All rights reserved.
+ *	Functions for logging debugging information intelligently.
+ *
+ *	Copyright (c) 2005 by iThink Software.
+ *	All Rights Reserved.
+ *
+ *	$Id$
  *
  */
 
