@@ -22,4 +22,7 @@
 -(oneway void) writeData:(in NSData*)data;
 -(oneway void) writeBytesNoCopy:(in char *)b len:(unsigned long)length;
 -(oneway void) writeBytes:(in char *)b len:(unsigned long)length;
+-initWithDelegate:(id)delegate;
+-setDelegate:(id)delegate;
+-delegate; 
 @end
