@@ -31,7 +31,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
 - (NSString*)sendAEWithRequestedKey:(NSString*)key eventClass:(NSString*)eventClass eventID:(NSString*)eventID appPSN:(ProcessSerialNumber)psn
 {
-    if ( (!key) || (!eventClass) || (!eventID) || (!psn) ) {
+    if ( (!key) || (!eventClass) || (!eventID) || (psn.highLongOfPSN == kNoProcess) ) {
         return @"";
     } else {
     AEEventClass eClass = *((unsigned long*)[eventClass UTF8String]);
@@ -55,11 +55,11 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     if (GetProcessPID(&psn, &pid) == noErr) {
         if (pid ==0) {
             NSLog(@"Process doesn't exist! Exiting.");
-            return;
+            return nil;
         }
     } else {
         NSLog(@"Error getting PID of application to send to! Exiting.");
-        return;
+        return nil;
     }
     
     NSLog(@"_sendString: %s", sendString);
@@ -106,7 +106,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
 - (void)sendAEWithEventClass:(NSString*)eventClass eventID:(NSString*)eventID appPSN:(ProcessSerialNumber)psn
 {
-    if ( (!eventClass) || (!eventID) || (!psn) ) {
+    if ( (!eventClass) || (!eventID) || (psn.highLongOfPSN == kNoProcess) ) {
         return;
     } else {
         AEEventClass eClass = *((unsigned long*)[eventClass UTF8String]);
