@@ -10,7 +10,7 @@
 #import "ITServiceBrowserDelegate.h"
 #import <sys/socket.h>
 #import <arpa/inet.h>
-
+#import <unistd.h>
 
 @interface ITInetSocket(Debugging)
 -(NSString*)dumpv6Addrinfo:(struct addrinfo *)_ai;
@@ -18,10 +18,12 @@
 
 @interface ITInetSocket(Private)
 -(void)doConnSetupWithHost:(NSString*)host namedPort:(NSString*)namedPort;
+-(void)spinoffReadLoop;
+-(void)socketReadLoop:(id)data;
 @end
 
 @implementation ITInetSocket
-+(void)startAutoconnectingToService:(NSString*)type delegate:(id)d
++(void)startAutoconnectingToService:(NSString*)type delegate:(id <ITInetSocketDelegate,NSObject>)d
 {
     NSNetServiceBrowser *browse = [[NSNetServiceBrowser alloc] init];
     ITServiceBrowserDelegate *bd = [[ITServiceBrowserDelegate alloc] initWithDelegate:d];
@@ -30,7 +32,7 @@
     [browse searchForServicesOfType:[NSString stringWithFormat:@"._%@._tcp",type] inDomain:nil];
 }
 
--(id)initWithFD:(int)fd delegate:(id)d
+-(id)initWithFD:(int)fd delegate:(id <ITInetSocketDelegate,NSObject>)d
 {
     if (self = [super init])
 	   {
@@ -42,21 +44,13 @@
 	   readPipe = [[ITByteStream alloc] init];
 	   ai = nil;
 	   sarr = nil;
+	   bufs = 512;
+	   actionflag = dieflag = 0;
 	   }
     return self;
 }
 
--(void) dealloc
-{
-    shutdown(sockfd,2);
-    [delegate release];
-    [writePipe release];
-    [readPipe release];
-    if (!sarr) freeaddrinfo(ai);
-    [sarr release];
-}
-
--(id)initWithDelegate:(id)d
+-(id)initWithDelegate:(id <ITInetSocketDelegate,NSObject>)d
 {
     if (self = [super init])
 	   {
@@ -68,8 +62,21 @@
 	   readPipe = [[ITByteStream alloc] init];
 	   ai = nil;
 	   sarr = nil;
+	   bufs = 512;
+	   actionflag = dieflag = 0;
 	   }
     return self;
+}
+
+
+-(void) dealloc
+{
+    shutdown(sockfd,2);
+    [delegate release];
+    [writePipe release];
+    [readPipe release];
+    if (!sarr) freeaddrinfo(ai);
+    [sarr release];
 }
 
 -(void) connectToHost:(NSString*)host onPort:(short)thePort
@@ -91,24 +98,49 @@
 
 -(void) connectWithSockaddrArray:(NSArray*)arr
 {
-    NSEnumerator *e = [arr objectEnumerator];
-    NSData *d;
-    struct addrinfo *a;
-    ai = malloc(sizeof(struct addrinfo));
-    a = ai;
-    while (d = [e nextObject])
+    if (state == ITInetSocketDisconnected)
 	   {
-	   struct sockaddr *s = (struct sockaddr*)[d bytes];
-	   a->ai_family = s->sa_family;
-	   a->ai_addr = s;
-	   a->ai_next = malloc(sizeof(struct addrinfo));
-	   a = a->ai_next;
+	   NSEnumerator *e = [arr objectEnumerator];
+	   NSData *d;
+	   struct addrinfo *a;
+	   ai = malloc(sizeof(struct addrinfo));
+	   a = ai;
+	   while (d = [e nextObject])
+	   {
+		  struct sockaddr *s = (struct sockaddr*)[d bytes];
+		  a->ai_family = s->sa_family;
+		  a->ai_addr = s;
+		  a->ai_next = malloc(sizeof(struct addrinfo));
+		  a = a->ai_next;
 	   }
+	   }
+}
+
+-(void)disconnect
+{
+}
+
+-(void)retryConnection
+{
 }
 
 -(ITInetSocketState)state
 {
     return state;
+}
+-(id <ITInetSocketDelegate>)delegate
+{
+    return delegate;
+}
+
+-(unsigned short)bufferSize
+{
+    return bufs;
+}
+
+-(void)setBufferSize:(unsigned short)_bufs
+{
+    bufs = _bufs;
 }
 @end
 
@@ -167,5 +199,50 @@
 		  err = getaddrinfo([[NSString stringWithFormat:@"ffff::%s",hostCStr] cString],portNam,&hints,&ai);
 	   }
 	   NSLog([self dumpv6Addrinfo:ai]);
+}
+
+-(void)spinoffReadLoop
+{
+    NSPort *p1 = [NSPort port], *p2 = [NSPort port];
+    NSConnection *dcon = [[NSConnection alloc] initWithReceivePort:p1 sendPort:p2];
+    NSArray *par = [NSArray arrayWithObjects:p2,p1,nil];
+    [dcon setRootObject:delegate];
+    [NSThread detachNewThreadSelector:@selector(socketReadLoop:) toTarget:self withObject:par]; //spawn read thread
+}
+
+-(void)socketReadLoop:(id)data
+{
+    NSAutoreleasePool *ap = [[NSAutoreleasePool alloc] init];
+    NSConnection *dcon = [[NSConnection alloc] initWithReceivePort:[data objectAtIndex:0] sendPort:[data objectAtIndex:1]];
+    NSProxy *dp = [dcon rootProxy];
+    char *buf = malloc(bufs);
+    unsigned long readLen = 0;
+
+lstart:
+    do
+	   {
+		  NSData *d = [NSData alloc];
+		  readLen = recv(sockfd,buf,bufs,0);
+		  [d initWithBytesNoCopy:buf length:readLen];
+		  [readPipe writeData:d];
+		  [d release];
+		  [dp dataRecieved:self];
+	   }
+    while (!actionflag);
+    actionflag = 0;
+    if (dieflag)
+	   {
+	   free(buf);
+	   [dcon release];
+	   [ap release];
+	   dieflag = 0;
+	   return;
+	   }
+
+    {
+	   NSData *d = [writePipe readAllData];
+	   write(sockfd,[d bytes],[d length]);
+	   goto lstart;
+	   }
 }
 @end

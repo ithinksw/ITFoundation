@@ -64,6 +64,16 @@
     return ret;
 }
 
+-(NSData*) readAllData
+{
+    NSData *ret;
+    [lock lock];
+    ret = [data autorelease];
+    data = [[NSMutableData alloc] init];
+    [lock unlock];
+    return ret;
+}
+
 -(void) writeData:(NSData*)_data
 {
     [lock lock];

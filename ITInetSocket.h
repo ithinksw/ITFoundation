@@ -70,7 +70,7 @@ typedef enum {
  * @discussion The delegate should check [sender readPipe] to get the data.
  * @param sender The socket that the messages came from.
  */
-- (void) dataRecieved:(ITInetSocket *)sender;
+- (void) dataRecieved:(in ITInetSocket *)sender;
 /*!
  * @method errorOccured:during:onSocket:
  * @abstract Alerts the delegate of an error condition.
@@ -79,14 +79,14 @@ typedef enum {
  * @param state What the socket was doing when the error occured.
  * @param sender The socket the error occured on.
  */
-- (void) errorOccured:(ITInetSocketError)err during:(ITInetSocketState)state onSocket:(ITInetSocket*)sender;
+- (void) errorOccured:(ITInetSocketError)err during:(ITInetSocketState)state onSocket:(in ITInetSocket*)sender;
 /*!
  * @method finishedConnecting:
  * @abstract Alerts the delegate of a successful connection attempt.
  * @discussion The delegate should send whatever initial data is required for the protocol (nickname for IRC, etc.)
  * @param sender The socket that established the connection.
  */
-- (void) finishedConnecting:(ITInetSocket *)sender;
+- (void) finishedConnecting:(in ITInetSocket *)sender;
 @end
 
 /*!
@@ -96,19 +96,48 @@ typedef enum {
  */
 @interface ITInetSocket : NSObject {
     @public
+    /*!
+     * @var sockfd
+	* @abstract KLWONZ
+     */
     int sockfd;
     int port;
-    id delegate;
+    unsigned short bufs;
+    int dieflag;
+    int actionflag;
+    id <ITInetSocketDelegate,NSObject> delegate;
     struct addrinfo *ai, *ai_cur;
     ITByteStream *readPipe, *writePipe;
     ITInetSocketState state;
     NSArray *sarr;
 }
-+(void)startAutoconnectingToService:(NSString*)type delegate:(id <ITInetSocketDelegate>)d;
--(id) initWithFD:(int)fd delegate:(id <ITInetSocketDelegate>)d;
--(id) initWithDelegate:(id <ITInetSocketDelegate>)d;
+/*!
+ * @method startAutoconnectingToService:delegate:
+ * @abstract Automatically creates sockets whenever a certain type of Rendezvous service appears.
+ * @discussion The auto-created sockets will send finishedConnecting: to the delegate.
+ * @param type The type of Rendezvous service to listen on.
+ * @param d The delegate that the sockets will belong to.
+ */
++(void)startAutoconnectingToService:(NSString*)type delegate:(id <ITInetSocketDelegate,NSObject>)d;
+/*!
+ * @method initWithFD:delegate:
+ * @abstract Wraps a socket around an existing socket descriptor.
+ * @discussion The socket will start listening on the descriptor as normal.
+ * @param fd The descriptor.
+ * @param d The delegate for the socket.
+ */
+-(id) initWithFD:(int)fd delegate:(id <ITInetSocketDelegate,NSObject>)d;
+/*!
+ * @method initWithDelegate:
+ * @abstract Creates a new socket.
+ * @discussion The socket will not be connected to anything.
+ * @param d The delegate of the socket.
+ */
+-(id) initWithDelegate:(id <ITInetSocketDelegate,NSObject>)d;
 
 -(id <ITInetSocketDelegate>)delegate;
+-(unsigned short)bufferSize;
+-(void)setBufferSize:(unsigned short)bufs;
 -(void) connectToHost:(NSString*)host onPort:(short)port;
 -(void) connectToHost:(NSString*)host onNamedPort:(NSString*)port;
 -(void) connectWithSockaddrArray:(NSArray*)arr;

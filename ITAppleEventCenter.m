@@ -1,12 +1,6 @@
 #import "ITAppleEventCenter.h"
 
-Boolean MyAEIdleCallback (
-					 EventRecord * theEvent,
-					 SInt32 * sleepTime,
-					 RgnHandle * mouseRgn
-					 );
-
-Boolean MyAEIdleCallback (
+static Boolean MyAEIdleCallback (
 					 EventRecord * theEvent,
 					 SInt32 * sleepTime,
 					 RgnHandle * mouseRgn
