@@ -151,6 +151,8 @@
 		};
 		08FB77AEFE84172EC02AAC07 = {
 			children = (
+				370786C005C0B4D700E6D1BA,
+				370786C105C0B4D700E6D1BA,
 				7CA50B2B054E77950074E1D9,
 				7CA50B2C054E77950074E1D9,
 				7CA50B2F054E77A00074E1D9,
@@ -296,6 +298,47 @@
 //322
 //323
 //324
+//370
+//371
+//372
+//373
+//374
+		370786C005C0B4D700E6D1BA = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = ITOSAScript.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		370786C105C0B4D700E6D1BA = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
+			path = ITOSAScript.m;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		370786C205C0B4D700E6D1BA = {
+			fileRef = 370786C005C0B4D700E6D1BA;
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					Public,
+				);
+			};
+		};
+		370786C305C0B4D700E6D1BA = {
+			fileRef = 370786C105C0B4D700E6D1BA;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+//370
+//371
+//372
+//373
+//374
 //3D0
 //3D1
 //3D2
@@ -610,6 +653,7 @@
 				8DC2EF510486A6940098B216,
 				7CA50D7E054E7C600074E1D9,
 				7CA50B2D054E77950074E1D9,
+				370786C205C0B4D700E6D1BA,
 				7CA50B31054E77A00074E1D9,
 				3D2D8A13055E07D800F59C27,
 				2AB93A3205705A0C007E748F,
@@ -650,6 +694,7 @@
 				7CF6C931057D65B0007FEC13,
 				7CF6C939057D65BA007FEC13,
 				7C97DC2F05B614300013E85F,
+				370786C305C0B4D700E6D1BA,
 			);
 			isa = PBXSourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;

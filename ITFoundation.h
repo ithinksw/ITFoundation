@@ -14,6 +14,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import <ITFoundation/ITOSAScript.h>
 #import <ITFoundation/ITAppleEventCenter.h>
 #import <ITFoundation/ITDebug.h>
 
