@@ -85,14 +85,14 @@
     "Protocol = %x\n"
     "Canonname = %s\n"
     "Sockaddr = \n"
-    "\{\n"
+    "{\n"
     "\tLength = %x\n"
     "\tFamily = %x\n"
     "\tPort = %d\n"
     "\tFlowinfo = %x\n"
     "\tAddr = {%#lx,%#lx,%#lx,%#lx}\n"
     "\tScope = %x\n"
-    "\}\n"
+    "}\n"
     "Next = ";
     NSString *nsfmt = [NSString stringWithCString:cfmt];
     NSMutableString *buf = [[[NSMutableString alloc] init] autorelease];

@@ -30,7 +30,7 @@ typedef enum {
 
 @protocol ITInetSocketOwner
 - (void) dataRecieved:(in NSData*)data;
-- (void) errorOccured:(int)err during:(ITInetSocketState)state;
+- (void) errorOccured:(ITInetSocketError)err during:(ITInetSocketState)state;
 - (void) finishedConnecting;
 @end
 
@@ -43,11 +43,9 @@ typedef enum {
     NSData *writeBuffer;
     ITInetSocketState state;
 }
-// Init
 -(id) initWithFD:(int)fd delegate:(id)d;
 -(id) initWithDelegate:(id)d;
 
 -(void) connectToHost:(NSString*)host onPort:(short)port;
 -(ITInetSocketState) state;
-
 @end
