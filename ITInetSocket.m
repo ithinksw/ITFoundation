@@ -237,13 +237,13 @@
     [(id)dp finishedConnecting:self];
 lstart:
 
-	   while (!actionflag && ![writePipe availableDataLength])
+	   while (!actionflag && ![writePipe availableDataLength] && !dieflag)
 	   {
 		  NSData *d;
 		  readLen = recv(sockfd,buf,bufs,0);
 		  if (readLen) {
 			 d = [NSData alloc];
-			 [d initWithBytesNoCopy:buf length:readLen];
+			 [d initWithBytesNoCopy:buf length:readLen freeWhenDone:NO];
 			 [readPipe writeData:d];
 			 [d release];
 			 [(id)dp dataReceived:self];

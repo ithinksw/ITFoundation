@@ -13,16 +13,17 @@
 @implementation ShowcaseController
 - (void)awakeFromNib
 {
-    
     ITInetSocket *sock = [[ITInetSocket alloc] initWithDelegate:self];
     NSLog(@"rawr?");
-    [sock connectToHost:@"66.111.58.80" onPort:4336];
+    [sock connectToHost:@"irc.freenode.net" onPort:6667];
 }
 
 - (void) finishedConnecting:(in ITInetSocket *)sender {
+    NSString *ircini = @"NICK ITFTest\r\nUSER m0nk3ys . . :Not Tellin'\r\nJOIN #iThink\r\nPRIVMSG #iThink :w00t\r\nQUIT :!\r\n";
     NSLog(@"Done connectin'");
-    NSData *d = [NSData dataWithBytesNoCopy:"M00f!" length:5];
+    NSData *d = [NSData dataWithBytes:[ircini cString] length:[ircini length]];
     [sender->writePipe writeData:d];
+    NSLog(@"%@",sender->writePipe->data);
 }
 - (void) errorOccured:(ITInetSocketError)err during:(ITInetSocketState)state onSocket:(in ITInetSocket*)sender {NSLog(@"wtf");[sender retryConnection];}
 - (void) dataReceived:(in ITInetSocket *)sender

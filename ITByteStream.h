@@ -12,6 +12,7 @@
  */
 
 @interface ITByteStream : NSObject {
+    @public
     NSMutableData *data;
     @private
     NSLock *lock;
