@@ -13,7 +13,7 @@
 @end
 
 enum {
-    ITInetMaxConnections = 36;
+    ITInetMaxConnections = 36
 };
 
 @interface ITInetSocket : NSObject {
