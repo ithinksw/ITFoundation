@@ -1,8 +1,8 @@
 /*
- *  ITLoginItem.c
+ *  ITLoginItem.m
  *  ITFoundation
  *
- *  Created by Kent Sutherland on Sun May 16 2004.
+ *  Created by Kent Sutherland on Mon May 17 2004.
  *  Copyright (c) 2004 __MyCompanyName__. All rights reserved.
  *
  */
@@ -25,7 +25,7 @@ BOOL ITSetLaunchApplicationOnLogin(NSString *path, BOOL flag)
     loginarray = [loginwindow objectForKey:@"AutoLaunchedApplicationDictionary"];
     
     //Create the alias data
-    FSMakeRefWithPath([path UTF8String], &fileRef);
+    FSPathMakeRef([path UTF8String], &fileRef, NULL);
     FSNewAlias(NULL, &fileRef, &alias);
     aliasData = [NSData dataWithBytes:&alias length:sizeof(alias)];
     
