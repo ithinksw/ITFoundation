@@ -17,6 +17,7 @@
  * which is included with this source code; it is available online at
  * http://www.gnu.org/licenses/gpl.html
  *
+ * Additionally, this file can be used with no restrictions or conditions in ITFoundation.
  */
 
 /*
