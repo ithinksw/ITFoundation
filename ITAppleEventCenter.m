@@ -21,7 +21,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
 + (id)sharedCenter
 {
-    if( _sharedAECenter != nil ) {
+    if( _sharedAECenter ) {
         return _sharedAECenter;
     } else {	
         _sharedAECenter = [[ITAppleEventCenter alloc] init];
@@ -192,7 +192,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
         AEEventID    eID    = *((unsigned long*)[eventID UTF8String]);
         AppleEvent event, reply;
     
-        AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, nil, "");
+        AECreateAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event);
     
         AESend(&event, &reply, kAENoReply, kAENormalPriority, kAEDefaultTimeout, nil, nil);
     
