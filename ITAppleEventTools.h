@@ -10,7 +10,7 @@
 #import <Foundation/Foundation.h>
 #import <Carbon/Carbon.h>
 
-extern NSAppleEventDescriptor *ITSendAEWithString(NSString *sendString, FourCharCode evClass, FourCharCode evID, ProcessSerialNumber *psn);
+extern NSAppleEventDescriptor *ITSendAEWithString(NSString *sendString, FourCharCode evClass, FourCharCode evID,const ProcessSerialNumber *psn);
 
 @interface NSAppleEventDescriptor (ITAELogging)
 -(void) logDesc;

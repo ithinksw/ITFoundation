@@ -10,8 +10,40 @@
 #import "ITDebug.h"
 #import "ITAppleEventTools.h"
 
-NSAppleEventDescriptor *ITSendAEWithString(NSString *sendString, FourCharCode evClass, FourCharCode evID, ProcessSerialNumber *psn)
+NSAppleEventDescriptor *ITSendAEWithString(NSString *sendString, FourCharCode evClass, FourCharCode evID,const ProcessSerialNumber *psn)
 {
+    //Add error checking...
+    pid_t pid;
+    
+    const char *usendString = [sendString UTF8String];
+    
+    AppleEvent sendEvent, replyEvent;
+    NSAppleEventDescriptor *send, *recv;
+    
+    AEBuildError buildError;
+    OSStatus berr,err;
+    
+    if ((GetProcessPID(psn, &pid) == noErr) && (pid == 0)) {
+	ITDebugLog(@"Error getting PID of application.");
+	return nil;
+    }
+    
+    berr = AEBuildAppleEvent(evClass, evID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, usendString);
+    send = [[[NSAppleEventDescriptor alloc] initWithAEDescNoCopy:&sendEvent] autorelease];
+    if (!berr) [send logDesc];
+    
+    if (berr) {
+        ITDebugLog(@"Error: %d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[sendString substringToIndex:buildError.fErrorPos]);
+    }
+    
+    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, NULL, NULL);
+    recv = [[[NSAppleEventDescriptor alloc] initWithAEDescNoCopy:&replyEvent] autorelease];
+    if (!err) [recv logDesc];
+    
+    if (err) {
+        ITDebugLog(@"Send Error: %i",err);
+    }
+    return recv;
 }
 
 @implementation NSAppleEventDescriptor (ITAELogging)
