@@ -39,7 +39,7 @@ NSAppleEventDescriptor *ITSendAEWithString(NSString *sendString, FourCharCode ev
         ITDebugLog(@"Error: %d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[sendString substringToIndex:buildError.fErrorPos]);
     }
     
-    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, NULL, NULL);
+    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kAEDefaultTimeout, NULL, NULL);
     
     err = AESizeOfParam(&replyEvent, keyDirectObject, &resultType, &resultSize);
     if (resultSize == 0 || err != 0) {
@@ -86,7 +86,7 @@ NSAppleEventDescriptor *ITSendAEWithStringAndObject(NSString *sendString, const 
         ITDebugLog(@"Error: %d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[sendString substringToIndex:buildError.fErrorPos]);
     }
     err = AEPutParamDesc(&sendEvent, keyDirectObject, object);
-    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, NULL, NULL);
+    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kAEDefaultTimeout, NULL, NULL);
     
     err = AESizeOfParam(&replyEvent, keyDirectObject, &resultType, &resultSize);
     if (resultSize == 0 || err != 0) {
