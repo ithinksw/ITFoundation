@@ -12,11 +12,6 @@
 @implementation ITInetSocket
 -(id)initWithFD:(int)fd delegate:(id)d
 {
-    NSLog(@"Someone made a socket!");
     return nil;
-}
-
--(void)disconnect
-{
 }
 @end

@@ -233,7 +233,7 @@ static NSMutableSet *servsockets;
 		  else {perror("Too bad I haven't implemented error checking yet");}
 	   }
 	   else {
-		  ITInetSocket *csocket = [[[ITInetSocket alloc] initWithFD:cfd delegate:self] autorelease];
+		  ITInetSocket *csocket = [[ITInetSocket alloc] initWithFD:cfd delegate:self];
 		  [clients addObject:csocket];
 		  [delegate newClientJoined:csocket];
 	   }
