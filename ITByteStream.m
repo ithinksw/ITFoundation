@@ -70,17 +70,11 @@
 
 -(NSData*) readDataOfLength:(int)length
 {
-    NSData *ret, *tmp;
+    NSData *ret;
     NSRange range = {0, length};
     [lock lock];
     ret = [data subdataWithRange:range];
-#if MAC_OS_X_VERSION_10_2 <= MAC_OS_X_VERSION_MAX_ALLOWED
     [data replaceBytesInRange:range withBytes:nil length:0];
-#else
-    range = {length, [data length]};
-    tmp = [data subdataWithRange:range];
-    [data setData:tmp];
-#endif
     [lock unlock];
     return ret;
 }
@@ -109,5 +103,21 @@
     [data appendBytes:b length:length];
     [lock unlock];
     [delegate newDataAdded:self];
+}
+
+-(void) lockStream
+{
+    [lock lock];
+}
+
+-(void) unlockStream
+{
+    [lock unlock];
+}
+
+-(void) shortenData:(long)length
+{
+    NSRange range = {0, length};
+    [data replaceBytesInRange:range withBytes:nil length:0];
 }
 @end

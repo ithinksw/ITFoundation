@@ -56,13 +56,6 @@ typedef enum {
  */
 @protocol ITInetSocketDelegate <ITByteStreamDelegate>
 /*!
- * @method dataReceived:
- * @abstract Alerts the delegate of data.
- * @discussion The delegate should check [sender readPipe] to get the data.
- * @param sender The socket that the messages came from.
- */
-- (oneway void) dataReceived:(ITInetSocket *)sender;
-/*!
  * @method errorOccured:during:onSocket:
  * @abstract Alerts the delegate of an error condition.
  * @discussion The delegate can try retryCondition.
@@ -86,14 +79,13 @@ typedef enum {
  * @discussion ITInetSocket is an Internet socket class supporting IPv6 and Rendezvous.
  */
 @interface ITInetSocket : NSObject <ITByteStreamDelegate> {
-
     int sockfd;
     int port;
     int nc;
     unsigned short bufs;
     volatile int dieflag;
     volatile int actionflag;
-    id <ITInetSocketDelegate,NSObject> delegate;
+    id <ITInetSocketDelegate> delegate;
     struct addrinfo *ai, *ai_cur;
     ITByteStream *readPipe, *writePipe;
     ITInetSocketState state;
@@ -106,7 +98,7 @@ typedef enum {
  * @param type The type of Rendezvous service to listen on.
  * @param d The delegate that the sockets will belong to.
  */
-+(void)startAutoconnectingToService:(NSString*)type delegate:(id <ITInetSocketDelegate,NSObject>)d;
++(void)startAutoconnectingToService:(NSString*)type delegate:(id <ITInetSocketDelegate>)d;
 /*!
  * @method initWithFD:delegate:
  * @abstract Wraps a socket around an existing socket descriptor.
@@ -114,14 +106,14 @@ typedef enum {
  * @param fd The descriptor.
  * @param d The delegate for the socket.
  */
--(id) initWithFD:(int)fd delegate:(id <ITInetSocketDelegate,NSObject>)d;
+-(id) initWithFD:(int)fd delegate:(id <ITInetSocketDelegate>)d;
 /*!
  * @method initWithDelegate:
  * @abstract Creates a new socket.
  * @discussion The socket will not be connected to anything.
  * @param d The delegate of the socket.
  */
--(id) initWithDelegate:(id <ITInetSocketDelegate,NSObject>)d;
+-(id) initWithDelegate:(id <ITInetSocketDelegate>)d;
 
 -(id <ITInetSocketDelegate>)delegate;
 -(unsigned short)bufferSize;
@@ -132,4 +124,6 @@ typedef enum {
 -(ITInetSocketState) state;
 -(void) retryConnection;
 -(void) disconnect;
+-(ITByteStream *)readPipe;
+-(ITByteStream *)writePipe;
 @end

@@ -18,11 +18,8 @@
 #import <unistd.h>
 
 /* Too bad Objective-C doesn't have class variables... */
-static NSMutableSet *servsockets;
 
 @interface ITInetServerSocket(Private)
-+(void)registerSocket:(ITInetServerSocket*)sock;
-+(void)unregisterSocket:(ITInetServerSocket*)sock;
 -(short)lookupPortForServiceType:(NSString*)name;
 -(void)setupConnection;
 -(void)stopConnection;
@@ -35,12 +32,6 @@ static NSMutableSet *servsockets;
 @end
 
 @implementation ITInetServerSocket
-+ (void)initialize
-{
-    servsockets = [[NSMutableSet alloc] init];
-    //[self setupTimer];
-}
-
 - (id)init
 {
     if (self = [super init])
@@ -85,7 +76,7 @@ static NSMutableSet *servsockets;
 - (BOOL)start
 {
     if (!rndName || !rndType || !port) return NO;
-    [ITInetServerSocket registerSocket:self];
+    [self setupConnection];
     return YES;
 }
 
@@ -111,7 +102,7 @@ static NSMutableSet *servsockets;
 
 - (void)stop
 {
-    [ITInetServerSocket unregisterSocket:self];
+    [self stopConnection];
 }
 
 - (void)setServiceType:(NSString*)type useForPort:(BOOL)p
@@ -134,18 +125,6 @@ static NSMutableSet *servsockets;
 @end
 
 @implementation ITInetServerSocket(Private)
-+(void)registerSocket:(ITInetServerSocket*)sock
-{
-    [sock setupConnection];
-    [servsockets addObject:sock];
-}
-
-+(void)unregisterSocket:(ITInetServerSocket*)sock
-{
-    [sock stopConnection];
-    [servsockets removeObject:sock];
-}
-
 -(short)lookupPortForServiceType:(NSString*)name
 {
     const char *_name = [name cString];
@@ -167,6 +146,7 @@ static NSMutableSet *servsockets;
     hints.ai_addrlen = 0;
     hints.ai_canonname = hints.ai_addr = hints.ai_next = NULL;
     getaddrinfo(NULL,[[[NSNumber numberWithShort:port] stringValue] cString],&hints,&ai);
+    sockfd = socket(PF_INET6,SOCK_STREAM,IPPROTO_TCP);
     bind(sockfd,ai->ai_addr,ai->ai_addrlen);
     listen(sockfd, SOMAXCONN);
     freeaddrinfo(ai);
@@ -178,7 +158,7 @@ static NSMutableSet *servsockets;
 {
     [self stopRendezvousAdvertising];
     [clients makeObjectsPerformSelector:@selector(disconnect)];
-    shutdown(sockfd,2);
+    [self stopThread];
     close(sockfd);
     sockfd = -1;
 }
@@ -210,12 +190,15 @@ static NSMutableSet *servsockets;
 
 - (void)stopThread
 {
+    NSLog(@"stopping server thread");
     dieflag = 1;
+    do {} while (dieflag == 1);
 }
 
 - (void)newClient:(int)cfd
 {
     ITInetSocket *csocket = [[ITInetSocket alloc] initWithFD:cfd delegate:delegate];
+    NSLog(@"new client for this server");
     [clients addObject:csocket];
 }
 
@@ -225,13 +208,17 @@ static NSMutableSet *servsockets;
     NSArray *par = data;
     NSConnection *dcon = [[NSConnection alloc] initWithReceivePort:[par objectAtIndex:0] sendPort:[par objectAtIndex:1]];
     NSProxy *dp = [dcon rootProxy];
-    while ((sockfd != -1) && !dieflag)
+    while ((sockfd >= 0) && !dieflag)
 	   {
 	   signed int cfd;
 	   cfd = accept(sockfd,NULL,NULL);
 	   NSLog(@"Someone connected!");
 	   [(id)dp newClient:cfd];
+	   [ap release];
+	   ap = [[NSAutoreleasePool alloc] init];
 	   }
+    
+    NSLog(@"suiciding");
     dieflag = 0;
     [dcon release];
     [ap release];

@@ -11,7 +11,7 @@
 @class ITInetSocket;
 
 @protocol ITInetServerSocketOwner
-- (void)newClientJoined:(ITInetSocket*)client;
+- (oneway void)newClientJoined:(ITInetSocket*)client;
 @end
 
 @interface ITInetServerSocket : NSObject {

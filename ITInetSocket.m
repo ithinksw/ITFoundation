@@ -106,9 +106,11 @@
 	   {
 	   NSEnumerator *e = [arr objectEnumerator];
 	   NSData *d;
-	   struct addrinfo *a;
+	   struct addrinfo *a,*oa;
 	   ai = malloc(sizeof(struct addrinfo));
-	   a = ai;
+	   ai_cur = ai;
+	   oa = a = ai;
+	   bzero(a,sizeof(struct addrinfo));
 	   while (d = [e nextObject])
 	   {
 		  struct sockaddr *s = (struct sockaddr*)[d bytes];
@@ -116,9 +118,13 @@
 		  a->ai_family = s->sa_family;
 		  a->ai_addr = s;
 		  a->ai_next = malloc(sizeof(struct addrinfo));
+		  oa = a;
 		  a = a->ai_next;
 	   }
-	   ai_cur = ai;
+	   free(a);
+	   oa->ai_next = NULL;
+	   NSLog(@"Sockaddr connecting....");
+	   [self dumpv6Addrinfo:ai];
 	   [self realDoConnection];
 	   }
 }
@@ -127,6 +133,7 @@
 {
     NSLog(@"Got a disconnect");
     dieflag = 1;
+    do {} while (dieflag == 1);
 }
 
 -(void)retryConnection
@@ -157,11 +164,10 @@
 
 -(void)newDataAdded:(ITByteStream*)sender
 {
-    NSLog(@"writePipe got something");
-    actionflag = 1;
-    do {} while (actionflag == 1);
-    NSLog(@"thread saw actionFlag");
 }
+
+-(ITByteStream*)readPipe {return readPipe;}
+-(ITByteStream*)writePipe {return writePipe;}
 @end
 
 @implementation ITInetSocket(Debugging)
@@ -238,15 +244,16 @@
     NSConnection *dcon = [[NSConnection alloc] initWithReceivePort:[data objectAtIndex:0] sendPort:[data objectAtIndex:1]];
     NSProxy *dp = [[dcon rootProxy] retain];
     char *buf = malloc(bufs);
-    unsigned long readLen = 0;
+    unsigned long readLen = 0,wpl = 0;
     signed int err;
-    [readPipe setDelegate:dp];
+    [readPipe setDelegate:(id <ITInetSocketDelegate>)dp];
     if (nc){
     NSLog(@"Connecting");
     err = connect(sockfd,ai_cur->ai_addr,ai_cur->ai_addrlen);
     if (err == -1)
 	   {
 	   perror("CAwh");
+	   *((char*)NULL) = 12;
 	   [(id)dp errorOccured:ITInetCouldNotConnect during:ITInetSocketConnecting onSocket:self];
 	   goto dieaction;
 	   }
@@ -255,7 +262,7 @@
     [(id)dp finishedConnecting:self];
 lstart:
 	   state = ITInetSocketListening;
-	   while (!actionflag && !dieflag)
+	   while (!actionflag && !dieflag && !(wpl = CFDataGetLength((CFDataRef)writePipe->data)))
 	   {
 		  readLen = recv(sockfd,buf,bufs,0);
 		  state = ITInetSocketReading;
@@ -286,10 +293,13 @@ dieaction:
 	   }
 
     {
+	   const char *d = CFDataGetBytePtr((CFDataRef)writePipe->data);
 	   state = ITInetSocketWriting;
-	   NSLog(@"Emptying writePipe");
-	   NSData *d = [writePipe readAllData];
-	   write(sockfd,[d bytes],[d length]);
+	   NSLog(@"Writing");
+	   [writePipe lockStream];
+	   wpl = send(sockfd,d,wpl,0);
+	   [writePipe shortenData:wpl];
+	   [writePipe unlockStream];
 	   [ap release];
 	   ap = [[NSAutoreleasePool alloc] init];
 	   goto lstart;

@@ -10,7 +10,7 @@
 
 @class ITByteStream;
 
-@protocol ITByteStreamDelegate
+@protocol ITByteStreamDelegate <NSObject>
 -(oneway void)newDataAdded:(ITByteStream *)sender;
 @end
 
@@ -29,4 +29,7 @@
 -(NSData*) readAllData;
 -(void) writeData:(in NSData*)data;
 -(void) writeBytes:(char *)b len:(long)length;
+-(void) lockStream;
+-(void) unlockStream;
+-(void) shortenData:(long)length;
 @end

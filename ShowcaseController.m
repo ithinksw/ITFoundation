@@ -24,14 +24,10 @@
 }
 
 - (void) finishedConnecting:(ITInetSocket *)sender {
-    [sender disconnect];
+    [[sender writePipe] writeBytes:"suck" len:4];
 }
 
 - (void) errorOccured:(ITInetSocketError)err during:(ITInetSocketState)state onSocket:(in ITInetSocket*)sender
-{
-}
-
-- (void) dataReceived:(ITInetSocket *)sender
 {
 }
 
@@ -42,6 +38,6 @@
 
 - (void)newClientJoined:(ITInetSocket*)client
 {
-    
+    [[client writePipe] writeBytes:"suck" len:4];
 }
 @end
