@@ -18,3 +18,5 @@
 #import <ITFoundation/ITDebug.h>
 
 #import <ITFoundation/ITCategory-NSArray.h>
+
+#import <ITFoundation/ITCarbonSupport.h>
