@@ -9,7 +9,7 @@
 
 #import "ITDebug.h"
 
-static BOOL _ITDebugMode = NO;
+static BOOL _ITDebugMode = YES;
 
 void SetITDebugMode (BOOL mode)
 {

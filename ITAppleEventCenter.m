@@ -626,4 +626,70 @@ return result;
 
     return result;
 }
+
+- (NSData*)sendAEWithSendStringForData:(NSString*)nssendString eventClass:(NSString*)eventClass eventID:(NSString*)eventID appPSN:(ProcessSerialNumber)psn
+{
+    //Add error checking...
+    AEEventClass eClass = *((unsigned long*)[eventClass UTF8String]);
+    AEEventID	 eID    = *((unsigned long*)[eventID UTF8String]);
+    int pid;
+    
+    const char *sendString = [nssendString UTF8String];
+    NSData  *_finalData = nil;
+    
+    AppleEvent sendEvent, replyEvent;
+    
+    DescType resultType;
+    Size resultSize, charResultSize;
+    
+    AEBuildError buildError;
+    OSStatus berr,err;
+    OSErr err2, err3;
+    
+    if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
+	ITDebugLog(@"Error getting PID of application.");
+	return nil;
+    }
+    
+    berr = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
+    if (!berr) [self printCarbonDesc:&sendEvent];
+    
+    if (berr) {
+        ITDebugLog(@"Error: %d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
+    }
+    
+    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
+    if (!err) [self printCarbonDesc:&replyEvent];
+    
+    if (err) {
+        ITDebugLog(@"Send Error: %i",err);
+    } else {
+        unichar *result = 0;
+	
+        err2 = AESizeOfParam(&replyEvent, keyDirectObject, &resultType, &resultSize);
+        if (resultSize != 0) {
+            result = malloc(resultSize);
+        } else {
+            return nil;
+        }
+	
+        if (err2) {
+            ITDebugLog(@"Error After AESizeOfParam: %i", err2);
+        } else {
+            err3 = AEGetParamPtr(&replyEvent, keyDirectObject, resultType, NULL, result, resultSize, &charResultSize);
+	    
+            if (err3) {
+                ITDebugLog(@"Error After AEGetParamPtr: %i", err3);
+            } else {
+                _finalData = [NSData dataWithBytesNoCopy:result length:charResultSize freeWhenDone:YES];
+            }
+        }
+    }
+    
+    if (!berr) AEDisposeDesc(&sendEvent);
+    if (!err) AEDisposeDesc(&replyEvent);
+    
+    return _finalData;
+}
+
 @end

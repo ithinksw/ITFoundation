@@ -104,18 +104,18 @@
 			sourceTree = "<group>";
 		};
 		0867D69BFE84028FC02AAC07 = {
-			expectedFileType = wrapper.framework;
 			fallbackIsa = PBXFileReference;
 			isa = PBXFrameworkReference;
+			lastKnownFileType = wrapper.framework;
 			name = Foundation.framework;
 			path = /System/Library/Frameworks/Foundation.framework;
 			refType = 0;
 			sourceTree = "<absolute>";
 		};
 		0867D6A5FE840307C02AAC07 = {
-			expectedFileType = wrapper.framework;
 			fallbackIsa = PBXFileReference;
 			isa = PBXFrameworkReference;
+			lastKnownFileType = wrapper.framework;
 			name = AppKit.framework;
 			path = /System/Library/Frameworks/AppKit.framework;
 			refType = 0;
@@ -141,9 +141,9 @@
 			sourceTree = "<group>";
 		};
 		089C1667FE841158C02AAC07 = {
-			expectedFileType = text.plist.strings;
 			fileEncoding = 10;
 			isa = PBXFileReference;
+			lastKnownFileType = text.plist.strings;
 			name = English;
 			path = English.lproj/InfoPlist.strings;
 			refType = 4;
@@ -190,9 +190,9 @@
 			sourceTree = "<group>";
 		};
 		1058C7B1FEA5585E11CA2CBB = {
-			expectedFileType = wrapper.framework;
 			fallbackIsa = PBXFileReference;
 			isa = PBXFrameworkReference;
+			lastKnownFileType = wrapper.framework;
 			name = Cocoa.framework;
 			path = /System/Library/Frameworks/Cocoa.framework;
 			refType = 0;
@@ -229,17 +229,17 @@
 			sourceTree = "<group>";
 		};
 		2AB93A3005705A0C007E748F = {
-			expectedFileType = sourcecode.c.h;
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			path = "ITCategory-NSArray.h";
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		2AB93A3105705A0C007E748F = {
-			expectedFileType = sourcecode.c.objc;
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
 			path = "ITCategory-NSArray.m";
 			refType = 4;
 			sourceTree = "<group>";
@@ -282,9 +282,9 @@
 			sourceTree = "<group>";
 		};
 		32DBCF5E0370ADEE00C91783 = {
-			expectedFileType = sourcecode.c.h;
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			path = ITFoundation_Prefix.pch;
 			refType = 4;
 			sourceTree = "<group>";
@@ -300,17 +300,17 @@
 //3D3
 //3D4
 		3D2D8A10055E07D800F59C27 = {
-			expectedFileType = sourcecode.c.c;
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
 			path = queue.c;
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		3D2D8A11055E07D800F59C27 = {
-			expectedFileType = sourcecode.c.h;
 			fileEncoding = 30;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			path = queue.h;
 			refType = 4;
 			sourceTree = "<group>";
@@ -338,17 +338,17 @@
 //7C3
 //7C4
 		7CA50B2B054E77950074E1D9 = {
-			expectedFileType = sourcecode.c.h;
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			path = ITAppleEventCenter.h;
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		7CA50B2C054E77950074E1D9 = {
-			expectedFileType = sourcecode.c.objc;
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
 			path = ITAppleEventCenter.m;
 			refType = 4;
 			sourceTree = "<group>";
@@ -369,17 +369,17 @@
 			};
 		};
 		7CA50B2F054E77A00074E1D9 = {
-			expectedFileType = sourcecode.c.h;
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			path = ITDebug.h;
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		7CA50B30054E77A00074E1D9 = {
-			expectedFileType = sourcecode.c.objc;
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
 			path = ITDebug.m;
 			refType = 4;
 			sourceTree = "<group>";
@@ -400,40 +400,40 @@
 			};
 		};
 		7CA50B7F054E786E0074E1D9 = {
-			expectedFileType = sourcecode.c.objc;
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
 			path = ITVirtualMemoryInfo.m;
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		7CA50B80054E786E0074E1D9 = {
-			expectedFileType = sourcecode.c.h;
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			path = ITVirtualMemoryInfo.h;
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		7CA50B8B054E787D0074E1D9 = {
-			expectedFileType = sourcecode.c.objc;
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
 			path = ITByteStream.m;
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		7CA50B8C054E787D0074E1D9 = {
-			expectedFileType = sourcecode.c.h;
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			path = ITByteStream.h;
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		7CA50BAA054E794B0074E1D9 = {
-			expectedFileType = wrapper.framework;
 			isa = PBXFileReference;
+			lastKnownFileType = wrapper.framework;
 			name = Carbon.framework;
 			path = /System/Library/Frameworks/Carbon.framework;
 			refType = 0;
@@ -446,9 +446,9 @@
 			};
 		};
 		7CA50D7D054E7C600074E1D9 = {
-			expectedFileType = sourcecode.c.h;
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			path = ITFoundation.h;
 			refType = 4;
 			sourceTree = "<group>";
@@ -463,17 +463,17 @@
 			};
 		};
 		7CF6C92E057D65B0007FEC13 = {
-			expectedFileType = sourcecode.c.h;
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			path = ITPreference.h;
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		7CF6C92F057D65B0007FEC13 = {
-			expectedFileType = sourcecode.c.objc;
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
 			path = ITPreference.m;
 			refType = 4;
 			sourceTree = "<group>";
@@ -491,17 +491,17 @@
 			};
 		};
 		7CF6C936057D65BA007FEC13 = {
-			expectedFileType = sourcecode.c.h;
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
 			path = ITPreferenceCenter.h;
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		7CF6C937057D65BA007FEC13 = {
-			expectedFileType = sourcecode.c.objc;
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.objc;
 			path = ITPreferenceCenter.m;
 			refType = 4;
 			sourceTree = "<group>";
@@ -642,15 +642,15 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8DC2EF5A0486A6940098B216 = {
-			expectedFileType = text.plist;
 			fileEncoding = 4;
 			isa = PBXFileReference;
+			lastKnownFileType = text.plist;
 			path = Info.plist;
 			refType = 4;
 			sourceTree = "<group>";
 		};
 		8DC2EF5B0486A6940098B216 = {
-			expectedFileType = wrapper.framework;
+			explicitFileType = wrapper.framework;
 			includeInIndex = 0;
 			isa = PBXFileReference;
 			path = ITFoundation.framework;
