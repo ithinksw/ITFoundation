@@ -19,7 +19,7 @@
 
 /* Too bad Objective-C doesn't have class variables... */
 static NSMutableSet *servsockets;
-static NSTimer *timer;
+
 @interface ITInetServerSocket(Private)
 +(void)registerSocket:(ITInetServerSocket*)sock;
 +(void)unregisterSocket:(ITInetServerSocket*)sock;
@@ -28,17 +28,17 @@ static NSTimer *timer;
 -(void)stopConnection;
 -(void)setupRendezvousAdvertising;
 -(void)stopRendezvousAdvertising;
-+(void)setupTimer;
-+(void)stopTimer;
+-(void)setupTimer;
+-(void)stopTimer;
 +(void)globalTimerFunc:(NSTimer*)timer;
--(void)timerFunc;
+-(void)timerFunc:(NSTimer*)timer;
 @end
 
 @implementation ITInetServerSocket
 + (void)initialize
 {
     servsockets = [[NSMutableSet alloc] init];
-    [self setupTimer];
+    //[self setupTimer];
 }
 
 - (id)init
@@ -51,6 +51,7 @@ static NSTimer *timer;
 	   service = nil;
 	   port = 0;
 	   rndType = rndName = nil;
+	   timer = nil;
 	   }
     return self;
 }
@@ -65,6 +66,7 @@ static NSTimer *timer;
 	   service = nil;
 	   port = 0;
 	   rndType = rndName = nil;
+	   timer = nil;
 	   }
     return self;
 }
@@ -175,6 +177,7 @@ static NSTimer *timer;
     listen(sockfd, SOMAXCONN);
     fcntl(sockfd,F_SETFL,O_NONBLOCK);
     [self setupRendezvousAdvertising];
+    [self setupTimer];
 }
 
 - (void)stopConnection
@@ -199,13 +202,13 @@ static NSTimer *timer;
     service = nil;
 }
 
-+ (void)setupTimer
+- (void)setupTimer
 {
-    if (!timer) timer = [NSTimer timerWithTimeInterval:0 target:self selector:@selector(globalTimerFunc:) userInfo:nil repeats:YES];
+    if (!timer) timer = [NSTimer timerWithTimeInterval:0 target:self selector:@selector(timerFunc:) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 }
 
-+ (void)stopTimer
+- (void)stopTimer
 {
     [timer invalidate];
     [timer release];
@@ -217,7 +220,7 @@ static NSTimer *timer;
     [servsockets makeObjectsPerformSelector:@selector(timerFunc)];
 }
 
-- (void)timerFunc
+- (void)timerFunc:(NSTimer*)timer
 {
     if (sockfd != -1)
 	   {

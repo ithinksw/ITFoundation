@@ -22,6 +22,7 @@
     id delegate;
     short port;
     NSString *rndType,*rndName;
+    NSTimer *timer;
 }
 
 - (id)init;
