@@ -404,7 +404,7 @@
 				LIBRARY_SEARCH_PATHS = "";
 				LIBRARY_STYLE = Dynamic;
 				MACOSX_DEPLOYMENT_TARGET = 10.2;
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-seg1addr 0x15000000";
 				PRODUCT_NAME = ITFoundation;
 				SECTORDER_FLAGS = "";
 				WARNING_CFLAGS = "-Wmost -Wno-four-char-constants -Wno-unknown-pragmas";
