@@ -22,7 +22,7 @@ void ITSetApplicationLaunchOnLogin(NSString *path, BOOL flag)
     ITDebugLog(@"Set if \"%@\" launches at login to %i.", path, flag);
     [df synchronize];
     loginwindow = [[df persistentDomainForName:@"loginwindow"] mutableCopy];
-    loginarray = [loginwindow objectForKey:@"AutoLaunchedApplicationDictionary"];
+    loginarray = [[loginwindow objectForKey:@"AutoLaunchedApplicationDictionary"] mutableCopy];
     
     if (flag) {
         FSRef fileRef;
@@ -34,13 +34,11 @@ void ITSetApplicationLaunchOnLogin(NSString *path, BOOL flag)
         
         if (!loginarray) { //If there is no loginarray of autolaunch items, create one
             loginarray = [[[NSMutableArray alloc] init] autorelease];
-            [loginwindow setObject:loginarray forKey:@"AutoLaunchedApplicationDictionary"];
         }
-        
         NSDictionary *itemDict = [NSDictionary dictionaryWithObjectsAndKeys:
-        [[NSBundle mainBundle] bundlePath], @"Path",
-        [NSNumber numberWithInt:0], @"Hide",
-        aliasData, @"AliasData", nil, nil];
+            [[NSBundle mainBundle] bundlePath], @"Path",
+            [NSNumber numberWithInt:0], @"Hide",
+            aliasData, @"AliasData", nil, nil];
         [loginarray addObject:itemDict];
     } else {
         int i;
@@ -52,9 +50,11 @@ void ITSetApplicationLaunchOnLogin(NSString *path, BOOL flag)
             }
         }
     }
+    [loginwindow setObject:loginarray forKey:@"AutoLaunchedApplicationDictionary"];
     [df setPersistentDomain:loginwindow forName:@"loginwindow"];
     [df synchronize];
     [loginwindow release];
+    [loginarray release];
 }
 
 BOOL ITDoesApplicationLaunchOnLogin(NSString *path)
