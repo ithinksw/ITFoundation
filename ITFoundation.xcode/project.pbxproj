@@ -313,21 +313,6 @@
 			refType = 4;
 			sourceTree = "<group>";
 		};
-		370786C205C0B4D700E6D1BA = {
-			fileRef = 370786C005C0B4D700E6D1BA;
-			isa = PBXBuildFile;
-			settings = {
-				ATTRIBUTES = (
-					Public,
-				);
-			};
-		};
-		370786C305C0B4D700E6D1BA = {
-			fileRef = 370786C105C0B4D700E6D1BA;
-			isa = PBXBuildFile;
-			settings = {
-			};
-		};
 		376AF4DD06597CA900F0979E = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
@@ -483,36 +468,6 @@
 			refType = 4;
 			sourceTree = "<group>";
 		};
-		37B1C5770612599000F99008 = {
-			fileRef = 37B1C5730612599000F99008;
-			isa = PBXBuildFile;
-			settings = {
-			};
-		};
-		37B1C5780612599000F99008 = {
-			fileRef = 37B1C5740612599000F99008;
-			isa = PBXBuildFile;
-			settings = {
-				ATTRIBUTES = (
-					Public,
-				);
-			};
-		};
-		37B1C5790612599000F99008 = {
-			fileRef = 37B1C5750612599000F99008;
-			isa = PBXBuildFile;
-			settings = {
-			};
-		};
-		37B1C57A0612599000F99008 = {
-			fileRef = 37B1C5760612599000F99008;
-			isa = PBXBuildFile;
-			settings = {
-				ATTRIBUTES = (
-					Public,
-				);
-			};
-		};
 		37B9B08005C1C47E00702FDB = {
 			fileEncoding = 4;
 			isa = PBXFileReference;
@@ -528,21 +483,6 @@
 			path = ITOSAComponent.m;
 			refType = 4;
 			sourceTree = "<group>";
-		};
-		37B9B08205C1C47E00702FDB = {
-			fileRef = 37B9B08005C1C47E00702FDB;
-			isa = PBXBuildFile;
-			settings = {
-				ATTRIBUTES = (
-					Public,
-				);
-			};
-		};
-		37B9B08305C1C47E00702FDB = {
-			fileRef = 37B9B08105C1C47E00702FDB;
-			isa = PBXBuildFile;
-			settings = {
-			};
 		};
 //370
 //371
@@ -924,8 +864,6 @@
 				8DC2EF510486A6940098B216,
 				7CA50D7E054E7C600074E1D9,
 				7CA50B2D054E77950074E1D9,
-				370786C205C0B4D700E6D1BA,
-				37B9B08205C1C47E00702FDB,
 				7CA50B31054E77A00074E1D9,
 				3D2D8A13055E07D800F59C27,
 				2AB93A3205705A0C007E748F,
@@ -935,8 +873,6 @@
 				3D97137B05D9FB7C0033607F,
 				3D97137F05D9FBF40033607F,
 				3D97138A05D9FD6B0033607F,
-				37B1C5780612599000F99008,
-				37B1C57A0612599000F99008,
 				376AF4DF06597CA900F0979E,
 			);
 			isa = PBXHeadersBuildPhase;
@@ -972,13 +908,9 @@
 				7CF6C931057D65B0007FEC13,
 				7CF6C939057D65BA007FEC13,
 				7C97DC2F05B614300013E85F,
-				370786C305C0B4D700E6D1BA,
-				37B9B08305C1C47E00702FDB,
 				3D97137C05D9FB7C0033607F,
 				3D97138105D9FBFA0033607F,
 				3D97138B05D9FD6B0033607F,
-				37B1C5770612599000F99008,
-				37B1C5790612599000F99008,
 				376AF4E006597CA900F0979E,
 			);
 			isa = PBXSourcesBuildPhase;

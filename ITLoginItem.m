@@ -25,12 +25,12 @@ void ITSetApplicationLaunchOnLogin(NSString *path, BOOL flag)
     loginarray = [[loginwindow objectForKey:@"AutoLaunchedApplicationDictionary"] mutableCopy];
     
     if (flag) {
-        FSRef fileRef;
+        /*FSRef fileRef;
         AliasHandle alias;
         NSData *aliasData;
         FSPathMakeRef([path UTF8String], &fileRef, NULL);
         FSNewAlias(NULL, &fileRef, &alias);
-        aliasData = [NSData dataWithBytes:&alias length:GetHandleSize((Handle)alias)];
+        aliasData = [NSData dataWithBytes:&alias length:GetHandleSize((Handle)alias)];*/
         
         if (!loginarray) { //If there is no loginarray of autolaunch items, create one
             loginarray = [[[NSMutableArray alloc] init] autorelease];
@@ -38,7 +38,7 @@ void ITSetApplicationLaunchOnLogin(NSString *path, BOOL flag)
         NSDictionary *itemDict = [NSDictionary dictionaryWithObjectsAndKeys:
             [[NSBundle mainBundle] bundlePath], @"Path",
             [NSNumber numberWithInt:0], @"Hide",
-            aliasData, @"AliasData", nil, nil];
+            [NSData data], @"AliasData", nil, nil];
         [loginarray addObject:itemDict];
     } else {
         int i;

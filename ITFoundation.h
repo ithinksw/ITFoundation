@@ -14,8 +14,8 @@
 
 #import <Cocoa/Cocoa.h>
 
-#import <ITFoundation/ITOSAScript.h>
-#import <ITFoundation/ITOSAComponent.h>
+//#import <ITFoundation/ITOSAScript.h>
+//#import <ITFoundation/ITOSAComponent.h>
 #import <ITFoundation/ITAppleEventCenter.h>
 #import <ITFoundation/ITDebug.h>
 #import <ITFoundation/ITLoginItem.h>
@@ -25,4 +25,4 @@
 #import <ITFoundation/ITCarbonSupport.h>
 #import <ITFoundation/ITAppleEventTools.h>
 
-#import <ITFoundation/ITXMLParser.h>
+//#import <ITFoundation/ITXMLParser.h>
