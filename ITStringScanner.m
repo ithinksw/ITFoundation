@@ -2,56 +2,53 @@
 
 #import "ITStringScanner.h"
 
-static NSString *AString(void)
-{
-    return @"";
-}
-
 @implementation ITStringScanner
--(id)init
+
+- (id)init
 {
-    if (self = [super init])
+    if ( ( self = [super init] ) )
     {
-        strCStr = NULL;
-        str = nil;
-        curPos = size = 0;
+        _cString = NULL;
+        _string = nil;
+        _currentPosition = 0;
+        _size = 0;
     }
     return self;
 }
 
--(id)initWithString:(NSString*)str2
+- (id)initWithString:(NSString*)string
 {
-    if (self = [super init])
+    if ( ( self = [super init] ) )
     {
-        strCStr = (char *)[str2 cString];
-        str = [str2 retain];
-        curPos = 0;
-        size = [str2 length];
+        _cString = (char *)[string cString];
+        _string = [string retain];
+        _currentPosition = 0;
+        _size = [string length];
     }
     return self;
 }
 
--(NSString *)scanUpToCharacter:(char)c
+- (NSString *)scanUpToCharacter:(char)character
 {
-    size_t i=curPos,j=0;
+    size_t i=_currentPosition,j=0;
 
-    if (strCStr[i] == c)
+    if (_cString[i] == character)
     {
         i++;
-        return AString();
+        return @"";
     }
     else
     {
         NSRange r = {i,0};
         NSString *tmpStr = nil;
-        const size_t tmp = size;
+        const size_t tmp = _size;
         unsigned char foundIt = NO;
 
         do
         {
             i++,j++;
 
-            if (strCStr[i] == c)
+            if (_cString[i] == character)
             {
                 foundIt = YES;
                 r.length = j;
@@ -62,17 +59,17 @@ static NSString *AString(void)
 
         if (foundIt)
         {
-            tmpStr = [str substringWithRange:r];
-            curPos = i;
+            tmpStr = [_string substringWithRange:r];
+            _currentPosition = i;
         }
         return tmpStr;
     }
 }
 
--(NSString *)scanUpToString:(NSString*)str2
+- (NSString *)scanUpToString:(NSString*)string
 {
-    size_t i=curPos,j=0, len = [str2 length];
-    const char *str2cstr = [str2 cString];
+    size_t i=_currentPosition,j=0, len = [string length];
+    const char *str2cstr = [string cString];
 
 
     if (len <= 1)
@@ -80,13 +77,13 @@ static NSString *AString(void)
         if (len)
             return [self scanUpToCharacter:str2cstr[0]];
         else
-            return AString();
+            return @"";
     }
     else
     {
         NSRange r = {i,0};
         NSString *tmpStr = nil;
-        const size_t tmp = size;
+        const size_t tmp = _size;
         unsigned char foundIt = NO;
 
         do
@@ -104,8 +101,8 @@ static NSString *AString(void)
 
         if (foundIt)
         {
-            tmpStr = [str substringWithRange:r];
-            curPos = i;
+            tmpStr = [_string substringWithRange:r];
+            _currentPosition = i;
         }
         return tmpStr;
     }

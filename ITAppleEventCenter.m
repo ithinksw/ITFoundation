@@ -24,7 +24,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
 - (id)init
 {
-    if (self = [super init]) {
+    if ( ( self = [super init] ) ) {
         idleUPP = NewAEIdleUPP(MyAEIdleCallback);
     }
     return self;
@@ -440,10 +440,10 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     OSStatus cerr,cerr2,err;
     //AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, nil, "");
     if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
-	    //NSLog(@"Error getting PID of application! Exiting.");
-	    return nil;
-	}
-	cerr = AECreateDesc(typeProcessSerialNumber,(ProcessSerialNumber*)&psn,sizeof(ProcessSerialNumber),&dest);
+        //NSLog(@"Error getting PID of application! Exiting.");
+	return;
+    }
+    cerr = AECreateDesc(typeProcessSerialNumber,(ProcessSerialNumber*)&psn,sizeof(ProcessSerialNumber),&dest);
     cerr2 = AECreateAppleEvent(eClass,eID,&dest,kAutoGenerateReturnID,kAnyTransactionID,&event);
 //[self printCarbonDesc:&event];
     err = AESend(&event, &reply, kAENoReply, kAENormalPriority, kAEDefaultTimeout, idleUPP, nil);

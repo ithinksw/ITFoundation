@@ -14,8 +14,5 @@
 
 #import <Cocoa/Cocoa.h>
 
-//#import <ITFoundation/ITVirtualMemoryInfo.h>
-#import <ITFoundation/ITStringScanner.h>
 #import <ITFoundation/ITAppleEventCenter.h>
-//import <ITFoundation/ITInetServerSocket.h>
-//import <ITFoundation/ITInetSocket.h>
+#import <ITFoundation/ITStringScanner.h>

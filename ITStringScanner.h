@@ -21,12 +21,12 @@
 */
 
 @interface ITStringScanner : NSObject {
-    NSString *str;
-    char *strCStr;
-    size_t curPos;
-    size_t size;
+    NSString *_string;
+    char *_cString;
+    size_t _currentPosition;
+    size_t _size;
 }
--(id)initWithString:(NSString*)str2;
--(NSString *)scanUpToCharacter:(char)c;
--(NSString *)scanUpToString:(NSString*)str;
+- (id)initWithString:(NSString*)string;
+- (NSString *)scanUpToCharacter:(char)character;
+- (NSString *)scanUpToString:(NSString*)string;
 @end
