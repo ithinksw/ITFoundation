@@ -46,6 +46,14 @@ NSAppleEventDescriptor *ITSendAEWithString(NSString *sendString, FourCharCode ev
     return recv;
 }
 
+NSAppleEventDescriptor *ITSendAEWithKey(FourCharCode reqKey, FourCharCode evClass, FourCharCode evID,const ProcessSerialNumber *psn)
+{
+}
+
+NSAppleEventDescriptor *ITSendPlainAE(FourCharCode evClass, FourCharCode evID,const ProcessSerialNumber *psn)
+{
+}
+
 @implementation NSAppleEventDescriptor (ITAELogging)
 -(void) logDesc
 {
