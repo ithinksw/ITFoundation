@@ -28,7 +28,7 @@
 -(NSData*) readDataOfLength:(int)length;
 -(NSData*) readAllData;
 -(void) writeData:(in NSData*)data;
--(void) writeBytes:(char *)b len:(long)length;
+-(void) writeBytes:(in char *)b len:(long)length;
 -(void) lockStream;
 -(void) unlockStream;
 -(void) shortenData:(long)length;

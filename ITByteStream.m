@@ -97,7 +97,7 @@
     [delegate newDataAdded:self];
 }
 
--(void) writeBytes:(char *)b len:(long)length
+-(void) writeBytes:(in char *)b len:(long)length
 {
     [lock lock];
     [data appendBytes:b length:length];
