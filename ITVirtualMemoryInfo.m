@@ -1,7 +1,7 @@
 #import "ITVirtualMemoryInfo.h"
 
 @interface ITVirtualMemoryInfo (Private)
-- (BOOL)refreshStats;
+- (BOOL)refreshStats:(struct vm_statistics *)myStat;
 @end
 
 @implementation ITVirtualMemoryInfo

@@ -1,14 +1,12 @@
 /*
  *	ITFoundation
  *	ITAppleEventCenter
- *
- *	A class for sending and recieving AppleEvent data.
- *	Who wants to mess with that Carbon shit anyway?
+ *	  A class for sending and recieving AppleEvent data.
+ *	  Who wants to mess with that Carbon shit anyway?
  *
  *	Original Author	: Joseph Spiros <joseph.spiros@ithinksw.com>
- *	Responsibility	: Joseph Spiros <joseph.spiros@ithinksw.com>
- *			: Kent Sutherland <kent.sutherland@ithinksw.com>
- *			: Matt Judy <matt.judy@ithinksw.com>
+ *   Responsibility : Matt Judy <mjudy@ithinksw.com>
+ *   Responsibility : Joseph Spiros <joseph.spiros@ithinksw.com>
  *
  *	Copyright (c) 2002 - 2003 iThink Software.
  *	All Rights Reserved

@@ -1,12 +1,11 @@
 /*
  *	ITFoundation
  *	ITStringScanner
- *
- *	A super-fast replacement for NSScanner
+ *	  A super-fast replacement for NSScanner
  *
  *	Original Author	: Alexander Strange <alexander.strange@ithinksw.com>
- *	Responsibility	: Alexander Strange <alexander.strange@ithinksw.com>
- *			: Joseph Spiros <joseph.spiros@ithinksw.com>
+ *   Responsibility : Matt Judy <mjudy@ithinksw.com>
+ *   Responsibility : Alexander Strange <alexander.strange@ithinksw.com>
  *
  *	Copyright (c) 2002 - 2003 iThink Software.
  *	All Rights Reserved
