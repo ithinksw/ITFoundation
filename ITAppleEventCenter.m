@@ -31,9 +31,9 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
 - (NSString*)sendAEWithRequestedKey:(NSString*)key eventClass:(NSString*)eventClass eventID:(NSString*)eventID appPSN:(ProcessSerialNumber)psn
 {
-    if ( (!key) || (!eventClass) || (!eventID) || (psn.highLongOfPSN == kNoProcess) ) {
+    /*if ( (!key) || (!eventClass) || (!eventID) || (psn.highLongOfPSN == kNoProcess) ) {
         return @"";
-    } else {
+    } else*/ {
     AEEventClass eClass = *((unsigned long*)[eventClass UTF8String]);
     AEEventID    eID    = *((unsigned long*)[eventID UTF8String]);
     
@@ -85,6 +85,10 @@ static ITAppleEventCenter *_sharedAECenter = nil;
         err2 = AESizeOfParam(&replyEvent, keyDirectObject, &resultType, &resultSize);
         result=malloc(resultSize);
         
+        if (resultType == typeUInt32) {
+            NSLog(@"waffles");
+        }
+        
         if (err2) { NSLog(@"Error After AESizeOfParam: %i", err2); } else {
         
         err3 = AEGetParamPtr(&replyEvent, keyDirectObject, resultType, NULL, result, resultSize, &charResultSize);
@@ -106,9 +110,9 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
 - (NSString*)sendTwoTierAEWithRequestedKey:(NSString*)key fromObjectByKey:(NSString*)object eventClass:(NSString*)eventClass eventID:(NSString*)eventID appPSN:(ProcessSerialNumber)psn
 {
-    if ( (!key) || (!object) || (!eventClass) || (!eventID) || (psn.highLongOfPSN == kNoProcess) ) {
+    /*if ( (!key) || (!object) || (!eventClass) || (!eventID) || (psn.highLongOfPSN == kNoProcess) ) {
         return @"";
-    } else {
+    } else*/ {
     AEEventClass eClass = *((unsigned long*)[eventClass UTF8String]);
     AEEventID    eID    = *((unsigned long*)[eventID UTF8String]);
     
@@ -154,7 +158,6 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     if (err) {
         NSLog(@"Send Error: %i",err);
     } else {
-
         unichar* result=0;
         
         err2 = AESizeOfParam(&replyEvent, keyDirectObject, &resultType, &resultSize);
@@ -182,9 +185,9 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
 - (void)sendAEWithEventClass:(NSString*)eventClass eventID:(NSString*)eventID appPSN:(ProcessSerialNumber)psn
 {
-    if ( (!eventClass) || (!eventID) || (psn.highLongOfPSN == kNoProcess) ) {
+    /*if ( (!eventClass) || (!eventID) || (psn.highLongOfPSN == kNoProcess) ) {
         return;
-    } else {
+    } else */{
         AEEventClass eClass = *((unsigned long*)[eventClass UTF8String]);
         AEEventID    eID    = *((unsigned long*)[eventID UTF8String]);
         AppleEvent event, reply;
