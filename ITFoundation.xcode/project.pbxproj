@@ -460,6 +460,9 @@
 			fileRef = 37B1C5740612599000F99008;
 			isa = PBXBuildFile;
 			settings = {
+				ATTRIBUTES = (
+					Public,
+				);
 			};
 		};
 		37B1C5790612599000F99008 = {
@@ -472,6 +475,9 @@
 			fileRef = 37B1C5760612599000F99008;
 			isa = PBXBuildFile;
 			settings = {
+				ATTRIBUTES = (
+					Public,
+				);
 			};
 		};
 		37B9B08005C1C47E00702FDB = {
