@@ -20,7 +20,7 @@
     ComponentInstance _componentInstance;
     NSDictionary *_information;
 }
-+ (ITOSAComponent *)AppleScriptComponent;
++ (ITOSAComponent *)appleScriptComponent;
 + (ITOSAComponent *)componentWithCarbonComponent:(Component)component;
 + (NSArray *)availableComponents;
 

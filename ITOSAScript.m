@@ -21,23 +21,18 @@ Script Subtypes:
 #import "ITOSAScript.h"
 #import "ITOSAComponent.h"
 
+#warning To do - Error Dictionaries
+
 @implementation ITOSAScript
 
 - (id)init
 {
-    if ( (self = [super init]) ) {
-        _source = nil;
-    }
-    return self;
+    return nil; // initWithSource: is the designated initializer for this class
 }
 
 - (id)initWithContentsOfFile:(NSString *)path
 {
-    if ( (self = [super init]) ) {
-        _source = [[NSString alloc] initWithContentsOfFile:path];
-        _scriptID = kOSANullScript;
-    }
-    return self;
+    return [self initWithSource:[[[NSString alloc] initWithContentsOfFile:path] autorelease]];
 }
 
 - (id)initWithSource:(NSString *)source
@@ -95,17 +90,16 @@ Script Subtypes:
     return (_scriptID != kOSANullScript);
 }
 
-- (NSString *)executeAndReturnError:(NSDictionary **)errorInfo
+- (NSAppleEventDescriptor *)executeAndReturnError:(NSDictionary **)errorInfo
 {
     if ([_component componentInstance] == nil) {
         //Set the error dictionary
         return nil;
     }
     
+    NSAppleEventDescriptor *cocoaDesc;
+    
     AEDesc scriptDesc, resultDesc;
-    Size length;
-    NSString *result;
-    Ptr buffer;
     OSAID resultID = kOSANullScript;
     
     //If not compiled, compile it
@@ -118,27 +112,15 @@ Script Subtypes:
     
     OSAExecute([_component componentInstance], _scriptID, kOSANullScript, kOSANullMode, &resultID);
     
-    OSADisplay([_component componentInstance], resultID, typeChar, kOSAModeDisplayForHumans, &resultDesc);
+    OSACoerceToDesc([_component componentInstance], resultID, typeWildCard, kOSAModeNull, &resultDesc); // Using this instead of OSADisplay, as we don't care about human readability, but rather, the integrity of the data.
     
-    length = AEGetDescDataSize(&resultDesc);
-    buffer = malloc(length);
+    cocoaDesc = [[NSAppleEventDescriptor alloc] initWithAEDescNoCopy:&resultDesc];
     
-    AEGetDescData(&resultDesc, buffer, length);
     AEDisposeDesc(&scriptDesc);
-    AEDisposeDesc(&resultDesc);
-    result = [NSString stringWithCString:buffer length:length];
-    if (![result isEqualToString:@""] &&
-        ([result characterAtIndex:0] == '\"') &&
-        ([result characterAtIndex:[result length] - 1] == '\"'))
-    {
-        result = [result substringWithRange:NSMakeRange(1, [result length] - 2)];
-    }
-    free(buffer);
-    buffer = NULL;
     
     OSADispose([_component componentInstance], resultID);
     
-    return result;
+    return cocoaDesc;
 }
 
 @end

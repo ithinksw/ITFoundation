@@ -14,9 +14,11 @@
 
 #import "ITOSAComponent.h"
 
+#warning Need to add a constant data store containing all available component instances... could be lazy and build it on class +load.
+
 @implementation ITOSAComponent
 
-+ (ITOSAComponent *)AppleScriptComponent
++ (ITOSAComponent *)appleScriptComponent
 {
     return [[[ITOSAComponent alloc] initWithSubtype:kAppleScriptSubtype] autorelease];
 }

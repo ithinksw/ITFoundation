@@ -27,11 +27,13 @@
 - (id)initWithSource:(NSString *)source;
 
 - (NSString *)source;
+
 - (ITOSAComponent *)component;
 - (void)setComponent:(ITOSAComponent *)newComponent;
 
 - (BOOL)compileAndReturnError:(NSDictionary **)errorInfo;
 - (BOOL)isCompiled;
-- (NSString *)executeAndReturnError:(NSDictionary **)errorInfo;
+
+- (NSAppleEventDescriptor *)executeAndReturnError:(NSDictionary **)errorInfo;
 
 @end
