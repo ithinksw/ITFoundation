@@ -10,26 +10,33 @@
 #import "ITLoginItem.h"
 #import "ITDebug.h"
 
-BOOL ITSetLaunchApplicationOnLogin(NSString *path, BOOL flag)
+void ITSetApplicationLaunchOnLogin(NSString *path, BOOL flag)
 {
+    if ( (flag && ITDoesApplicationLaunchOnLogin(path)) || ![[NSFileManager defaultManager] fileExistsAtPath:path] ) {
+        return;
+    }
     NSUserDefaults *df = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary *loginwindow;
     NSMutableArray *loginarray;
-    FSRef fileRef;
-    AliasHandle alias;
-    NSData *aliasData;
     
-    ITDebugLog(@"Set if MenuPrefs launches at login to %i.", flag);
+    ITDebugLog(@"Set if \"%@\" launches at login to %i.", path, flag);
     [df synchronize];
     loginwindow = [[df persistentDomainForName:@"loginwindow"] mutableCopy];
     loginarray = [loginwindow objectForKey:@"AutoLaunchedApplicationDictionary"];
     
-    //Create the alias data
-    FSPathMakeRef([path UTF8String], &fileRef, NULL);
-    FSNewAlias(NULL, &fileRef, &alias);
-    aliasData = [NSData dataWithBytes:&alias length:sizeof(alias)];
-    
     if (flag) {
+        FSRef fileRef;
+        AliasHandle alias;
+        NSData *aliasData;
+        FSPathMakeRef([path UTF8String], &fileRef, NULL);
+        FSNewAlias(NULL, &fileRef, &alias);
+        aliasData = [NSData dataWithBytes:&alias length:GetHandleSize((Handle)alias)];
+        
+        if (!loginarray) { //If there is no loginarray of autolaunch items, create one
+            loginarray = [[[NSMutableArray alloc] init] autorelease];
+            [loginwindow setObject:loginarray forKey:@"AutoLaunchedApplicationDictionary"];
+        }
+        
         NSDictionary *itemDict = [NSDictionary dictionaryWithObjectsAndKeys:
         [[NSBundle mainBundle] bundlePath], @"Path",
         [NSNumber numberWithInt:0], @"Hide",
@@ -39,7 +46,7 @@ BOOL ITSetLaunchApplicationOnLogin(NSString *path, BOOL flag)
         int i;
         for (i = 0; i < [loginarray count]; i++) {
             NSDictionary *tempDict = [loginarray objectAtIndex:i];
-            if ([[[tempDict objectForKey:@"Path"] lastPathComponent] isEqualToString:[[[NSBundle mainBundle] bundlePath] lastPathComponent]]) {
+            if ([[[tempDict objectForKey:@"Path"] lastPathComponent] isEqualToString:[path lastPathComponent]]) {
                 [loginarray removeObjectAtIndex:i];
                 break;
             }
@@ -48,5 +55,25 @@ BOOL ITSetLaunchApplicationOnLogin(NSString *path, BOOL flag)
     [df setPersistentDomain:loginwindow forName:@"loginwindow"];
     [df synchronize];
     [loginwindow release];
-    return YES;
+}
+
+BOOL ITDoesApplicationLaunchOnLogin(NSString *path)
+{
+    NSUserDefaults *df = [NSUserDefaults standardUserDefaults];
+    NSDictionary *loginwindow;
+    NSMutableArray *loginarray;
+    NSEnumerator *loginEnum;
+    id anItem;
+    ITDebugLog(@"Checking if \"%@\" launches at login.", path);
+    [df synchronize];
+    loginwindow = [df persistentDomainForName:@"loginwindow"];
+    loginarray = [loginwindow objectForKey:@"AutoLaunchedApplicationDictionary"];
+
+    loginEnum = [loginarray objectEnumerator];
+    while ( (anItem = [loginEnum nextObject]) ) {
+        if ( [[[anItem objectForKey:@"Path"] lastPathComponent] isEqualToString:[path lastPathComponent]] ) {
+            return YES;
+        }
+    }
+    return NO;
 }

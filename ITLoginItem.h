@@ -11,3 +11,6 @@
 #import <Foundation/Foundation.h>
 #import <CoreServices/CoreServices.h>
 
+//These functions check for a match with just the lastPathComponent, so it will handle people moving the app
+void ITSetApplicationLaunchOnLogin(NSString *path, BOOL flag);
+BOOL ITDoesApplicationLaunchOnLogin(NSString *path); 
