@@ -11,6 +11,8 @@
 #import <Carbon/Carbon.h>
 
 extern NSAppleEventDescriptor *ITSendAEWithString(NSString *sendString, FourCharCode evClass, FourCharCode evID,const ProcessSerialNumber *psn);
+extern NSAppleEventDescriptor *ITSendAEWithKey(FourCharCode reqKey, FourCharCode evClass, FourCharCode evID,const ProcessSerialNumber *psn);
+extern NSAppleEventDescriptor *ITSendPlainAE(FourCharCode eClass, FourCharCode eID,const ProcessSerialNumber *psn);
 
 @interface NSAppleEventDescriptor (ITAELogging)
 -(void) logDesc;
