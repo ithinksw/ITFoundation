@@ -40,7 +40,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     //Add error checking...
     AEEventClass eClass = *((unsigned long*)[eventClass UTF8String]);
     AEEventID	 eID    = *((unsigned long*)[eventID UTF8String]);
-
+    int pid;
     NSString *nssendString = [NSString stringWithFormat:@"'----':obj { form:'prop', want:type('prop'), seld:type('%s'), from:'null'() }", [key UTF8String]];
     const char *sendString = [nssendString UTF8String];
     NSString  *_finalString = nil;
@@ -106,6 +106,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     //Add error checking...
     AEEventClass eClass = *((unsigned long*)[eventClass UTF8String]);
     AEEventID	 eID    = *((unsigned long*)[eventID UTF8String]);
+    int pid;
 
     const char *sendString = [nssendString UTF8String];
     NSString  *_finalString = nil;
@@ -171,6 +172,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     //Add error checking...
     AEEventClass eClass = *((unsigned long*)[eventClass UTF8String]);
     AEEventID    eID    = *((unsigned long*)[eventID UTF8String]);
+    int pid;
 
     NSString *nssendString = [NSString stringWithFormat:@"'----':obj { form:'prop', want:type('prop'), seld:type('%s'), from:'null'() }", [key UTF8String]];
     const char *sendString = [nssendString UTF8String];
@@ -231,6 +233,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     //Add error checking...
     AEEventClass eClass = *((unsigned long*)[eventClass UTF8String]);
     AEEventID    eID    = *((unsigned long*)[eventID UTF8String]);
+    int pid;
 
     NSString *nssendString = [NSString stringWithFormat:@"'----':obj { form:'prop', want:type('prop'), seld:type('%s'), from:obj { form:'prop', want:type('prop'), seld:type('%s'), from:'null'() } }", [key UTF8String], [object UTF8String]];
     const char *sendString = [nssendString UTF8String];
@@ -303,6 +306,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     long result = 0;
 
     AppleEvent sendEvent, replyEvent;
+    int pid;
 
     DescType resultType;
     Size resultSize, charResultSize;
@@ -358,6 +362,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     const char *sendString;
     int i;
     NSString  *_finalString = nil;
+    int pid;
 
     AEEventClass eClass = *((unsigned long*)[eventClass UTF8String]);
     AEEventID    eID    = *((unsigned long*)[eventID UTF8String]);
@@ -427,6 +432,8 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     AEEventClass eClass = *((unsigned long*)[eventClass UTF8String]);
     AEEventID    eID    = *((unsigned long*)[eventID UTF8String]);
     AEDesc dest;
+    int pid;
+
     AppleEvent event, reply;
 
     //AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, nil, "");
@@ -461,6 +468,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     NSString *nssendString = [NSString stringWithFormat:@"'----':obj { form:'indx', want:'%s', seld:abso($616C6C20$), from:'null'() }", [key UTF8String]];
     const char *sendString = [nssendString UTF8String];
     AEArrayDataPointer result = nil;
+    int pid;
 
     AppleEvent sendEvent, replyEvent;
 
@@ -512,6 +520,7 @@ if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
 
     const char *sendString = [string UTF8String];
     SInt32 result = 0;
+    int pid;
 
     AppleEvent sendEvent, replyEvent;
 
@@ -569,6 +578,7 @@ return result;
     //Add error checking...
     AEEventClass eClass = *((unsigned long*)[eventClass UTF8String]);
     AEEventID    eID    = *((unsigned long*)[eventID UTF8String]);
+    int pid;
 
     const char *sendString = [string UTF8String];
     AEArrayDataPointer result = NULL;
