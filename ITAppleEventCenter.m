@@ -67,7 +67,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
         ITDebugLog(@"Error: %d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
     }
 
-    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
+    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, /*kAEDefaultTimeout*/30, idleUPP, NULL);
 
     [self printCarbonDesc:&replyEvent];
 
@@ -134,7 +134,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
         ITDebugLog(@"Error: %d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
     }
 
-    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
+    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, /*kAEDefaultTimeout*/30, idleUPP, NULL);
     if (!err) [self printCarbonDesc:&replyEvent];
 
     if (err) {
@@ -202,7 +202,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
         ITDebugLog(@"Error: %d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
     }
 
-    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
+    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, /*kAEDefaultTimeout*/30, idleUPP, NULL);
 
     [self printCarbonDesc:&replyEvent];
 
@@ -260,7 +260,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
         ITDebugLog(@"Error: %d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
     }
 
-    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
+    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, /*kAEDefaultTimeout*/30, idleUPP, NULL);
 
     [self printCarbonDesc:&replyEvent];
 
@@ -328,7 +328,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
         ITDebugLog(@"Error: %d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
     }
 
-    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
+    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, /*kAEDefaultTimeout*/30, idleUPP, NULL);
 
     [self printCarbonDesc:&replyEvent];
 
@@ -395,7 +395,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
         ITDebugLog(@"Error: %d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[buildString substringToIndex:buildError.fErrorPos]);
     }
 
-    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
+    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, /*kAEDefaultTimeout*/30, idleUPP, NULL);
 
     [self printCarbonDesc:&replyEvent];
 
@@ -444,7 +444,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     cerr = AECreateDesc(typeProcessSerialNumber,(ProcessSerialNumber*)&psn,sizeof(ProcessSerialNumber),&dest);
     cerr2 = AECreateAppleEvent(eClass,eID,&dest,kAutoGenerateReturnID,kAnyTransactionID,&event);
     [self printCarbonDesc:&event];
-    err = AESend(&event, &reply, kAENoReply, kAENormalPriority, kAEDefaultTimeout, idleUPP, nil);
+    err = AESend(&event, &reply, kAENoReply, kAENormalPriority, /*kAEDefaultTimeout*/30, idleUPP, nil);
     [self printCarbonDesc:&reply];
     if (!cerr2) AEDisposeDesc(&dest);
     if (!cerr) AEDisposeDesc(&event);
@@ -488,7 +488,7 @@ if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
     }
 
 
-    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
+    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, /*kAEDefaultTimeout*/30, idleUPP, NULL);
 
     [self printCarbonDesc:&replyEvent];
 
@@ -546,7 +546,7 @@ if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
         ITDebugLog(@"Error: %d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[string substringToIndex:buildError.fErrorPos]);
     }
 
-    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
+    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, /*kAEDefaultTimeout*/30, idleUPP, NULL);
 
     [self printCarbonDesc:&replyEvent];
 
@@ -601,7 +601,7 @@ return result;
         ITDebugLog(@"Error: %d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[string substringToIndex:buildError.fErrorPos]);
     }
 
-    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
+    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, /*kAEDefaultTimeout*/30, idleUPP, NULL);
 
     [self printCarbonDesc:&replyEvent];
 
@@ -658,7 +658,7 @@ return result;
         ITDebugLog(@"Error: %d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
     }
     
-    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
+    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, /*kAEDefaultTimeout*/30, idleUPP, NULL);
     if (!err) [self printCarbonDesc:&replyEvent];
     
     if (err) {

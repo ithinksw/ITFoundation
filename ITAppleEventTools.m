@@ -39,7 +39,7 @@ NSAppleEventDescriptor *ITSendAEWithString(NSString *sendString, FourCharCode ev
         ITDebugLog(@"Error: %d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[sendString substringToIndex:buildError.fErrorPos]);
     }
     
-    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kAEDefaultTimeout, NULL, NULL);
+    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, /*kAEDefaultTimeout*/30, NULL, NULL);
     
     err = AESizeOfParam(&replyEvent, keyDirectObject, &resultType, &resultSize);
     if (resultSize == 0 || err != 0) {
@@ -86,7 +86,7 @@ NSAppleEventDescriptor *ITSendAEWithStringAndObject(NSString *sendString, const 
         ITDebugLog(@"Error: %d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[sendString substringToIndex:buildError.fErrorPos]);
     }
     err = AEPutParamDesc(&sendEvent, keyDirectObject, object);
-    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kAEDefaultTimeout, NULL, NULL);
+    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, /*kAEDefaultTimeout*/30, NULL, NULL);
     
     err = AESizeOfParam(&replyEvent, keyDirectObject, &resultType, &resultSize);
     if (resultSize == 0 || err != 0) {
@@ -106,7 +106,52 @@ NSAppleEventDescriptor *ITSendAEWithStringAndObject(NSString *sendString, const 
 
 NSAppleEventDescriptor *ITSendAEWithKey(FourCharCode reqKey, FourCharCode evClass, FourCharCode evID,const ProcessSerialNumber *psn)
 {
-    return nil;
+    //Add error checking...
+    pid_t pid;
+    
+	unsigned char *chr = (unsigned char *)malloc(4*sizeof(unsigned char));
+	memcpy(chr, &reqKey, 4);
+	NSString *sendString = [NSString stringWithFormat:@"'----':obj { form:'prop', want:type('prop'), seld:type('%s'), from:'null'() }", chr];
+    const char *usendString = [sendString UTF8String];
+    
+    AppleEvent sendEvent, replyEvent;
+    NSAppleEventDescriptor *send, *recv;
+    AEDesc resultDesc;
+    DescType resultType;
+    Size resultSize;
+    
+    AEBuildError buildError;
+    OSStatus berr,err;
+    
+    if ((GetProcessPID(psn, &pid) == noErr) && (pid == 0)) {
+	ITDebugLog(@"Error getting PID of application.");
+	return nil;
+    }
+    
+    berr = AEBuildAppleEvent(evClass, evID, typeProcessSerialNumber,psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, usendString);
+    send = [[[NSAppleEventDescriptor alloc] initWithAEDescNoCopy:&sendEvent] autorelease];
+    if (!berr) [send logDesc];
+    
+    if (berr) {
+        ITDebugLog(@"Error: %d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[sendString substringToIndex:buildError.fErrorPos]);
+    }
+    
+    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, /*kAEDefaultTimeout*/30, NULL, NULL);
+    
+    err = AESizeOfParam(&replyEvent, keyDirectObject, &resultType, &resultSize);
+    if (resultSize == 0 || err != 0) {
+        return nil;
+    }
+    
+    AEGetParamDesc(&replyEvent, keyDirectObject, resultType, &resultDesc);
+    
+    recv = [[[NSAppleEventDescriptor alloc] initWithAEDescNoCopy:&resultDesc] autorelease];
+    if (!err) [recv logDesc];
+    
+    if (err) {
+        ITDebugLog(@"Send Error: %i",err);
+    }
+    return recv;
 }
 
 NSAppleEventDescriptor *ITSendAE(FourCharCode eClass, FourCharCode eID,const ProcessSerialNumber *psn)
@@ -126,7 +171,7 @@ NSAppleEventDescriptor *ITSendAE(FourCharCode eClass, FourCharCode eID,const Pro
     cerr2 = AECreateAppleEvent(eClass,eID,&dest,kAutoGenerateReturnID,kAnyTransactionID,&event);
     nse = [[[NSAppleEventDescriptor alloc] initWithAEDescNoCopy:&event] autorelease];
     if (!cerr2) [nse logDesc];
-    err = AESend(&event, &reply, kAENoReply, kAENormalPriority, kAEDefaultTimeout, NULL, NULL);
+    err = AESend(&event, &reply, kAENoReply, kAENormalPriority, /*kAEDefaultTimeout*/30, NULL, NULL);
     nsr = [[[NSAppleEventDescriptor alloc] initWithAEDescNoCopy:&reply] autorelease];
     [nsr logDesc];
     return nsr;
