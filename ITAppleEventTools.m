@@ -112,7 +112,8 @@ NSAppleEventDescriptor *ITSendAEWithKey(FourCharCode reqKey, FourCharCode evClas
 	unsigned char *chr = (unsigned char *)malloc(4*sizeof(unsigned char));
 	memcpy(chr, &reqKey, 4);
 	NSString *sendString = [NSString stringWithFormat:@"'----':obj { form:'prop', want:type('prop'), seld:type('%s'), from:'null'() }", chr];
-    const char *usendString = [sendString UTF8String];
+	free(chr);
+	const char *usendString = [sendString UTF8String];
     
     AppleEvent sendEvent, replyEvent;
     NSAppleEventDescriptor *send, *recv;
