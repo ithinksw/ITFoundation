@@ -1,5 +1,4 @@
-#import "ITXMLParser.m"
-#import "ITXMLNode.m"
+#import "ITXMLParser.h"
 
 @implementation ITXMLParser
 
@@ -15,7 +14,7 @@
 {
     if ( (self = [super init]) ) {
         _source = [aString copy];
-        _XMLPathSeparator = @"/"
+        _XMLPathSeparator = @"/";
     }
 }
 

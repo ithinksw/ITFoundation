@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
-
-@class ITXMLNode;
+#import "ITXMLNode.h"
 
 @interface ITXMLParser : NSObject
 {
