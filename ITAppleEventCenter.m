@@ -464,7 +464,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     AEEventClass eClass = *((unsigned long*)[eventClass UTF8String]);
     AEEventID	 eID    = *((unsigned long*)[eventID UTF8String]);
 
-    NSString *nssendString = [NSString stringWithFormat:@"'----':obj { form:'indx', want:'%s', seld:abso($616C6C20$), from:'null'() }", [key UTF8String]];
+    NSString *nssendString = [NSString stringWithFormat:@"'----':obj { form:'indx', want:'%s', seld:type('all '), from:'null'() }", [key UTF8String]];
     const char *sendString = [nssendString UTF8String];
     AEArrayDataPointer result = nil;
     int pid;

@@ -22,3 +22,4 @@
 #import <ITFoundation/ITCategory-NSArray.h>
 
 #import <ITFoundation/ITCarbonSupport.h>
+#import <ITFoundation/ITAppleEventTools.h>

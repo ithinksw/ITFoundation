@@ -87,6 +87,8 @@
 				089C1665FE841158C02AAC07,
 				0867D69AFE84028FC02AAC07,
 				034768DFFF38A50411DB9C8B,
+				3D97138805D9FD6B0033607F,
+				3D97138905D9FD6B0033607F,
 			);
 			isa = PBXGroup;
 			name = ITFoundation;
@@ -405,6 +407,67 @@
 			settings = {
 			};
 		};
+		3D97137B05D9FB7C0033607F = {
+			fileRef = 7CA50B80054E786E0074E1D9;
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					Public,
+				);
+			};
+		};
+		3D97137C05D9FB7C0033607F = {
+			fileRef = 7CA50B7F054E786E0074E1D9;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		3D97137F05D9FBF40033607F = {
+			fileRef = 7CA50B8C054E787D0074E1D9;
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					Public,
+				);
+			};
+		};
+		3D97138105D9FBFA0033607F = {
+			fileRef = 7CA50B8B054E787D0074E1D9;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		3D97138805D9FD6B0033607F = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.h;
+			path = ITAppleEventTools.h;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		3D97138905D9FD6B0033607F = {
+			explicitFileType = sourcecode.c.objc;
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			path = ITAppleEventTools.m;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		3D97138A05D9FD6B0033607F = {
+			fileRef = 3D97138805D9FD6B0033607F;
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					Public,
+				);
+			};
+		};
+		3D97138B05D9FD6B0033607F = {
+			fileRef = 3D97138905D9FD6B0033607F;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
 //3D0
 //3D1
 //3D2
@@ -694,6 +757,9 @@
 				7CF6C930057D65B0007FEC13,
 				7CF6C938057D65BA007FEC13,
 				7C97DC2E05B614300013E85F,
+				3D97137B05D9FB7C0033607F,
+				3D97137F05D9FBF40033607F,
+				3D97138A05D9FD6B0033607F,
 			);
 			isa = PBXHeadersBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -730,6 +796,9 @@
 				7C97DC2F05B614300013E85F,
 				370786C305C0B4D700E6D1BA,
 				37B9B08305C1C47E00702FDB,
+				3D97137C05D9FB7C0033607F,
+				3D97138105D9FBFA0033607F,
+				3D97138B05D9FD6B0033607F,
 			);
 			isa = PBXSourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
