@@ -19,6 +19,7 @@ NSAppleEventDescriptor *ITSendAEWithString(NSString *sendString, FourCharCode ev
     
     AppleEvent sendEvent, replyEvent;
     NSAppleEventDescriptor *send, *recv;
+    AEDesc nthDesc;
     
     AEBuildError buildError;
     OSStatus berr,err;
@@ -37,7 +38,11 @@ NSAppleEventDescriptor *ITSendAEWithString(NSString *sendString, FourCharCode ev
     }
     
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, NULL, NULL);
-    recv = [[[NSAppleEventDescriptor alloc] initWithAEDescNoCopy:&replyEvent] autorelease];
+    
+    err = AEGetNthDesc(&replyEvent, 1, typeWildCard, nil, &nthDesc);
+    if (!err) ITDebugLog(@"Error getting Nth desc.");
+    
+    recv = [[[NSAppleEventDescriptor alloc] initWithAEDescNoCopy:&nthDesc] autorelease];
     if (!err) [recv logDesc];
     
     if (err) {
