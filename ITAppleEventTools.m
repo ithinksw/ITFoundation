@@ -28,7 +28,7 @@ NSAppleEventDescriptor *ITSendAEWithString(NSString *sendString, FourCharCode ev
 	return nil;
     }
     
-    berr = AEBuildAppleEvent(evClass, evID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, usendString);
+    berr = AEBuildAppleEvent(evClass, evID, typeProcessSerialNumber,psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, usendString);
     send = [[[NSAppleEventDescriptor alloc] initWithAEDescNoCopy:&sendEvent] autorelease];
     if (!berr) [send logDesc];
     
@@ -63,7 +63,7 @@ NSAppleEventDescriptor *ITSendAE(FourCharCode eClass, FourCharCode eID,const Pro
         ITDebugLog(@"Error getting PID of application.");
 	return nil;
     }
-    cerr = AECreateDesc(typeProcessSerialNumber,(ProcessSerialNumber*)&psn,sizeof(ProcessSerialNumber),&dest);
+    cerr = AECreateDesc(typeProcessSerialNumber,psn,sizeof(ProcessSerialNumber),&dest);
     nsd = [[[NSAppleEventDescriptor alloc] initWithAEDescNoCopy:&dest] autorelease];
     cerr2 = AECreateAppleEvent(eClass,eID,&dest,kAutoGenerateReturnID,kAnyTransactionID,&event);
     nse = [[[NSAppleEventDescriptor alloc] initWithAEDescNoCopy:&event] autorelease];
