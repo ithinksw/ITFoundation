@@ -7,10 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ITByteStream.h"
+#import "ArrayQueue.h"
 
-
-@interface ITChunkedByteStream : NSObject {
-
+@interface ITChunkedByteStream : NSObject <Delegater> {
+    @public
+    ArrayQueue *q;
+    @private
+    NSLock *lock;
+    id delegate;
 }
-
+-(BOOL)empty;
+-(NSData*) readData;
+-(oneway void) writeData:(in NSData*)data;
+-(oneway void) writeBytesNoCopy:(in char *)b len:(unsigned long)length;
+-(oneway void) writeBytes:(in char *)b len:(unsigned long)length;
 @end

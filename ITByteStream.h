@@ -7,23 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ITConveniences.h"
 
 @class ITByteStream;
 
-@protocol ITByteStreamDelegate <NSObject>
--(oneway void)newDataAdded:(ITByteStream *)sender;
-@end
-
-@interface ITByteStream : NSObject {
+@interface ITByteStream : NSObject <Delegater> {
     @public
     NSMutableData *data;
     @private
     NSLock *lock;
-    id <ITByteStreamDelegate> delegate;
+    id <DataReciever> delegate;
 }
--(id) initWithStream:(ITByteStream*)stream delegate:(id <ITByteStreamDelegate>)d;
--(id) initWithDelegate:(id <ITByteStreamDelegate>)d;
--(void) setDelegate:(id <ITByteStreamDelegate>)d;
+-(id) initWithStream:(ITByteStream*)stream delegate:(id <DataReciever>)d;
 -(int) availableDataLength;
 -(NSData*) readDataOfLength:(int)length;
 -(NSData*) readAllData;

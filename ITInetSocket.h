@@ -54,7 +54,7 @@ typedef enum {
  * @abstract Delegate methods for ITInetSocket
  * @discussion ITInetSockets use these methods to communicate with their delegates
  */
-@protocol ITInetSocketDelegate <ITByteStreamDelegate>
+@protocol ITInetSocketDelegate <DataReciever>
 /*!
  * @method errorOccured:during:onSocket:
  * @abstract Alerts the delegate of an error condition.
@@ -78,7 +78,7 @@ typedef enum {
  * @abstract An Internet socket class.
  * @discussion ITInetSocket is an Internet socket class supporting IPv6 and Rendezvous.
  */
-@interface ITInetSocket : NSObject <ITByteStreamDelegate> {
+@interface ITInetSocket : NSObject <DataReciever> {
     int sockfd;
     int port;
     int nc;

@@ -53,10 +53,12 @@
     [super dealloc];
 }
 
--(void) setDelegate:(id <ITByteStreamDelegate>)d
+-setDelegate:(id <DataReciever>)d
 {
+    id old = delegate;
     [delegate release];
     delegate = [d retain];
+    return old;
 }
 
 -(int) availableDataLength
