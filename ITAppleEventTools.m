@@ -51,7 +51,7 @@ NSAppleEventDescriptor *ITSendAEWithKey(FourCharCode reqKey, FourCharCode evClas
     return nil;
 }
 
-NSAppleEventDescriptor *ITSendPlainAE(FourCharCode eClass, FourCharCode eID,const ProcessSerialNumber *psn)
+NSAppleEventDescriptor *ITSendAE(FourCharCode eClass, FourCharCode eID,const ProcessSerialNumber *psn)
 {
     AEDesc dest;
     int pid;
