@@ -17,6 +17,7 @@
 @interface ITInetServerSocket : NSObject {
     @private
     int sockfd;
+    volatile int dieflag;
     NSMutableSet *clients;
     NSNetService *service;
     id delegate;

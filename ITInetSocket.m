@@ -114,6 +114,8 @@
 		  a->ai_next = malloc(sizeof(struct addrinfo));
 		  a = a->ai_next;
 	   }
+	   ai_cur = ai;
+	   [self realDoConnection];
 	   }
 }
 
@@ -121,7 +123,6 @@
 {
     NSLog(@"Got a disconnect");
     dieflag = 1;
-    do {} while (dieflag == 1);
 }
 
 -(void)retryConnection
@@ -154,6 +155,7 @@
 {
     NSLog(@"writePipe got something");
     actionflag = 1;
+    do {} while (actionflag == 1);
     NSLog(@"thread saw actionFlag");
 }
 @end
@@ -193,7 +195,7 @@
     struct addrinfo hints;
 	   int err;
 	   const char *portNam = [namedPort cString], *hostCStr = [host cString];
-
+	   state = ITInetSocketConnecting;
 	   hints.ai_flags = 0;
 	   hints.ai_family = PF_UNSPEC;
 	   hints.ai_socktype = SOCK_STREAM;
@@ -246,11 +248,11 @@
     NSLog(@"Sending finishedConnecting");
     [(id)dp finishedConnecting:self];
 lstart:
-
+	   state = ITInetSocketListening;
 	   while (!actionflag && !dieflag)
 	   {
-		  NSData *d;
 		  readLen = recv(sockfd,buf,bufs,0);
+		  state = ITInetSocketReading;
 		  if (readLen == -1) {[(id)dp errorOccured:ITInetConnectionDropped during:ITInetSocketReading onSocket:self];goto dieaction;}
 		  if (readLen) {
 			 NSLog(@"recv'd");
@@ -260,12 +262,13 @@ lstart:
 			 ap = [[NSAutoreleasePool alloc] init];
 		  }
 	   }
-
+	   state = ITInetSocketListening;
     actionflag = 0;
 
     if (dieflag)
 	   {
 dieaction:
+	   state = ITInetSocketDisconnected;
 	   perror("Awh");
 	   free(buf);
 	   shutdown(sockfd,2);
@@ -277,6 +280,7 @@ dieaction:
 	   }
 
     {
+	   state = ITInetSocketWriting;
 	   NSLog(@"Emptying writePipe");
 	   NSData *d = [writePipe readAllData];
 	   write(sockfd,[d bytes],[d length]);

@@ -28,10 +28,10 @@ static NSMutableSet *servsockets;
 -(void)stopConnection;
 -(void)setupRendezvousAdvertising;
 -(void)stopRendezvousAdvertising;
--(void)setupTimer;
--(void)stopTimer;
-+(void)globalTimerFunc:(NSTimer*)timer;
--(void)timerFunc:(NSTimer*)timer;
+-(void)setupThread;
+-(void)stopThread;
+-(void)newClient:(int)cfd;
+-(void)socketAcceptLoop:(id)data;
 @end
 
 @implementation ITInetServerSocket
@@ -50,6 +50,7 @@ static NSMutableSet *servsockets;
 	   clients = [[NSMutableSet alloc] init];
 	   service = nil;
 	   port = 0;
+	   dieflag = 0;
 	   rndType = rndName = nil;
 	   timer = nil;
 	   }
@@ -65,6 +66,7 @@ static NSMutableSet *servsockets;
 	   clients = [[NSMutableSet alloc] init];
 	   service = nil;
 	   port = 0;
+	   dieflag = 0;
 	   rndType = rndName = nil;
 	   timer = nil;
 	   }
@@ -147,19 +149,9 @@ static NSMutableSet *servsockets;
 -(short)lookupPortForServiceType:(NSString*)name
 {
     const char *_name = [name cString];
-    struct addrinfo hints,*res;
+    struct addrinfo *res;
     short p;
-
-    hints.ai_flags = AI_PASSIVE;
-    hints.ai_family = PF_INET;
-    hints.ai_socktype = SOCK_STREAM;
-    hints.ai_protocol = IPPROTO_TCP;
-    hints.ai_addrlen = 0;
-    hints.ai_canonname = NULL;
-    hints.ai_addr = NULL;
-    hints.ai_next = NULL;
-
-    getaddrinfo(NULL,_name,&hints,&res);
+    getaddrinfo(NULL,_name,NULL,&res);
     p = ntohs(((struct sockaddr_in *)res->ai_addr)->sin_port);
     freeaddrinfo(res);
     return p;
@@ -167,17 +159,19 @@ static NSMutableSet *servsockets;
 
 -(void)setupConnection
 {
-    struct sockaddr_in sa;
-
-    sockfd = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
-    sa.sin_addr.s_addr = INADDR_ANY;
-    sa.sin_family = AF_INET;
-    sa.sin_port = htons(port);
-    bind(sockfd,(struct sockaddr *)&sa,sizeof(sa));
+    struct addrinfo hints, *ai;
+    hints.ai_flags = AI_PASSIVE;
+    hints.ai_family = PF_INET6;
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_protocol = IPPROTO_TCP;
+    hints.ai_addrlen = 0;
+    hints.ai_canonname = hints.ai_addr = hints.ai_next = NULL;
+    getaddrinfo(NULL,[[[NSNumber numberWithShort:port] stringValue] cString],&hints,&ai);
+    bind(sockfd,ai->ai_addr,ai->ai_addrlen);
     listen(sockfd, SOMAXCONN);
-    fcntl(sockfd,F_SETFL,O_NONBLOCK);
+    freeaddrinfo(ai);
     [self setupRendezvousAdvertising];
-    [self setupTimer];
+    [self setupThread];
 }
 
 - (void)stopConnection
@@ -202,41 +196,40 @@ static NSMutableSet *servsockets;
     service = nil;
 }
 
-- (void)setupTimer
+- (void)setupThread
 {
-    if (!timer) timer = [NSTimer timerWithTimeInterval:0 target:self selector:@selector(timerFunc:) userInfo:nil repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+    NSPort *p1 = [NSPort port], *p2 = [NSPort port];
+    NSConnection *dcon = [[NSConnection alloc] initWithReceivePort:p1 sendPort:p2];
+    NSArray *par = [NSArray arrayWithObjects:p2,p1,nil];
+    [dcon setRootObject:self];
+    [NSThread detachNewThreadSelector:@selector(socketAcceptLoop:) toTarget:self withObject:par]; 
 }
 
-- (void)stopTimer
+- (void)stopThread
 {
-    [timer invalidate];
-    [timer release];
-    timer = nil;
+    dieflag = 1;
 }
 
-+ (void)globalTimerFunc:(NSTimer*)timer
+- (void)newClient:(int)cfd
 {
-    [servsockets makeObjectsPerformSelector:@selector(timerFunc)];
+    ITInetSocket *csocket = [[ITInetSocket alloc] initWithFD:cfd delegate:delegate];
+    [clients addObject:csocket];
 }
 
-- (void)timerFunc:(NSTimer*)timer
+- (void)socketAcceptLoop:(id)data
 {
-    if (sockfd != -1)
+    NSAutoreleasePool *ap = [[NSAutoreleasePool alloc] init];
+    NSArray *par = data;
+    NSConnection *dcon = [[NSConnection alloc] initWithReceivePort:[par objectAtIndex:0] sendPort:[par objectAtIndex:1]];
+    NSProxy *dp = [dcon rootProxy];
+    while ((sockfd != -1) && !dieflag)
 	   {
-	   struct sockaddr_in csa;
-	   int csalen;
 	   signed int cfd;
-	   cfd = accept(sockfd,(struct sockaddr*)&csa,&csalen);
-	   if (cfd == -1) {
-		  if (errno == EWOULDBLOCK) ;
-		  else {perror("Too bad I haven't implemented error checking yet");}
+	   cfd = accept(sockfd,NULL,NULL);
+	   [(id)dp newClient:cfd];
 	   }
-	   else {
-		  ITInetSocket *csocket = [[ITInetSocket alloc] initWithFD:cfd delegate:self];
-		  [clients addObject:csocket];
-		  [delegate newClientJoined:csocket];
-	   }
-	   }
+    dieflag = 0;
+    [dcon release];
+    [ap release];
 }
 @end

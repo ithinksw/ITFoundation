@@ -16,15 +16,6 @@
  * @abstract Definitions for the ITInetSocket class
  */
 
-/*!
- * @constant ITInetMaxConnections
- * @abstract The maximum number of running ITInetSockets you can have.
- * @discussion The socket will error during a connection request if you are over the maximum.
- */
-
-enum {
-    ITInetMaxConnections = 128
-};
 
 /*!
  * @enum ITInetSocketState
@@ -70,7 +61,7 @@ typedef enum {
  * @discussion The delegate should check [sender readPipe] to get the data.
  * @param sender The socket that the messages came from.
  */
-- (void) dataReceived:(ITInetSocket *)sender;
+- (oneway void) dataReceived:(ITInetSocket *)sender;
 /*!
  * @method errorOccured:during:onSocket:
  * @abstract Alerts the delegate of an error condition.
@@ -79,14 +70,14 @@ typedef enum {
  * @param state What the socket was doing when the error occured.
  * @param sender The socket the error occured on.
  */
-- (void) errorOccured:(ITInetSocketError)err during:(ITInetSocketState)state onSocket:(ITInetSocket*)sender;
+- (oneway void) errorOccured:(ITInetSocketError)err during:(ITInetSocketState)state onSocket:(ITInetSocket*)sender;
 /*!
  * @method finishedConnecting:
  * @abstract Alerts the delegate of a successful connection attempt.
  * @discussion The delegate should send whatever initial data is required for the protocol (nickname for IRC, etc.)
  * @param sender The socket that established the connection.
  */
-- (void) finishedConnecting:(ITInetSocket *)sender;
+- (oneway void) finishedConnecting:(ITInetSocket *)sender;
 @end
 
 /*!

@@ -11,7 +11,7 @@
 @class ITByteStream;
 
 @protocol ITByteStreamDelegate
--(void)newDataAdded:(ITByteStream *)sender;
+-(oneway void)newDataAdded:(ITByteStream *)sender;
 @end
 
 @interface ITByteStream : NSObject {
