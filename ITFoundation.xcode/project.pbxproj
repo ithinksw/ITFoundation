@@ -82,6 +82,7 @@
 		0867D691FE84028FC02AAC07 = {
 			children = (
 				08FB77AEFE84172EC02AAC07,
+				2AB93A2C057059DC007E748F,
 				32C88DFF0371C24200C91783,
 				089C1665FE841158C02AAC07,
 				0867D69AFE84028FC02AAC07,
@@ -208,6 +209,57 @@
 //102
 //103
 //104
+//2A0
+//2A1
+//2A2
+//2A3
+//2A4
+		2AB93A2C057059DC007E748F = {
+			children = (
+				2AB93A3005705A0C007E748F,
+				2AB93A3105705A0C007E748F,
+			);
+			isa = PBXGroup;
+			name = Categories;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		2AB93A3005705A0C007E748F = {
+			expectedFileType = sourcecode.c.h;
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			path = "ITCategory-NSArray.h";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		2AB93A3105705A0C007E748F = {
+			expectedFileType = sourcecode.c.objc;
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			path = "ITCategory-NSArray.m";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		2AB93A3205705A0C007E748F = {
+			fileRef = 2AB93A3005705A0C007E748F;
+			isa = PBXBuildFile;
+			settings = {
+				ATTRIBUTES = (
+					Public,
+				);
+			};
+		};
+		2AB93A3305705A0C007E748F = {
+			fileRef = 2AB93A3105705A0C007E748F;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+//2A0
+//2A1
+//2A2
+//2A3
+//2A4
 //320
 //321
 //322
@@ -467,6 +519,7 @@
 				7CA50B2D054E77950074E1D9,
 				7CA50B31054E77A00074E1D9,
 				3D2D8A13055E07D800F59C27,
+				2AB93A3205705A0C007E748F,
 			);
 			isa = PBXHeadersBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -497,6 +550,7 @@
 				7CA50B2E054E77950074E1D9,
 				7CA50B32054E77A00074E1D9,
 				3D2D8A12055E07D800F59C27,
+				2AB93A3305705A0C007E748F,
 			);
 			isa = PBXSourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;

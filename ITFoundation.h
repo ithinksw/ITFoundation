@@ -16,3 +16,5 @@
 
 #import <ITFoundation/ITAppleEventCenter.h>
 #import <ITFoundation/ITDebug.h>
+
+#import <ITFoundation/ITCategory-NSArray.h>
