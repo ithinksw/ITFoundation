@@ -1,4 +1,5 @@
 #import "ITVirtualMemoryInfo.h"
+#import <unistd.h>
 
 @interface ITVirtualMemoryInfo (Private)
 - (BOOL)refreshStats:(struct vm_statistics *)myStat;
@@ -18,14 +19,7 @@
 
 - (int)pageSize
 {
-    int pageSize = 0;
-
-    if ( host_page_size(mach_host_self(), &pageSize) != KERN_SUCCESS ) {
-        NSLog(@"Failed to get page size, defaulting to 4096/4k");
-        pageSize = DEFAULT_PAGE_SIZE;
-    }
-    
-    return pageSize;
+    return getpagesize();
 }
 
 - (int)freePages
