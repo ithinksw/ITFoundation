@@ -18,6 +18,7 @@
 #import <ITFoundation/ITOSAComponent.h>
 #import <ITFoundation/ITAppleEventCenter.h>
 #import <ITFoundation/ITDebug.h>
+#import <ITFoundation/ITLoginItem.h>
 
 #import <ITFoundation/ITCategory-NSArray.h>
 
