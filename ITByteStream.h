@@ -12,7 +12,7 @@
 @protocol DataReciever <NSObject>
 -(oneway void)newDataAdded:(id)sender;
 @end
-@interface ITByteStream : NSObject <Delegater> {
+@interface ITByteStream : NSObject {
     @public
     NSMutableData *data;
     @private
@@ -28,4 +28,7 @@
 -(void) lockStream;
 -(void) unlockStream;
 -(void) shortenData:(long)length;
+-initWithDelegate:(id)delegate;
+-setDelegate:(id)delegate;
+-delegate;
 @end
