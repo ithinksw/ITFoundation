@@ -15,17 +15,23 @@
 @end
 
 @interface ITInetServerSocket : NSObject {
+    @private
     int sockfd;
     NSMutableSet *clients;
     NSNetService *service;
     id delegate;
+    short port;
+    NSString *rndType,*rndName;
 }
 
 - (id)init;
-- (id)initWithServiceName:(NSString*)name delegate:(id)d;
-- (id)initWithPort:(NSNumber*)port rendezvousName:(NSString*)name delegate:(id)d;
+- (id)initWithDelegate:(id)d;
 
 - (int)sockfd;
 - (NSSet*)clients;
 - (id)delegate;
+- (short)port;
+- (void)setServiceType:(NSString*)type useForPort:(BOOL)p;
+- (void)setServiceName:(NSString*)name; // generally the computer's AppleTalk name
+- (void)setPort:(short)p;
 @end

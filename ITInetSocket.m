@@ -14,4 +14,8 @@
 {
     return nil;
 }
+
+-(void)disconnect
+{
+}
 @end

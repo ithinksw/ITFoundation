@@ -4,7 +4,7 @@
 
 static NSString *AString(void)
 {
-    return [NSString string];
+    return @"";
 }
 
 @implementation ITStringScanner
