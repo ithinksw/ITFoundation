@@ -62,7 +62,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     OSErr err2, err3;
     /*
 	if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
-	    NSLog(@"Error getting PID of application! Exiting.");
+	    //NSLog(@"Error getting PID of application! Exiting.");
 	    return nil;
 	}
 	*/
@@ -73,7 +73,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     [self printCarbonDesc:&sendEvent];
 
     if (err) {
-        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
+        //NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
     }
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
@@ -81,7 +81,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     [self printCarbonDesc:&replyEvent];
 
     if (err) {
-        NSLog(@"Send Error: %i",err);
+        //NSLog(@"Send Error: %i",err);
     } else {
         unichar *result = 0;
 
@@ -89,12 +89,12 @@ static ITAppleEventCenter *_sharedAECenter = nil;
         result = malloc(resultSize);
 
         if (err2) {
-            NSLog(@"Error After AESizeOfParam: %i", err2);
+            //NSLog(@"Error After AESizeOfParam: %i", err2);
         } else {
             err3 = AEGetParamPtr(&replyEvent, keyDirectObject, resultType, NULL, result, resultSize, &charResultSize);
 
             if (err3) {
-                NSLog(@"Error After AEGetParamPtr: %i", err3);
+                //NSLog(@"Error After AEGetParamPtr: %i", err3);
             } else {
                 _finalString = [NSString stringWithCharacters:result length:charResultSize/sizeof(unichar)];
             }
@@ -127,7 +127,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     OSErr err2, err3;
     /*
 	if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
-	    NSLog(@"Error getting PID of application! Exiting.");
+	    //NSLog(@"Error getting PID of application! Exiting.");
 	    return nil;
 	}
 	*/
@@ -138,7 +138,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     [self printCarbonDesc:&sendEvent];
 
     if (err) {
-        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
+        //NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
     }
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
@@ -146,7 +146,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     [self printCarbonDesc:&replyEvent];
 
     if (err) {
-        NSLog(@"Send Error: %i",err);
+        //NSLog(@"Send Error: %i",err);
     } else {
         unichar *result = 0;
 
@@ -154,12 +154,12 @@ static ITAppleEventCenter *_sharedAECenter = nil;
         result = malloc(resultSize);
 
         if (err2) {
-            NSLog(@"Error After AESizeOfParam: %i", err2);
+            //NSLog(@"Error After AESizeOfParam: %i", err2);
         } else {
             err3 = AEGetParamPtr(&replyEvent, keyDirectObject, resultType, NULL, result, resultSize, &charResultSize);
 
             if (err3) {
-                NSLog(@"Error After AEGetParamPtr: %i", err3);
+                //NSLog(@"Error After AEGetParamPtr: %i", err3);
             } else {
                 _finalString = [NSString stringWithCharacters:result length:charResultSize/sizeof(unichar)];
             }
@@ -193,7 +193,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     OSErr err2, err3;
     /*
 	if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
-	    NSLog(@"Error getting PID of application! Exiting.");
+	    //NSLog(@"Error getting PID of application! Exiting.");
 	    return nil;
 	}
 	*/
@@ -204,7 +204,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     [self printCarbonDesc:&sendEvent];
 
     if (err) {
-        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
+        //NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
     }
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
@@ -212,17 +212,17 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     [self printCarbonDesc:&replyEvent];
 
     if (err) {
-        NSLog(@"Send Error: %i",err);
+        //NSLog(@"Send Error: %i",err);
     } else {
         err2 = AESizeOfParam(&replyEvent, keyDirectObject, &resultType, &resultSize);
 
         if (err2) {
-            NSLog(@"Error After AESizeOfParam: %i", err2);
+            //NSLog(@"Error After AESizeOfParam: %i", err2);
         } else {
             err3 = AEGetParamPtr(&replyEvent, keyDirectObject, resultType, NULL, &result, resultSize, &charResultSize);
 
             if (err3) {
-                NSLog(@"Error After AEGetParamPtr: %i", err3);
+                //NSLog(@"Error After AEGetParamPtr: %i", err3);
             }
         }
     }
@@ -253,7 +253,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     OSErr err2, err3;
     /*
 	if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
-	    NSLog(@"Error getting PID of application! Exiting.");
+	    //NSLog(@"Error getting PID of application! Exiting.");
 	    return nil;
 	}*/
 
@@ -264,7 +264,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     [self printCarbonDesc:&sendEvent];
 
     if (err) {
-        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
+        //NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
     }
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
@@ -272,7 +272,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     [self printCarbonDesc:&replyEvent];
 
     if (err) {
-        NSLog(@"Send Error: %i",err);
+        //NSLog(@"Send Error: %i",err);
     } else {
         unichar *result = 0;
 
@@ -280,12 +280,12 @@ static ITAppleEventCenter *_sharedAECenter = nil;
         result = malloc(resultSize);
 
         if (err2) {
-            NSLog(@"Error After AESizeOfParam: %i", err2);
+            //NSLog(@"Error After AESizeOfParam: %i", err2);
         } else {
             err3 = AEGetParamPtr(&replyEvent, keyDirectObject, resultType, NULL, result, resultSize, &charResultSize);
 
             if (err3) {
-                NSLog(@"Error After AEGetParamPtr: %i", err3);
+                //NSLog(@"Error After AEGetParamPtr: %i", err3);
             } else {
                 _finalString = [NSString stringWithCharacters:result length:charResultSize/sizeof(unichar)];
             }
@@ -319,18 +319,18 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     OSErr err2, err3;
     /*
 	if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
-	    NSLog(@"Error getting PID of application! Exiting.");
+	    //NSLog(@"Error getting PID of application! Exiting.");
 	    return nil;
 	}
 	*/
-    // NSLog(@"_sendString: %s", sendString);
+    // //NSLog(@"_sendString: %s", sendString);
 
     err = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
 
     [self printCarbonDesc:&sendEvent];
 
     if (err) {
-        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
+        //NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
     }
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
@@ -338,17 +338,17 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     [self printCarbonDesc:&replyEvent];
 
     if (err) {
-        NSLog(@"Send Error: %i",err);
+        //NSLog(@"Send Error: %i",err);
     } else {
         err2 = AESizeOfParam(&replyEvent, keyDirectObject, &resultType, &resultSize);
 
         if (err2) {
-            NSLog(@"Error After AESizeOfParam: %i", err2);
+            //NSLog(@"Error After AESizeOfParam: %i", err2);
         } else {
             err3 = AEGetParamPtr(&replyEvent, keyDirectObject, resultType, NULL, &result, resultSize, &charResultSize);
 
             if (err3) {
-                NSLog(@"Error After AEGetParamPtr: %i", err3);
+                //NSLog(@"Error After AEGetParamPtr: %i", err3);
             }
         }
     }
@@ -387,7 +387,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     sendString = [buildString UTF8String];
     /*
 	if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
-	    NSLog(@"Error getting PID of application! Exiting.");
+	    //NSLog(@"Error getting PID of application! Exiting.");
 	    return nil;
 	}
 	*/
@@ -398,7 +398,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     [self printCarbonDesc:&sendEvent];
 
     if (err) {
-        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[buildString substringToIndex:buildError.fErrorPos]);
+        //NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[buildString substringToIndex:buildError.fErrorPos]);
     }
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
@@ -406,7 +406,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     [self printCarbonDesc:&replyEvent];
 
     if (err) {
-        NSLog(@"Send Error: %i",err);
+        //NSLog(@"Send Error: %i",err);
     } else {
         unichar *result = 0;
 
@@ -414,11 +414,11 @@ static ITAppleEventCenter *_sharedAECenter = nil;
         result=malloc(resultSize);
 
         if (err2) {
-            NSLog(@"Error After AESizeOfParam: %i", err2);
+            //NSLog(@"Error After AESizeOfParam: %i", err2);
         } else {
             err3 = AEGetParamPtr(&replyEvent, keyDirectObject, resultType, NULL, result, resultSize, &charResultSize);
             if (err3) {
-                NSLog(@"Error After AEGetParamPtr: %i", err3);
+                //NSLog(@"Error After AEGetParamPtr: %i", err3);
             } else {
                 _finalString = [NSString stringWithCharacters:result length:charResultSize/sizeof(unichar)];
             }
@@ -450,7 +450,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 - (void)printCarbonDesc:(AEDesc*)desc {
     Handle xx;
     AEPrintDescToHandle(desc,&xx);
-    NSLog(@"Handle: %s", *xx);
+    //NSLog(@"Handle: %s", *xx);
     DisposeHandle(xx);
 }
 
@@ -478,7 +478,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     [self printCarbonDesc:&sendEvent];
 
     if (err) {
-        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
+        //NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
     }
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
@@ -486,7 +486,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     [self printCarbonDesc:&replyEvent];
 
     if (err) {
-        NSLog(@"Send Error: %i",err);
+        //NSLog(@"Send Error: %i",err);
     } else {
 	   SInt32 count, resultCount;
 
@@ -522,7 +522,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     OSErr err2, err3;
     /*
 	if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
-	    NSLog(@"Error getting PID of application! Exiting.");
+	    //NSLog(@"Error getting PID of application! Exiting.");
 	    return nil;
 	}
 	*/
@@ -533,7 +533,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     [self printCarbonDesc:&sendEvent];
 
     if (err) {
-        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[string substringToIndex:buildError.fErrorPos]);
+        //NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[string substringToIndex:buildError.fErrorPos]);
     }
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
@@ -541,17 +541,17 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     [self printCarbonDesc:&replyEvent];
 
     if (err) {
-        NSLog(@"Send Error: %i",err);
+        //NSLog(@"Send Error: %i",err);
     } else {
         err2 = AESizeOfParam(&replyEvent, keyDirectObject, &resultType, &resultSize);
 
         if (err2) {
-            NSLog(@"Error After AESizeOfParam: %i", err2);
+            //NSLog(@"Error After AESizeOfParam: %i", err2);
         } else {
             err3 = AEGetParamPtr(&replyEvent, keyDirectObject, resultType, NULL, &result, resultSize, &charResultSize);
 
             if (err3) {
-                NSLog(@"Error After AEGetParamPtr: %i", err3);
+                //NSLog(@"Error After AEGetParamPtr: %i", err3);
             }
         }
     }
@@ -559,7 +559,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
 AEDisposeDesc(&sendEvent);
 AEDisposeDesc(&replyEvent);
-NSLog(@"waffles say %d",result);
+//NSLog(@"waffles say %d",result);
 return result;
 }
 
@@ -578,7 +578,7 @@ return result;
     OSStatus err;
     /*
 	if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
-	    NSLog(@"Error getting PID of application! Exiting.");
+	    //NSLog(@"Error getting PID of application! Exiting.");
 	    return nil;
 	}
 	*/
@@ -589,7 +589,7 @@ return result;
     [self printCarbonDesc:&sendEvent];
 
     if (err) {
-        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[string substringToIndex:buildError.fErrorPos]);
+        //NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[string substringToIndex:buildError.fErrorPos]);
     }
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
@@ -597,7 +597,7 @@ return result;
     [self printCarbonDesc:&replyEvent];
 
     if (err) {
-        NSLog(@"Send Error: %i",err);
+        //NSLog(@"Send Error: %i",err);
     } else {
 	   SInt32 count, resultCount;
 
