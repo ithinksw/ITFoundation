@@ -43,10 +43,14 @@ typedef enum {
     struct addrinfo *ai;
     ITByteStream *readPipe, *writePipe;
     ITInetSocketState state;
+    NSArray *sarr;
 }
++(void)startAutoconnectingToService:(NSString*)type delegate:(id)d;
 -(id) initWithFD:(int)fd delegate:(id)d;
 -(id) initWithDelegate:(id)d;
 
 -(void) connectToHost:(NSString*)host onPort:(short)port;
+-(void) connectToHost:(NSString*)host onNamedPort:(NSString*)port;
+-(void) connectWithSockaddrArray:(NSArray*)arr;
 -(ITInetSocketState) state;
 @end

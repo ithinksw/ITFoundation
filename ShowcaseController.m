@@ -12,13 +12,14 @@
 @implementation ShowcaseController
 - (void)awakeFromNib
 {
-    
+    /*
     ITInetServerSocket *sock = [[ITInetServerSocket alloc] initWithDelegate:self];
     NSLog(@"rawr?");
     [sock setPort:4776];
     [sock setServiceName:@"Test Rendezvous Service"];
     [sock setServiceType:@"ittest" useForPort:NO];
     [sock start];
+	*/
 }
 
 - (void)newClientJoined:(ITInetSocket*)client

@@ -8,7 +8,7 @@
 
 #import "ITByteStream.h"
 
-// TODO: Add NSCopying/NSCoding support. Blocking reads (how would this work? I could hack it with socketpair(), i guess)
+// TODO: Add NSCopying/NSCoding support. Blocking reads (how would this work? NSConditionLock?)
 
 @implementation ITByteStream
 -(id) init
@@ -40,7 +40,11 @@
 
 -(int) availableDataLength
 {
-    return [data length];
+    int len;
+    [lock lock];
+    len = [data length];
+    [lock unlock];
+    return len;
 }
 
 -(NSData*) readDataOfLength:(int)length
@@ -50,11 +54,11 @@
     [lock lock];
     ret = [data subdataWithRange:range];
 #if MAC_OS_X_VERSION_10_2 <= MAC_OS_X_VERSION_MAX_ALLOWED
-    [data replaceBytesInRange:range withBytes:nil length:0]; // this should delete off the end. should test.
+    [data replaceBytesInRange:range withBytes:nil length:0];
 #else
     range = {length, [data length]};
     tmp = [data subdataWithRange:range];
-    [data setData:tmp]; // maybe i should add a lock to this? it would be bad if someone was writing when it was reading...
+    [data setData:tmp];
 #endif
     [lock unlock];
     return ret;

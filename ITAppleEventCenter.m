@@ -450,7 +450,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 - (void)printCarbonDesc:(AEDesc*)desc {
     Handle xx;
     AEPrintDescToHandle(desc,&xx);
-    //NSLog(@"Handle: %s", *xx);
+    NSLog(@"Handle: %s", *xx);
     DisposeHandle(xx);
 }
 
