@@ -14,6 +14,8 @@
 
 @interface ITByteStream : NSObject {
     NSMutableData *data;
+    @private
+    NSLock *lock;
 }
 -(id) initWithStream:(ITByteStream*)stream;
 -(int) availableDataLength;

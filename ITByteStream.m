@@ -8,7 +8,7 @@
 
 #import "ITByteStream.h"
 
-// TODO: Add NSCopying/NSCoding support
+// TODO: Add NSCopying/NSCoding support. Blocking reads (how would this work? I could hack it with socketpair(), i guess)
 
 @implementation ITByteStream
 -(id) init
@@ -16,6 +16,7 @@
     if (self == [super init])
 	   {
 	   data = [[NSMutableData alloc] init];
+	   lock = [[NSLock alloc] init];
 	   }
     return self;
 }
@@ -25,6 +26,7 @@
     if (self == [super init])
 	   {
 	   data = [stream->data copy];
+	   lock = [[NSLock alloc] init];
 	   }
     return 0;
 }
@@ -32,6 +34,7 @@
 -(void) dealloc
 {
     [data release];
+    [lock release];
     [super dealloc];
 }
 
@@ -44,6 +47,7 @@
 {
     NSData *ret, *tmp;
     NSRange range = {0, length};
+    [lock lock];
     ret = [data subdataWithRange:range];
 #if MAC_OS_X_VERSION_10_2 <= MAC_OS_X_VERSION_MAX_ALLOWED
     [data replaceBytesInRange:range withBytes:nil length:0]; // this should delete off the end. should test.
@@ -52,11 +56,14 @@
     tmp = [data subdataWithRange:range];
     [data setData:tmp]; // maybe i should add a lock to this? it would be bad if someone was writing when it was reading...
 #endif
+    [lock unlock];
     return ret;
 }
 
 -(void) writeData:(NSData*)_data
 {
+    [lock lock];
     [data appendData:_data];
+    [lock unlock];
 }
 @end
