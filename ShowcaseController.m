@@ -10,7 +10,7 @@
 
 
 @implementation ShowcaseController
-- (void)applicationDidFinishLaunching:(NSNotification *)note
+- (void)awakeFromNib
 {
     
     ITInetServerSocket *sock = [[ITInetServerSocket alloc] initWithDelegate:self];

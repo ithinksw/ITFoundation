@@ -9,6 +9,7 @@
 #import "ITInetServerSocket.h"
 #import "ITInetSocket.h"
 #import <sys/types.h>
+#import <sys/time.h>
 #import <arpa/inet.h>
 #import <netinet/in.h>
 #import <sys/socket.h>
@@ -17,9 +18,8 @@
 #import <unistd.h>
 
 /* Too bad Objective-C doesn't have class variables... */
-static NSMutableDictionary *servsockets;
+static NSMutableSet *servsockets;
 static NSTimer *timer;
-
 @interface ITInetServerSocket(Private)
 +(void)registerSocket:(ITInetServerSocket*)sock;
 +(void)unregisterSocket:(ITInetServerSocket*)sock;
@@ -31,13 +31,13 @@ static NSTimer *timer;
 +(void)setupTimer;
 +(void)stopTimer;
 +(void)globalTimerFunc:(NSTimer*)timer;
--(BOOL)timerFunc;
+-(void)timerFunc;
 @end
 
 @implementation ITInetServerSocket
 + (void)initialize
 {
-    servsockets = [[NSMutableDictionary alloc] init];
+    servsockets = [[NSMutableSet alloc] init];
     [self setupTimer];
 }
 
@@ -133,13 +133,13 @@ static NSTimer *timer;
 +(void)registerSocket:(ITInetServerSocket*)sock
 {
     [sock setupConnection];
-    [servsockets setObject:sock forKey:[NSString stringWithFormat:@"%lu",[sock port]]];
+    [servsockets addObject:sock];
 }
 
 +(void)unregisterSocket:(ITInetServerSocket*)sock
 {
     [sock stopConnection];
-    [servsockets removeObjectForKey:[NSString stringWithFormat:@"%lu",[sock port]]];
+    [servsockets removeObject:sock];
 }
 
 -(short)lookupPortForServiceType:(NSString*)name
@@ -214,16 +214,10 @@ static NSTimer *timer;
 
 + (void)globalTimerFunc:(NSTimer*)timer
 {
-    NSEnumerator *enume = [servsockets objectEnumerator];
-    id obj;
-
-    while (obj = [enume nextObject])
-	   {
-	   [obj timerFunc];
-	   }
+    [servsockets makeObjectsPerformSelector:@selector(timerFunc)];
 }
 
-- (BOOL)timerFunc
+- (void)timerFunc
 {
     if (sockfd != -1)
 	   {
@@ -232,16 +226,14 @@ static NSTimer *timer;
 	   signed int cfd;
 	   cfd = accept(sockfd,(struct sockaddr*)&csa,&csalen);
 	   if (cfd == -1) {
-		  if (errno == EWOULDBLOCK) return NO;
+		  if (errno == EWOULDBLOCK) ;
 		  else {perror("Too bad I haven't implemented error checking yet");}
 	   }
 	   else {
 		  ITInetSocket *csocket = [[[ITInetSocket alloc] initWithFD:cfd delegate:self] autorelease];
 		  [clients addObject:csocket];
 		  [delegate newClientJoined:csocket];
-		  return YES;
 	   }
 	   }
-    return NO;
 }
 @end
