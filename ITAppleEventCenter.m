@@ -46,6 +46,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     char *charResult;
     DescType resultType;
     Size resultSize, charResultSize;
+    int pid;
     
     // Variables for error checking
     AEBuildError buildError;
@@ -57,7 +58,17 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     // Start Code
     // ^ Most pointless comment EVAR!
     // ^^ Nope, that one is
-
+    
+    if (GetProcessPID(&psn, &pid) == noErr) {
+        if (pid ==0) {
+            NSLog(@"Process doesn't exist! Exiting.");
+            return;
+        }
+    } else {
+        NSLog(@"Error getting PID of application to send to! Exiting.");
+        return;
+    }
+    
     NSLog(@"_sendString: %s", sendString);
     
     // The problem is, if I use eClass and eID in place of 'core' and 'getd' respectively, It won't build a valid AppleEvent :'(
