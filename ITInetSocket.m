@@ -23,7 +23,8 @@
 	   sockfd = fd;
 	   delegate = [d retain];
 	   port = 0;
-	   writeBuffer = nil;
+	   writePipe = [[ITByteStream alloc] init];
+	   readPipe = [[ITByteStream alloc] init];
 	   ai = nil;
 	   }
     return self;
@@ -37,7 +38,8 @@
 	   sockfd = -1;
 	   delegate = [d retain];
 	   port = 0;
-	   writeBuffer = nil;
+	   writePipe = [[ITByteStream alloc] init];
+	   readPipe = [[ITByteStream alloc] init];
 	   ai = nil;
 	   }
     return self;
@@ -90,7 +92,7 @@
     "\tFamily = %x\n"
     "\tPort = %d\n"
     "\tFlowinfo = %x\n"
-    "\tAddr = {%#lx,%#lx,%#lx,%#lx}\n"
+    "\tAddr = {%#hx:%#hx:%#hx:%#hx:%#hx:%#hx:%#hx:%#hx}\n"
     "\tScope = %x\n"
     "}\n"
     "Next = ";
@@ -100,7 +102,7 @@
     do
 	   {
 		  struct sockaddr_in6 *sa = (struct sockaddr_in6 *)_ai->ai_addr;
-		  [buf appendFormat:nsfmt,_ai->ai_flags,_ai->ai_family,_ai->ai_socktype,_ai->ai_protocol,_ai->ai_canonname?_ai->ai_canonname:"",sa->sin6_len,sa->sin6_family,sa->sin6_port,sa->sin6_flowinfo,sa->sin6_addr.__u6_addr.__u6_addr32[0],sa->sin6_addr.__u6_addr.__u6_addr32[1],sa->sin6_addr.__u6_addr.__u6_addr32[2],sa->sin6_addr.__u6_addr.__u6_addr32[3],sa->sin6_scope_id];
+		  [buf appendFormat:nsfmt,_ai->ai_flags,_ai->ai_family,_ai->ai_socktype,_ai->ai_protocol,_ai->ai_canonname?_ai->ai_canonname:"",sa->sin6_len,sa->sin6_family,sa->sin6_port,sa->sin6_flowinfo,sa->sin6_addr.__u6_addr.__u6_addr16[0],sa->sin6_addr.__u6_addr.__u6_addr16[1],sa->sin6_addr.__u6_addr.__u6_addr16[2],sa->sin6_addr.__u6_addr.__u6_addr16[3],sa->sin6_addr.__u6_addr.__u6_addr16[4],sa->sin6_addr.__u6_addr.__u6_addr16[5],sa->sin6_addr.__u6_addr.__u6_addr16[6],sa->sin6_addr.__u6_addr.__u6_addr16[7],sa->sin6_scope_id];
 	   }
     while (_ai = _ai->ai_next);
     [buf appendString:@"nil\n}"];

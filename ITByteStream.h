@@ -20,5 +20,5 @@
 -(id) initWithStream:(ITByteStream*)stream;
 -(int) availableDataLength;
 -(NSData*) readDataOfLength:(int)length;
--(void) writeData:(NSData*)data;
+-(void) writeData:(in NSData*)data;
 @end

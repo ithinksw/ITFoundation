@@ -40,7 +40,7 @@ typedef enum {
     int port;
     id delegate;
     struct addrinfo *ai;
-    NSData *writeBuffer;
+    ITByteStream *readPipe, *writePipe;
     ITInetSocketState state;
 }
 -(id) initWithFD:(int)fd delegate:(id)d;
