@@ -70,7 +70,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
     err = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
 
-    [self printCarbonDesc:&sendEvent];
+    //[self printCarbonDesc:&sendEvent];
 
     if (err) {
         //NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
@@ -78,7 +78,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
 
-    [self printCarbonDesc:&replyEvent];
+    //[self printCarbonDesc:&replyEvent];
 
     if (err) {
         //NSLog(@"Send Error: %i",err);
@@ -135,7 +135,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
     err = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
 
-    [self printCarbonDesc:&sendEvent];
+    //[self printCarbonDesc:&sendEvent];
 
     if (err) {
         //NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
@@ -143,7 +143,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
 
-    [self printCarbonDesc:&replyEvent];
+    //[self printCarbonDesc:&replyEvent];
 
     if (err) {
         //NSLog(@"Send Error: %i",err);
@@ -201,7 +201,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
     err = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
 
-    [self printCarbonDesc:&sendEvent];
+    //[self printCarbonDesc:&sendEvent];
 
     if (err) {
         //NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
@@ -209,7 +209,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
 
-    [self printCarbonDesc:&replyEvent];
+    //[self printCarbonDesc:&replyEvent];
 
     if (err) {
         //NSLog(@"Send Error: %i",err);
@@ -261,7 +261,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
     err = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
 
-    [self printCarbonDesc:&sendEvent];
+    //[self printCarbonDesc:&sendEvent];
 
     if (err) {
         //NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
@@ -269,7 +269,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
 
-    [self printCarbonDesc:&replyEvent];
+    //[self printCarbonDesc:&replyEvent];
 
     if (err) {
         //NSLog(@"Send Error: %i",err);
@@ -327,7 +327,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
     err = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
 
-    [self printCarbonDesc:&sendEvent];
+    //[self printCarbonDesc:&sendEvent];
 
     if (err) {
         //NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
@@ -335,7 +335,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
 
-    [self printCarbonDesc:&replyEvent];
+    //[self printCarbonDesc:&replyEvent];
 
     if (err) {
         //NSLog(@"Send Error: %i",err);
@@ -395,7 +395,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
     err = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
 
-    [self printCarbonDesc:&sendEvent];
+    //[self printCarbonDesc:&sendEvent];
 
     if (err) {
         //NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[buildString substringToIndex:buildError.fErrorPos]);
@@ -403,7 +403,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
 
-    [self printCarbonDesc:&replyEvent];
+    //[self printCarbonDesc:&replyEvent];
 
     if (err) {
         //NSLog(@"Send Error: %i",err);
@@ -439,9 +439,9 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     //AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, kAnyTransactionID, &event, nil, "");
     AECreateDesc(typeProcessSerialNumber,(ProcessSerialNumber*)&psn,sizeof(ProcessSerialNumber),&dest);
     AECreateAppleEvent(eClass,eID,&dest,kAutoGenerateReturnID,kAnyTransactionID,&event);
-[self printCarbonDesc:&event];
+//[self printCarbonDesc:&event];
     AESend(&event, &reply, kAENoReply, kAENormalPriority, kAEDefaultTimeout, idleUPP, nil);
-[self printCarbonDesc:&reply];
+//[self printCarbonDesc:&reply];
     AEDisposeDesc(&dest);
     AEDisposeDesc(&event);
     AEDisposeDesc(&reply);
@@ -475,7 +475,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
     err = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
 
-    [self printCarbonDesc:&sendEvent];
+    //[self printCarbonDesc:&sendEvent];
 
     if (err) {
         //NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
@@ -483,7 +483,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
 
-    [self printCarbonDesc:&replyEvent];
+    //[self printCarbonDesc:&replyEvent];
 
     if (err) {
         //NSLog(@"Send Error: %i",err);
@@ -530,7 +530,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
     err = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
 
-    [self printCarbonDesc:&sendEvent];
+    //[self printCarbonDesc:&sendEvent];
 
     if (err) {
         //NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[string substringToIndex:buildError.fErrorPos]);
@@ -538,7 +538,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
 
-    [self printCarbonDesc:&replyEvent];
+    //[self printCarbonDesc:&replyEvent];
 
     if (err) {
         //NSLog(@"Send Error: %i",err);
@@ -586,7 +586,7 @@ return result;
 
     err = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
 
-    [self printCarbonDesc:&sendEvent];
+    //[self printCarbonDesc:&sendEvent];
 
     if (err) {
         //NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[string substringToIndex:buildError.fErrorPos]);
@@ -594,7 +594,7 @@ return result;
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
 
-    [self printCarbonDesc:&replyEvent];
+    //[self printCarbonDesc:&replyEvent];
 
     if (err) {
         //NSLog(@"Send Error: %i",err);
