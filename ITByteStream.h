@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ITConveniences.h"
 
 @class ITByteStream;
-
+@protocol DataReciever <NSObject>
+-(oneway void)newDataAdded:(id)sender;
+@end
 @interface ITByteStream : NSObject <Delegater> {
     @public
     NSMutableData *data;
