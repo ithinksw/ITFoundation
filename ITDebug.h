@@ -13,5 +13,5 @@
 
 #import <Foundation/Foundation.h>
 
-void SetITDebugMode(BOOL mode);
-void ITDebugLog(NSString *format, ...);
+extern void SetITDebugMode(BOOL mode);
+extern void ITDebugLog(NSString *format, ...);

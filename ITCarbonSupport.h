@@ -14,5 +14,5 @@
 
 #import <Foundation/Foundation.h>
 
-NSString *NSStringFromFourCharCode(unsigned long code);
-unsigned long FourCharCodeFromNSString(NSString *string);
+extern NSString *NSStringFromFourCharCode(unsigned long code);
+extern unsigned long FourCharCodeFromNSString(NSString *string);
