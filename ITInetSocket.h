@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <netinet/in.h>
 #import <netdb.h>
+#import "ITByteStream.h"
 
 enum {
     ITInetMaxConnections = 36

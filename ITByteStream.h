@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-
 /*! @class ITByteStream
  *  @abstract A FIFO bytestream
  */
