@@ -10,7 +10,7 @@
 #import "ITByteStream.h"
 #import "ArrayQueue.h"
 
-@interface ITChunkedByteStream : NSObject <Delegater> {
+@interface ITChunkedByteStream : NSObject {
     @public
     ArrayQueue *q;
     @private
