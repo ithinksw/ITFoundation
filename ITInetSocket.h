@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <netinet/in.h>
+#import <netdb.h>
 
 enum {
     ITInetMaxConnections = 36
@@ -15,12 +16,20 @@ enum {
 
 typedef enum {
     ITInetSocketConnecting,
-    ITInetSocketReady,
+    ITInetSocketListening,
+    ITInetSocketReading,
+    ITInetSocketWriting,
     ITInetSocketDisconnected
 } ITInetSocketState;
 
+typedef enum {
+    ITInetHostNotFound,
+    ITInetConnectionDropped,
+    ITInetCouldNotConnect,
+} ITInetSocketError;
+
 @protocol ITInetSocketOwner
-- (void) requestCompleted:(in NSData*)data;
+- (void) dataRecieved:(in NSData*)data;
 - (void) errorOccured:(int)err during:(ITInetSocketState)state;
 - (void) finishedConnecting;
 @end
@@ -30,8 +39,8 @@ typedef enum {
     int sockfd;
     int port;
     id delegate;
-    struct sockaddr_in6 sa;
-    NSMutableData *requestBuffer;
+    struct addrinfo *ai;
+    NSData *writeBuffer;
     ITInetSocketState state;
 }
 // Init
@@ -39,7 +48,6 @@ typedef enum {
 -(id) initWithDelegate:(id)d;
 
 -(void) connectToHost:(NSString*)host onPort:(short)port;
-
 -(ITInetSocketState) state;
 
 @end
