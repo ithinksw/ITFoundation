@@ -106,7 +106,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
 - (NSString*)sendTwoTierAEWithRequestedKey:(NSString*)key fromObjectByKey:(NSString*)object eventClass:(NSString*)eventClass eventID:(NSString*)eventID appPSN:(ProcessSerialNumber)psn
 {
-    if ( (!key) || (!eventClass) || (!eventID) || (psn.highLongOfPSN == kNoProcess) ) {
+    if ( (!key) || (!object) || (!eventClass) || (!eventID) || (psn.highLongOfPSN == kNoProcess) ) {
         return @"";
     } else {
     AEEventClass eClass = *((unsigned long*)[eventClass UTF8String]);
