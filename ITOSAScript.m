@@ -120,7 +120,7 @@ Script Subtypes:
     
     OSADispose([_component componentInstance], resultID);
     
-    return cocoaDesc;
+    return [cocoaDesc autorelease];
 }
 
 @end
