@@ -61,6 +61,11 @@
     return old;
 }
 
+-delegate
+{
+    return delegate;
+}
+
 -(int) availableDataLength
 {
     int len;

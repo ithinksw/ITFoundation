@@ -50,8 +50,27 @@ NSAppleEventDescriptor *ITSendAEWithKey(FourCharCode reqKey, FourCharCode evClas
 {
 }
 
-NSAppleEventDescriptor *ITSendPlainAE(FourCharCode evClass, FourCharCode evID,const ProcessSerialNumber *psn)
+NSAppleEventDescriptor *ITSendPlainAE(FourCharCode eClass, FourCharCode eID,const ProcessSerialNumber *psn)
 {
+    AEDesc dest;
+    int pid;
+    
+    AppleEvent event, reply;
+    OSStatus cerr,cerr2,err;
+    NSAppleEventDescriptor *nsd, *nse, *nsr;
+    if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
+        ITDebugLog(@"Error getting PID of application.");
+	return;
+    }
+    cerr = AECreateDesc(typeProcessSerialNumber,(ProcessSerialNumber*)&psn,sizeof(ProcessSerialNumber),&dest);
+    nsd = [[[NSAppleEventDescriptor alloc] initWithAEDescNoCopy:&dest] autorelease];
+    cerr2 = AECreateAppleEvent(eClass,eID,&dest,kAutoGenerateReturnID,kAnyTransactionID,&event);
+    nse = [[[NSAppleEventDescriptor alloc] initWithAEDescNoCopy:&event] autorelease];
+    if (!cerr2) [nse logDesc];
+    err = AESend(&event, &reply, kAENoReply, kAENormalPriority, kAEDefaultTimeout, NULL, NULL);
+    nsr = [[[NSAppleEventDescriptor alloc] initWithAEDescNoCopy:&reply] autorelease];
+    [nsr logDesc];
+    return nsr;
 }
 
 @implementation NSAppleEventDescriptor (ITAELogging)
