@@ -27,8 +27,10 @@
 	   {
 	   [aNetServiceBrowser stop];
 	   [aNetServiceBrowser release];
+	   [self release];
 	   }
     sock = [[ITInetSocket alloc] initWithDelegate:delegate];
+    NSLog(@"Detected a service! name %@ type %@",[aNetService name],[aNetService type]);
     [sock connectWithSockaddrArray:[aNetService addresses]];
 }
 

@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <ITFoundation/ITInetSocket.h>
+#import <ITFoundation/ITInetServerSocket.h>
 
-@interface ShowcaseController : NSObject <ITInetSocketDelegate> {
-
+@interface ShowcaseController : NSObject <ITInetSocketDelegate,ITInetServerSocketOwner> {
+    ITInetServerSocket *server;
 }
 
 @end

@@ -185,7 +185,9 @@ static NSMutableSet *servsockets;
 
 - (void)setupRendezvousAdvertising
 {
-    service = [[NSNetService alloc] initWithDomain:@"" type:[NSString stringWithFormat:@"_%@._tcp.",rndType] name:rndName port:htons(port)];
+    NSString *a = [NSString stringWithFormat:@"_%@._tcp.",rndType];
+    service = [[NSNetService alloc] initWithDomain:@"" type:a name:rndName port:htons(port)];
+    NSLog(@"Advertising a service of type %@ name %@",a,rndName);
     [service publish];
 }
 
@@ -202,6 +204,7 @@ static NSMutableSet *servsockets;
     NSConnection *dcon = [[NSConnection alloc] initWithReceivePort:p1 sendPort:p2];
     NSArray *par = [NSArray arrayWithObjects:p2,p1,nil];
     [dcon setRootObject:self];
+    NSLog(@"detached server thread");
     [NSThread detachNewThreadSelector:@selector(socketAcceptLoop:) toTarget:self withObject:par]; 
 }
 
@@ -226,6 +229,7 @@ static NSMutableSet *servsockets;
 	   {
 	   signed int cfd;
 	   cfd = accept(sockfd,NULL,NULL);
+	   NSLog(@"Someone connected!");
 	   [(id)dp newClient:cfd];
 	   }
     dieflag = 0;

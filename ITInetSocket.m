@@ -30,7 +30,7 @@
     ITServiceBrowserDelegate *bd = [[ITServiceBrowserDelegate alloc] initWithDelegate:d];
 
     [browse setDelegate:bd];
-    [browse searchForServicesOfType:[NSString stringWithFormat:@"._%@._tcp",type] inDomain:nil];
+    [browse searchForServicesOfType:[NSString stringWithFormat:@"_%@._tcp.",type] inDomain:@""];
 }
 
 -(id)initWithFD:(int)fd delegate:(id <ITInetSocketDelegate,NSObject>)d
@@ -47,7 +47,9 @@
 	   sarr = nil;
 	   bufs = 512;
 	   actionflag = dieflag = 0;
+	   nc = 0;
 	   }
+    [self spinoffReadLoop];
     return self;
 }
 
@@ -65,6 +67,7 @@
 	   sarr = nil;
 	   bufs = 512;
 	   actionflag = dieflag = 0;
+	   nc = 1;
 	   }
     return self;
 }
@@ -109,6 +112,7 @@
 	   while (d = [e nextObject])
 	   {
 		  struct sockaddr *s = (struct sockaddr*)[d bytes];
+		  bzero(a,sizeof(struct addrinfo));
 		  a->ai_family = s->sa_family;
 		  a->ai_addr = s;
 		  a->ai_next = malloc(sizeof(struct addrinfo));
@@ -215,7 +219,7 @@
 
 -(void)realDoConnection
 {
-    sockfd = socket(ai_cur->ai_addr->sa_family,SOCK_STREAM,IPPROTO_TCP);
+    sockfd = socket(ai_cur->ai_family,SOCK_STREAM,IPPROTO_TCP);
     [self spinoffReadLoop];
 }
 
@@ -237,6 +241,7 @@
     unsigned long readLen = 0;
     signed int err;
     [readPipe setDelegate:dp];
+    if (nc){
     NSLog(@"Connecting");
     err = connect(sockfd,ai_cur->ai_addr,ai_cur->ai_addrlen);
     if (err == -1)
@@ -245,6 +250,7 @@
 	   [(id)dp errorOccured:ITInetCouldNotConnect during:ITInetSocketConnecting onSocket:self];
 	   goto dieaction;
 	   }
+    }
     NSLog(@"Sending finishedConnecting");
     [(id)dp finishedConnecting:self];
 lstart:

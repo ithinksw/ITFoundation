@@ -86,13 +86,10 @@ typedef enum {
  * @discussion ITInetSocket is an Internet socket class supporting IPv6 and Rendezvous.
  */
 @interface ITInetSocket : NSObject <ITByteStreamDelegate> {
-    @public
-    /*!
-     * @var sockfd
-	* @abstract KLWONZ
-     */
+
     int sockfd;
     int port;
+    int nc;
     unsigned short bufs;
     volatile int dieflag;
     volatile int actionflag;
