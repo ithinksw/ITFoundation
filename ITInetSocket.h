@@ -7,29 +7,39 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@protocol ITInetSocketOwner
-- (void)requestCompleted:(NSString*)data;
-@end
+#import <netinet/in.h>
 
 enum {
     ITInetMaxConnections = 36
 };
 
+typedef enum {
+    ITInetSocketConnecting,
+    ITInetSocketReady,
+    ITInetSocketDisconnected
+} ITInetSocketState;
+
+@protocol ITInetSocketOwner
+- (void) requestCompleted:(in NSData*)data;
+- (void) errorOccured:(int)err during:(ITInetSocketState)state;
+- (void) finishedConnecting;
+@end
+
 @interface ITInetSocket : NSObject {
+    @public
     int sockfd;
     int port;
-    NSString *destAddr;
+    id delegate;
+    struct sockaddr_in6 sa;
+    NSMutableData *requestBuffer;
+    ITInetSocketState state;
 }
 // Init
--(id) initWithFD:(int)fd;
 -(id) initWithFD:(int)fd delegate:(id)d;
 -(id) initWithDelegate:(id)d;
 
-+(NSArray*) socketsForRendezvousScan; //need args
+-(void) connectToHost:(NSString*)host onPort:(short)port;
 
-// Mutators (some of these must be set before you can connect)
--(void) setPort:(int)port;
--(void) setPortViaServiceName:(NSString*)name;
--(void) setDest:(NSString*)dst;
+-(ITInetSocketState) state;
+
 @end
