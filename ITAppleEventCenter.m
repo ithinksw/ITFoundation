@@ -48,7 +48,8 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     AEEventClass eClass = *((unsigned long*)[eventClass UTF8String]);
     AEEventID	 eID    = *((unsigned long*)[eventID UTF8String]);
 
-    const char *sendString = [[NSString stringWithFormat:@"'----':obj { form:'prop', want:type('prop'), seld:type('%s'), from:'null'() }", [key UTF8String]] UTF8String];
+    NSString *nssendString = [NSString stringWithFormat:@"'----':obj { form:'prop', want:type('prop'), seld:type('%s'), from:'null'() }", [key UTF8String]];
+    const char *sendString = [nssendString UTF8String];
     NSString  *_finalString = nil;
 
     AppleEvent sendEvent, replyEvent;
@@ -72,7 +73,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     //[self printCarbonDesc:&sendEvent];
 
     if (err) {
-        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[sendString substringToIndex:buildError.fErrorPos]);
+        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
     }
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
@@ -130,19 +131,19 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 	    return nil;
 	}
 	*/
-    //NSLog(@"_sendString: %s", sendString);
+    NSLog(@"_sendString: %s", sendString);
 
     err = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
 
-    //[self printCarbonDesc:&sendEvent];
+    [self printCarbonDesc:&sendEvent];
 
     if (err) {
-        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[sendString substringToIndex:buildError.fErrorPos]);
+        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
     }
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
 
-    //[self printCarbonDesc:&replyEvent];
+    [self printCarbonDesc:&replyEvent];
 
     if (err) {
         NSLog(@"Send Error: %i",err);
@@ -178,7 +179,8 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     AEEventClass eClass = *((unsigned long*)[eventClass UTF8String]);
     AEEventID    eID    = *((unsigned long*)[eventID UTF8String]);
 
-    const char *sendString = [[NSString stringWithFormat:@"'----':obj { form:'prop', want:type('prop'), seld:type('%s'), from:'null'() }", [key UTF8String]] UTF8String];
+    NSString *nssendString = [NSString stringWithFormat:@"'----':obj { form:'prop', want:type('prop'), seld:type('%s'), from:'null'() }", [key UTF8String]];
+    const char *sendString = [nssendString UTF8String];
     long result = 0;
 
     AppleEvent sendEvent, replyEvent;
@@ -202,7 +204,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     //[self printCarbonDesc:&sendEvent];
 
     if (err) {
-        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[sendString substringToIndex:buildError.fErrorPos]);
+        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
     }
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
@@ -237,7 +239,8 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     AEEventClass eClass = *((unsigned long*)[eventClass UTF8String]);
     AEEventID    eID    = *((unsigned long*)[eventID UTF8String]);
 
-    const char *sendString = [[NSString stringWithFormat:@"'----':obj { form:'prop', want:type('prop'), seld:type('%s'), from:obj { form:'prop', want:type('prop'), seld:type('%s'), from:'null'() } }", [key UTF8String], [object UTF8String]] UTF8String];
+    NSString *nssendString = [NSString stringWithFormat:@"'----':obj { form:'prop', want:type('prop'), seld:type('%s'), from:obj { form:'prop', want:type('prop'), seld:type('%s'), from:'null'() } }", [key UTF8String], [object UTF8String]];
+    const char *sendString = [nssendString UTF8String];
     NSString  *_finalString = nil;
 
     AppleEvent sendEvent, replyEvent;
@@ -261,7 +264,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     //[self printCarbonDesc:&sendEvent];
 
     if (err) {
-        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[sendString substringToIndex:buildError.fErrorPos]);
+        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
     }
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
@@ -302,7 +305,8 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     AEEventClass eClass = *((unsigned long*)[eventClass UTF8String]);
     AEEventID    eID    = *((unsigned long*)[eventID UTF8String]);
 
-    const char *sendString = [[NSString stringWithFormat:@"'----':obj { form:'prop', want:type('prop'), seld:type('%s'), from:obj { form:'prop', want:type('prop'), seld:type('%s'), from:'null'() } }", [key UTF8String], [object UTF8String]] UTF8String];
+    NSString *nssendString = [NSString stringWithFormat:@"'----':obj { form:'prop', want:type('prop'), seld:type('%s'), from:obj { form:'prop', want:type('prop'), seld:type('%s'), from:'null'() } }", [key UTF8String], [object UTF8String]];
+    const char *sendString = [nssendString UTF8String];
     long result = 0;
 
     AppleEvent sendEvent, replyEvent;
@@ -326,7 +330,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     //[self printCarbonDesc:&sendEvent];
 
     if (err) {
-        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[sendString substringToIndex:buildError.fErrorPos]);
+        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
     }
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
@@ -394,7 +398,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     //[self printCarbonDesc:&sendEvent];
 
     if (err) {
-        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[sendString substringToIndex:buildError.fErrorPos]);
+        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[buildString substringToIndex:buildError.fErrorPos]);
     }
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
@@ -456,17 +460,15 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     AEEventClass eClass = *((unsigned long*)[eventClass UTF8String]);
     AEEventID	 eID    = *((unsigned long*)[eventID UTF8String]);
 
-    const char *sendString = [[NSString stringWithFormat:@"'----':obj { form:'indx', want:'%s', seld:abso($616C6C20$), from:'null'() }", [key UTF8String]] UTF8String];
+    NSString *nssendString = [NSString stringWithFormat:@"'----':obj { form:'indx', want:'%s', seld:abso($616C6C20$), from:'null'() }", [key UTF8String]];
+    const char *sendString = [nssendString UTF8String];
     AEArrayDataPointer result = nil;
 
     AppleEvent sendEvent, replyEvent;
 
-    DescType resultType;
-    Size resultSize, charResultSize;
 
     AEBuildError buildError;
     OSStatus err;
-    OSErr err2, err3;
 
     //NSLog(@"_sendString: %s", sendString);
 
@@ -475,7 +477,7 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     //[self printCarbonDesc:&sendEvent];
 
     if (err) {
-        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[sendString substringToIndex:buildError.fErrorPos]);
+        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[nssendString substringToIndex:buildError.fErrorPos]);
     }
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
@@ -527,10 +529,10 @@ static ITAppleEventCenter *_sharedAECenter = nil;
 
     err = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
 
-    //[self printCarbonDesc:&sendEvent];
+    [self printCarbonDesc:&sendEvent];
 
     if (err) {
-        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[sendString substringToIndex:buildError.fErrorPos]);
+        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[string substringToIndex:buildError.fErrorPos]);
     }
 
     err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
@@ -559,4 +561,54 @@ static ITAppleEventCenter *_sharedAECenter = nil;
     return result;
 }
 
+- (AEArrayDataPointer)sendAEWithSendStringForArray:(NSString*)string eventClass:(NSString*)eventClass eventID:(NSString*)eventID appPSN:(ProcessSerialNumber)psn
+{
+    //Add error checking...
+    AEEventClass eClass = *((unsigned long*)[eventClass UTF8String]);
+    AEEventID    eID    = *((unsigned long*)[eventID UTF8String]);
+
+    const char *sendString = [string UTF8String];
+    AEArrayDataPointer result = NULL;
+
+    AppleEvent sendEvent, replyEvent;
+
+    AEBuildError buildError;
+    OSStatus err;
+    /*
+	if ((GetProcessPID(&psn, &pid) == noErr) && (pid == 0)) {
+	    NSLog(@"Error getting PID of application! Exiting.");
+	    return nil;
+	}
+	*/
+    //NSLog(@"_sendString: %s", sendString);
+
+    err = AEBuildAppleEvent(eClass, eID, typeProcessSerialNumber,(ProcessSerialNumber*)&psn, sizeof(ProcessSerialNumber), kAutoGenerateReturnID, 0, &sendEvent, &buildError, sendString);
+
+    //[self printCarbonDesc:&sendEvent];
+
+    if (err) {
+        NSLog(@"%d:%d at \"%@\"",(int)buildError.fError,buildError.fErrorPos,[string substringToIndex:buildError.fErrorPos]);
+    }
+
+    err = AESend(&sendEvent, &replyEvent, kAEWaitReply, kAENormalPriority, kNoTimeOut, idleUPP, NULL);
+
+    [self printCarbonDesc:&replyEvent];
+
+    if (err) {
+        NSLog(@"Send Error: %i",err);
+    } else {
+	   SInt32 count, resultCount;
+
+	   AECountItems(&replyEvent,&count);
+	   result=malloc(sizeof(AEDesc)*count);
+	   AEGetArray(&replyEvent, kAEDescArray, result, sizeof(AEDesc)*count, NULL, NULL, &resultCount);
+
+        free(result);
+    }
+
+    AEDisposeDesc(&sendEvent);
+    AEDisposeDesc(&replyEvent);
+
+    return result;
+}
 @end

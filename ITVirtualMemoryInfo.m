@@ -106,7 +106,7 @@
 
 - (BOOL)refreshStats:(struct vm_statistics *)myStat
 {
-    bzero(&myStat,sizeof(myStat));
+    bzero(myStat,sizeof(myStat));
     mach_port_t myHost = mach_host_self();
     int count = HOST_VM_INFO_COUNT;
     NSLog(@"%i",count);
