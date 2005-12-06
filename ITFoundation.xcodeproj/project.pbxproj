@@ -351,7 +351,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		7CC441BF08A83AFA001BCF9B /* Development */ = {
+		7CC441BF08A83AFA001BCF9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
@@ -367,6 +367,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_STYLE = DYNAMIC;
+				MACH_O_TYPE = mh_dylib;
 				MACOSX_DEPLOYMENT_TARGET = 10.2;
 				OTHER_LDFLAGS = (
 					"-seg1addr",
@@ -376,9 +377,9 @@
 				WRAPPER_EXTENSION = framework;
 				ZERO_LINK = YES;
 			};
-			name = Development;
+			name = Debug;
 		};
-		7CC441C008A83AFA001BCF9B /* Deployment */ = {
+		7CC441C008A83AFA001BCF9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
@@ -392,6 +393,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_STYLE = DYNAMIC;
+				MACH_O_TYPE = mh_dylib;
 				MACOSX_DEPLOYMENT_TARGET = 10.2;
 				OTHER_LDFLAGS = (
 					"-seg1addr",
@@ -401,7 +403,7 @@
 				WRAPPER_EXTENSION = framework;
 				ZERO_LINK = NO;
 			};
-			name = Deployment;
+			name = Release;
 		};
 		7CC441C108A83AFA001BCF9B /* Default */ = {
 			isa = XCBuildConfiguration;
@@ -415,6 +417,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				LIBRARY_STYLE = DYNAMIC;
+				MACH_O_TYPE = mh_dylib;
 				MACOSX_DEPLOYMENT_TARGET = 10.2;
 				OTHER_LDFLAGS = (
 					"-seg1addr",
@@ -425,21 +428,21 @@
 			};
 			name = Default;
 		};
-		7CC441C308A83AFA001BCF9B /* Development */ = {
+		7CC441C308A83AFA001BCF9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				MACOSX_DEPLOYMENT_TARGET = 10.2;
 				SDKROOT = /Developer/SDKs/MacOSX10.2.8.sdk;
 			};
-			name = Development;
+			name = Debug;
 		};
-		7CC441C408A83AFA001BCF9B /* Deployment */ = {
+		7CC441C408A83AFA001BCF9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				MACOSX_DEPLOYMENT_TARGET = 10.2;
 				SDKROOT = /Developer/SDKs/MacOSX10.2.8.sdk;
 			};
-			name = Deployment;
+			name = Release;
 		};
 		7CC441C508A83AFA001BCF9B /* Default */ = {
 			isa = XCBuildConfiguration;
@@ -455,8 +458,8 @@
 		7CC441BE08A83AFA001BCF9B /* Build configuration list for PBXNativeTarget "ITFoundation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7CC441BF08A83AFA001BCF9B /* Development */,
-				7CC441C008A83AFA001BCF9B /* Deployment */,
+				7CC441BF08A83AFA001BCF9B /* Debug */,
+				7CC441C008A83AFA001BCF9B /* Release */,
 				7CC441C108A83AFA001BCF9B /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -465,8 +468,8 @@
 		7CC441C208A83AFA001BCF9B /* Build configuration list for PBXProject "ITFoundation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7CC441C308A83AFA001BCF9B /* Development */,
-				7CC441C408A83AFA001BCF9B /* Deployment */,
+				7CC441C308A83AFA001BCF9B /* Debug */,
+				7CC441C408A83AFA001BCF9B /* Release */,
 				7CC441C508A83AFA001BCF9B /* Default */,
 			);
 			defaultConfigurationIsVisible = 0;
