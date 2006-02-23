@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3769DF0109A01F9000573A04 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3769DF0009A01F9000573A04 /* ApplicationServices.framework */; };
 		3D97137F05D9FBF40033607F /* ITByteStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CA50B8C054E787D0074E1D9 /* ITByteStream.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3D97138105D9FBFA0033607F /* ITByteStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CA50B8B054E787D0074E1D9 /* ITByteStream.m */; };
 		7C0462090801DC3700433407 /* ITCategory-NSString.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C0462070801DC3700433407 /* ITCategory-NSString.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -55,6 +56,7 @@
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		32DBCF5E0370ADEE00C91783 /* ITFoundation_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITFoundation_Prefix.pch; sourceTree = "<group>"; };
+		3769DF0009A01F9000573A04 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
 		37B1C5730612599000F99008 /* ITXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ITXMLNode.m; sourceTree = "<group>"; };
 		37B1C5740612599000F99008 /* ITXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ITXMLParser.h; sourceTree = "<group>"; };
 		37B1C5750612599000F99008 /* ITXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ITXMLParser.m; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7C56C0C907D5D2450099829E /* Foundation.framework in Frameworks */,
+				3769DF0109A01F9000573A04 /* ApplicationServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,6 +121,7 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				3769DF0009A01F9000573A04 /* ApplicationServices.framework */,
 				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
 			);
 			name = "External Frameworks and Libraries";
@@ -357,6 +361,11 @@
 				COPY_PHASE_STRIP = NO;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(FRAMEWORK_SEARCH_PATHS)",
+					"$(SYSTEM_DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks",
+					"$(SYSTEM_DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -385,6 +394,11 @@
 				COPY_PHASE_STRIP = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(FRAMEWORK_SEARCH_PATHS)",
+					"$(SYSTEM_DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks",
+					"$(SYSTEM_DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -410,6 +424,11 @@
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(FRAMEWORK_SEARCH_PATHS)",
+					"$(SYSTEM_DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks",
+					"$(SYSTEM_DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks",
+				);
 				FRAMEWORK_VERSION = A;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -431,24 +450,36 @@
 		7CC441C308A83AFA001BCF9B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.2;
-				SDKROOT = /Developer/SDKs/MacOSX10.2.8.sdk;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Debug;
 		};
 		7CC441C408A83AFA001BCF9B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.2;
-				SDKROOT = /Developer/SDKs/MacOSX10.2.8.sdk;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Release;
 		};
 		7CC441C508A83AFA001BCF9B /* Default */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.2;
-				SDKROOT = /Developer/SDKs/MacOSX10.2.8.sdk;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Default;
 		};

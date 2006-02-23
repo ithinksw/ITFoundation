@@ -7,18 +7,22 @@
 }
 
 - (id)initWithFourCharCode:(unsigned long)fourCharCode {
-	return [self initWithFormat:@"%.4s", &fourCharCode];
+	return UTCreateStringForOSType(fourCharCode);
+	//return [self initWithFormat:@"%.4s", &fourCharCode];
 }
 
 - (unsigned long)fourCharCode {
-	const unsigned char *c_s = [self UTF8String];
+	return UTGetOSTypeFromString((CFStringRef)self);
+	
+	//Die nasty bitshifting
+	/*const unsigned char *c_s = [self UTF8String];
 	unsigned long tmp = *c_s++;
 	tmp <<= 8;
 	tmp |= *c_s++;
 	tmp <<= 8;
 	tmp |= *c_s++;
 	tmp <<= 8;
-	return tmp |= *c_s++;
+	return tmp |= *c_s++;*/
 }
 
 @end
