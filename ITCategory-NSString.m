@@ -1,4 +1,5 @@
 #import "ITCategory-NSString.h"
+#import "ITCategory-NSData.h"
 
 @implementation NSString (ITFoundationCategory)
 
@@ -7,7 +8,7 @@
 }
 
 - (id)initWithFourCharCode:(unsigned long)fourCharCode {
-	return UTCreateStringForOSType(fourCharCode);
+	return [self initWithString:(NSString *)UTCreateStringForOSType(fourCharCode)];
 	//return [self initWithFormat:@"%.4s", &fourCharCode];
 }
 
@@ -23,6 +24,14 @@
 	tmp |= *c_s++;
 	tmp <<= 8;
 	return tmp |= *c_s++;*/
+}
+
+- (NSData *)MD5 {
+	return [[self dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:NO] MD5];
+}
+
+- (NSData *)SHA1 {
+	return [[self dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:NO] SHA1];
 }
 
 @end

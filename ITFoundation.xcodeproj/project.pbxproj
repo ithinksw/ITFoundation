@@ -26,31 +26,19 @@
 		7CB02EB707D049BB00959EA0 /* ITCategory-NSProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CB02EB507D049BB00959EA0 /* ITCategory-NSProxy.m */; };
 		8DC2EF510486A6940098B216 /* ITFoundation_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 32DBCF5E0370ADEE00C91783 /* ITFoundation_Prefix.pch */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
+		FABDFA540E7BBFA200BEDC10 /* ITUUID.h in Headers */ = {isa = PBXBuildFile; fileRef = FABDFA520E7BBFA200BEDC10 /* ITUUID.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FABDFA550E7BBFA200BEDC10 /* ITUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = FABDFA530E7BBFA200BEDC10 /* ITUUID.m */; };
+		FAC0E6F20E7B61DD00698C8A /* ITSharedController.h in Headers */ = {isa = PBXBuildFile; fileRef = FAC0E6F00E7B61DD00698C8A /* ITSharedController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FAC0E6F30E7B61DD00698C8A /* ITSharedController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC0E6F10E7B61DD00698C8A /* ITSharedController.m */; };
+		FAC0E6FE0E7B66A400698C8A /* ITThreadChild.h in Headers */ = {isa = PBXBuildFile; fileRef = FAC0E6FC0E7B66A400698C8A /* ITThreadChild.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FAC0E6FF0E7B66A400698C8A /* ITThreadChild.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC0E6FD0E7B66A400698C8A /* ITThreadChild.m */; };
+		FAC0E7D60E7B6F6900698C8A /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC0E7D50E7B6F6900698C8A /* libsqlite3.dylib */; };
+		FAC0E7DB0E7B6F9D00698C8A /* ITSQLite3Database.h in Headers */ = {isa = PBXBuildFile; fileRef = FAC0E7D90E7B6F9D00698C8A /* ITSQLite3Database.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FAC0E7DC0E7B6F9D00698C8A /* ITSQLite3Database.m in Sources */ = {isa = PBXBuildFile; fileRef = FAC0E7DA0E7B6F9D00698C8A /* ITSQLite3Database.m */; };
+		FAD9BF020E83BF7400E110AF /* ITCategory-NSData.h in Headers */ = {isa = PBXBuildFile; fileRef = FAD9BF000E83BF7400E110AF /* ITCategory-NSData.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FAD9BF030E83BF7400E110AF /* ITCategory-NSData.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD9BF010E83BF7400E110AF /* ITCategory-NSData.m */; };
+		FAD9BF0D0E83C29D00E110AF /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FAD9BF0C0E83C29D00E110AF /* libcrypto.dylib */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXBuildStyle section */
-		014CEA440018CDF011CA2923 /* Development */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				ZERO_LINK = YES;
-			};
-			name = Development;
-		};
-		014CEA450018CDF011CA2923 /* Deployment */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = YES;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				ZERO_LINK = NO;
-			};
-			name = Deployment;
-		};
-/* End PBXBuildStyle section */
 
 /* Begin PBXFileReference section */
 		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -82,6 +70,18 @@
 		7CB02EB507D049BB00959EA0 /* ITCategory-NSProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ITCategory-NSProxy.m"; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* ITFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ITFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FABDFA520E7BBFA200BEDC10 /* ITUUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITUUID.h; sourceTree = "<group>"; };
+		FABDFA530E7BBFA200BEDC10 /* ITUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITUUID.m; sourceTree = "<group>"; };
+		FAC0E6F00E7B61DD00698C8A /* ITSharedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITSharedController.h; sourceTree = "<group>"; };
+		FAC0E6F10E7B61DD00698C8A /* ITSharedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITSharedController.m; sourceTree = "<group>"; };
+		FAC0E6FC0E7B66A400698C8A /* ITThreadChild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITThreadChild.h; sourceTree = "<group>"; };
+		FAC0E6FD0E7B66A400698C8A /* ITThreadChild.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITThreadChild.m; sourceTree = "<group>"; };
+		FAC0E7D50E7B6F6900698C8A /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = /usr/lib/libsqlite3.dylib; sourceTree = "<absolute>"; };
+		FAC0E7D90E7B6F9D00698C8A /* ITSQLite3Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ITSQLite3Database.h; sourceTree = "<group>"; };
+		FAC0E7DA0E7B6F9D00698C8A /* ITSQLite3Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ITSQLite3Database.m; sourceTree = "<group>"; };
+		FAD9BF000E83BF7400E110AF /* ITCategory-NSData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ITCategory-NSData.h"; sourceTree = "<group>"; };
+		FAD9BF010E83BF7400E110AF /* ITCategory-NSData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ITCategory-NSData.m"; sourceTree = "<group>"; };
+		FAD9BF0C0E83C29D00E110AF /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = /usr/lib/libcrypto.dylib; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +91,8 @@
 			files = (
 				7C56C0C907D5D2450099829E /* Foundation.framework in Frameworks */,
 				3769DF0109A01F9000573A04 /* ApplicationServices.framework in Frameworks */,
+				FAC0E7D60E7B6F6900698C8A /* libsqlite3.dylib in Frameworks */,
+				FAD9BF0D0E83C29D00E110AF /* libcrypto.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +123,8 @@
 		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				FAD9BF0C0E83C29D00E110AF /* libcrypto.dylib */,
+				FAC0E7D50E7B6F6900698C8A /* libsqlite3.dylib */,
 				3769DF0009A01F9000573A04 /* ApplicationServices.framework */,
 				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
 			);
@@ -139,11 +143,21 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				37B1C5280612596900F99008 /* ITByteStream */,
-				37B1C51F0612594A00F99008 /* ITCarbonSupport */,
-				37B1C5190612593A00F99008 /* ITDebug */,
-				37B1C5250612596000F99008 /* ITVMInfo */,
-				37B1C52B0612597100F99008 /* ITXML */,
+				7CA50B8C054E787D0074E1D9 /* ITByteStream.h */,
+				7CA50B8B054E787D0074E1D9 /* ITByteStream.m */,
+				7C97DC2C05B614300013E85F /* ITCarbonSupport.h */,
+				7C97DC2D05B614300013E85F /* ITCarbonSupport.m */,
+				7CA50B2F054E77A00074E1D9 /* ITDebug.h */,
+				7CA50B30054E77A00074E1D9 /* ITDebug.m */,
+				FAC0E7D90E7B6F9D00698C8A /* ITSQLite3Database.h */,
+				FAC0E7DA0E7B6F9D00698C8A /* ITSQLite3Database.m */,
+				FAC0E6F00E7B61DD00698C8A /* ITSharedController.h */,
+				FAC0E6F10E7B61DD00698C8A /* ITSharedController.m */,
+				FAC0E6FC0E7B66A400698C8A /* ITThreadChild.h */,
+				FAC0E6FD0E7B66A400698C8A /* ITThreadChild.m */,
+				FABDFA520E7BBFA200BEDC10 /* ITUUID.h */,
+				FABDFA530E7BBFA200BEDC10 /* ITUUID.m */,
+				37B1C52B0612597100F99008 /* Incomplete and Deprecated */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -159,6 +173,8 @@
 				7C0462080801DC3700433407 /* ITCategory-NSString.m */,
 				7C2D93BD07C2FD6700A487A9 /* ITCategory-NSBundle.h */,
 				7C2D93BE07C2FD6700A487A9 /* ITCategory-NSBundle.m */,
+				FAD9BF000E83BF7400E110AF /* ITCategory-NSData.h */,
+				FAD9BF010E83BF7400E110AF /* ITCategory-NSData.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -174,51 +190,17 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
-		37B1C5190612593A00F99008 /* ITDebug */ = {
-			isa = PBXGroup;
-			children = (
-				7CA50B2F054E77A00074E1D9 /* ITDebug.h */,
-				7CA50B30054E77A00074E1D9 /* ITDebug.m */,
-			);
-			name = ITDebug;
-			sourceTree = "<group>";
-		};
-		37B1C51F0612594A00F99008 /* ITCarbonSupport */ = {
-			isa = PBXGroup;
-			children = (
-				7C97DC2C05B614300013E85F /* ITCarbonSupport.h */,
-				7C97DC2D05B614300013E85F /* ITCarbonSupport.m */,
-			);
-			name = ITCarbonSupport;
-			sourceTree = "<group>";
-		};
-		37B1C5250612596000F99008 /* ITVMInfo */ = {
+		37B1C52B0612597100F99008 /* Incomplete and Deprecated */ = {
 			isa = PBXGroup;
 			children = (
 				7CA50B80054E786E0074E1D9 /* ITVirtualMemoryInfo.h */,
 				7CA50B7F054E786E0074E1D9 /* ITVirtualMemoryInfo.m */,
-			);
-			name = ITVMInfo;
-			sourceTree = "<group>";
-		};
-		37B1C5280612596900F99008 /* ITByteStream */ = {
-			isa = PBXGroup;
-			children = (
-				7CA50B8C054E787D0074E1D9 /* ITByteStream.h */,
-				7CA50B8B054E787D0074E1D9 /* ITByteStream.m */,
-			);
-			name = ITByteStream;
-			sourceTree = "<group>";
-		};
-		37B1C52B0612597100F99008 /* ITXML */ = {
-			isa = PBXGroup;
-			children = (
 				37B1C5740612599000F99008 /* ITXMLParser.h */,
 				37B1C5750612599000F99008 /* ITXMLParser.m */,
 				37B1C5760612599000F99008 /* ITXMLNode.h */,
 				37B1C5730612599000F99008 /* ITXMLNode.m */,
 			);
-			name = ITXML;
+			name = "Incomplete and Deprecated";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,6 +219,11 @@
 				7C2D93BF07C2FD6700A487A9 /* ITCategory-NSBundle.h in Headers */,
 				7CB02EB607D049BB00959EA0 /* ITCategory-NSProxy.h in Headers */,
 				7C0462090801DC3700433407 /* ITCategory-NSString.h in Headers */,
+				FAC0E6F20E7B61DD00698C8A /* ITSharedController.h in Headers */,
+				FAC0E6FE0E7B66A400698C8A /* ITThreadChild.h in Headers */,
+				FAC0E7DB0E7B6F9D00698C8A /* ITSQLite3Database.h in Headers */,
+				FABDFA540E7BBFA200BEDC10 /* ITUUID.h in Headers */,
+				FAD9BF020E83BF7400E110AF /* ITCategory-NSData.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,24 +242,6 @@
 			);
 			buildRules = (
 			);
-			buildSettings = {
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				FRAMEWORK_VERSION = A;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ITFoundation_Prefix.pch;
-				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "@executable_path/../Frameworks";
-				LIBRARY_STYLE = DYNAMIC;
-				MACOSX_DEPLOYMENT_TARGET = 10.2;
-				OTHER_LDFLAGS = (
-					"-seg1addr",
-					0x15000000,
-				);
-				PRODUCT_NAME = ITFoundation;
-				WRAPPER_EXTENSION = framework;
-			};
 			dependencies = (
 			);
 			name = ITFoundation;
@@ -287,18 +256,12 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = 7CC441C208A83AFA001BCF9B /* Build configuration list for PBXProject "ITFoundation" */;
-			buildSettings = {
-				MACOSX_DEPLOYMENT_TARGET = 10.2;
-				SDKROOT = /Developer/SDKs/MacOSX10.2.8.sdk;
-			};
-			buildStyles = (
-				014CEA440018CDF011CA2923 /* Development */,
-				014CEA450018CDF011CA2923 /* Deployment */,
-			);
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 0867D691FE84028FC02AAC07 /* ITFoundation */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				8DC2EF4F0486A6940098B216 /* ITFoundation */,
 			);
@@ -338,6 +301,11 @@
 				7C2D93C007C2FD6700A487A9 /* ITCategory-NSBundle.m in Sources */,
 				7CB02EB707D049BB00959EA0 /* ITCategory-NSProxy.m in Sources */,
 				7C04620A0801DC3700433407 /* ITCategory-NSString.m in Sources */,
+				FAC0E6F30E7B61DD00698C8A /* ITSharedController.m in Sources */,
+				FAC0E6FF0E7B66A400698C8A /* ITThreadChild.m in Sources */,
+				FAC0E7DC0E7B6F9D00698C8A /* ITSQLite3Database.m in Sources */,
+				FABDFA550E7BBFA200BEDC10 /* ITUUID.m in Sources */,
+				FAD9BF030E83BF7400E110AF /* ITCategory-NSData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

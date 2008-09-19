@@ -1,6 +1,14 @@
 #import "ITDebug.h"
 
+NSString *ITDebugErrorPrefixForObject(id object) {
+	return [NSString stringWithFormat:@"[ERROR] %@(0x%x):", NSStringFromClass([object class]), object];
+}
+
 static BOOL _ITDebugMode = NO;
+
+BOOL ITDebugMode() {
+	return _ITDebugMode;
+}
 
 void SetITDebugMode(BOOL mode) {
 	_ITDebugMode = mode;

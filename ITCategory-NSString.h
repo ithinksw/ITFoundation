@@ -18,4 +18,7 @@
 - (id)initWithFourCharCode:(unsigned long)fourCharCode;
 - (unsigned long)fourCharCode;
 
+- (NSData *)MD5;
+- (NSData *)SHA1;
+
 @end
