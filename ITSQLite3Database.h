@@ -12,8 +12,8 @@
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
 
-static int sqlite3_bind_objc_object(sqlite3_stmt *statement, int index, id object);
-static id sqlite3_column_objc_object(sqlite3_stmt *statement, int columnIndex);
+extern int sqlite3_bind_objc_object(sqlite3_stmt *statement, int index, id object);
+extern id sqlite3_column_objc_object(sqlite3_stmt *statement, int columnIndex);
 
 @interface ITSQLite3Database : NSObject {
 	NSString *dbPath;
