@@ -18,6 +18,7 @@ extern id sqlite3_column_objc_object(sqlite3_stmt *statement, int columnIndex);
 @interface ITSQLite3Database : NSObject {
 	NSString *dbPath;
 	sqlite3 *db;
+	NSRecursiveLock *dbLock;
 }
 
 - (id)initWithPath:(NSString *)path;

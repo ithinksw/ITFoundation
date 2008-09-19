@@ -65,11 +65,13 @@ id sqlite3_column_objc_object(sqlite3_stmt *statement, int columnIndex) {
 			[self release];
 			return nil;
 		}
+		dbLock = [[NSRecursiveLock alloc] init];
 	}
 	return self;
 }
 
 - (void)dealloc {
+	[dbLock release];
 	if (sqlite3_close(db) != SQLITE_OK) {
 		ITDebugLog(@"%@ sqlite3_close(0x%x): %@", ITDebugErrorPrefixForObject(self), db, [NSString stringWithUTF8String:sqlite3_errmsg(db)]);
 	}
@@ -136,7 +138,9 @@ id sqlite3_column_objc_object(sqlite3_stmt *statement, int columnIndex) {
 	va_list args;
 	va_start(args, query);
 	
+	[dbLock lock];
 	BOOL result = [self executeQuery:query va_args:args];
+	[dbLock unlock];
 	
 	va_end(args);
 	return result;
@@ -154,7 +158,9 @@ id sqlite3_column_objc_object(sqlite3_stmt *statement, int columnIndex) {
 	va_list args;
 	va_start(args, query);
 	
+	[dbLock lock];
 	id result = [self fetchRow:query va_args:args];
+	[dbLock unlock];
 	
 	va_end(args);
 	return result;
@@ -206,7 +212,9 @@ id sqlite3_column_objc_object(sqlite3_stmt *statement, int columnIndex) {
 	va_list args;
 	va_start(args, query);
 	
+	[dbLock lock];
 	id result = [self fetchTable:query va_args:args];
+	[dbLock unlock];
 	
 	va_end(args);
 	return result;
