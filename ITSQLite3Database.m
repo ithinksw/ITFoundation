@@ -55,6 +55,12 @@ id sqlite3_column_objc_object(sqlite3_stmt *statement, int columnIndex) {
 	return retval;
 }
 
+@interface ITSQLite3Database (Internals)
+- (BOOL)executeQuery:(NSString *)query va_args:(va_list)args;
+- (NSDictionary *)fetchRow:(NSString *)query va_args:(va_list)args;
+- (NSArray *)fetchTable:(NSString *)query va_args:(va_list)args;
+@end
+
 @implementation ITSQLite3Database
 
 - (id)initWithPath:(NSString *)path {
@@ -159,7 +165,7 @@ id sqlite3_column_objc_object(sqlite3_stmt *statement, int columnIndex) {
 	va_start(args, query);
 	
 	[dbLock lock];
-	id result = [self fetchRow:query va_args:args];
+	NSDictionary *result = [self fetchRow:query va_args:args];
 	[dbLock unlock];
 	
 	va_end(args);
@@ -213,11 +219,53 @@ id sqlite3_column_objc_object(sqlite3_stmt *statement, int columnIndex) {
 	va_start(args, query);
 	
 	[dbLock lock];
-	id result = [self fetchTable:query va_args:args];
+	NSArray *result = [self fetchTable:query va_args:args];
 	[dbLock unlock];
 	
 	va_end(args);
 	return result;
+}
+
+- (id)fetchRowColumn:(NSString *)query, ... {
+	va_list args;
+	va_start(args, query);
+	
+	[dbLock lock];
+	NSDictionary *result = [self fetchRow:query va_args:args];
+	[dbLock unlock];
+	
+	va_end(args);
+	
+	if (result) {
+		if ([[result allKeys] count] >= 1) {
+			return [result objectForKey:[[result allKeys] objectAtIndex:0]];
+		}
+	}
+	
+	return nil;
+}
+
+- (NSArray *)fetchTableColumn:(NSString *)query, ... {
+	va_list args;
+	va_start(args, query);
+	
+	[dbLock lock];
+	NSArray *result = [self fetchTable:query va_args:args];
+	[dbLock unlock];
+	
+	va_end(args);
+	
+	if (result) {
+		NSMutableArray *columnArray = [[NSMutableArray alloc] init];
+		NSEnumerator *enumerator = [result objectEnumerator];
+		NSDictionary *row;
+		while (row = (NSDictionary *)[enumerator nextObject]) {
+			[columnArray addObject:[row objectForKey:[[row allKeys] objectAtIndex:0]]];
+		}
+		return [columnArray autorelease];
+	}
+	
+	return nil;
 }
 
 @end

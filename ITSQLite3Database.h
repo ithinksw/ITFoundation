@@ -30,13 +30,18 @@ extern id sqlite3_column_objc_object(sqlite3_stmt *statement, int columnIndex);
 - (BOOL)rollback;
 - (BOOL)rollbackTransaction;
 
-- (BOOL)executeQuery:(NSString *)query va_args:(va_list)args;
 - (BOOL)executeQuery:(NSString *)query, ...;
 
-- (NSDictionary *)fetchRow:(NSString *)query va_args:(va_list)args;
+// returns a dictionary with column names as keys, or nil
 - (NSDictionary *)fetchRow:(NSString *)query, ...;
 
-- (NSArray *)fetchTable:(NSString *)query va_args:(va_list)args;
+// returns an array of dictionaries with column names as keys, or an empty array
 - (NSArray *)fetchTable:(NSString *)query, ...;
+
+// returns a single column value, or nil
+- (id)fetchRowColumn:(NSString *)query, ...;
+
+// returns an array of single column values, or an empty array
+- (NSArray *)fetchTableColumn:(NSString *)query, ...;
 
 @end
