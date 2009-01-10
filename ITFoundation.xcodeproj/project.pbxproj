@@ -49,8 +49,6 @@
 		37B1C5740612599000F99008 /* ITXMLParser.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ITXMLParser.h; sourceTree = "<group>"; };
 		37B1C5750612599000F99008 /* ITXMLParser.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ITXMLParser.m; sourceTree = "<group>"; };
 		37B1C5760612599000F99008 /* ITXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ITXMLNode.h; sourceTree = "<group>"; };
-		3D2D8A10055E07D800F59C27 /* queue.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = queue.c; sourceTree = "<group>"; };
-		3D2D8A11055E07D800F59C27 /* queue.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = queue.h; sourceTree = "<group>"; };
 		7C0462070801DC3700433407 /* ITCategory-NSString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ITCategory-NSString.h"; sourceTree = "<group>"; };
 		7C0462080801DC3700433407 /* ITCategory-NSString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ITCategory-NSString.m"; sourceTree = "<group>"; };
 		7C058DF7072F10530082E1E9 /* ITCategory-NSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ITCategory-NSObject.h"; sourceTree = "<group>"; };
@@ -184,8 +182,6 @@
 			children = (
 				7CA50D7D054E7C600074E1D9 /* ITFoundation.h */,
 				32DBCF5E0370ADEE00C91783 /* ITFoundation_Prefix.pch */,
-				3D2D8A10055E07D800F59C27 /* queue.c */,
-				3D2D8A11055E07D800F59C27 /* queue.h */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
