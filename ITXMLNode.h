@@ -2,10 +2,7 @@
  *	ITFoundation
  *	ITXMLNode.h
  *
- *	Copyright (c) 2005 by iThink Software.
- *	All Rights Reserved.
- *
- *	$Id$
+ *	Copyright (c) 2005 iThink Software
  *
  */
 

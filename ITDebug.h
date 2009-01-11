@@ -4,10 +4,7 @@
  *
  *	Functions for logging debugging information intelligently.
  *
- *	Copyright (c) 2008 by iThink Software.
- *	All Rights Reserved.
- *
- *	$Id$
+ *	Copyright (c) 2008 iThink Software
  *
  */
 

@@ -5,10 +5,7 @@
  *	Class that provides utilities for getting information on Mac OS X's mach
  *		kernel's virtual memory settings and status.
  *
- *	Copyright (c) 2005 by iThink Software.
- *	All Rights Reserved.
- *
- *	$Id$
+ *	Copyright (c) 2005 iThink Software
  *
  */
 

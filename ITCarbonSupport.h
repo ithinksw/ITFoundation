@@ -7,10 +7,7 @@
  *		the ITFoundationCategory on NSString, and those methods are recommended
  *		for all new projects needing this functionality.
  *
- *	Copyright (c) 2005 by iThink Software.
- *	All Rights Reserved.
- *
- *	$Id$
+ *	Copyright (c) 2005 iThink Software
  *
  */
 
