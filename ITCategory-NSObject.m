@@ -8,7 +8,7 @@
 	NSMutableArray *tempArray;
 	NSArray *resultArray;
 	Class *classes;
-	struct objc_class *superClass;
+	Class superClass;
 	Class *current;
 	int count, newCount, index;
 	tempArray = [[NSMutableArray allocWithZone:nil] initWithCapacity:12];
@@ -35,14 +35,14 @@
 			const Class thisClass = [self class];
 			current = classes;
 			for (index = 0; index < count; ++index) {
-				superClass = (*current)->super_class;
+				superClass = class_getSuperclass((*current));
 				if (superClass) {
 					do {
 						if (superClass == thisClass) {
 							[tempArray addObject:*current];
 							break;
 						}
-						superClass = superClass->super_class;
+						superClass = class_getSuperclass(superClass);
 					} while (superClass);
 				}
 				++current;
@@ -87,7 +87,7 @@
 			current = classes;
 
 			for (index = 0; index < count; ++index) {
-				if ((*current)->super_class == thisClass) {
+				if (class_getSuperclass((*current)) == thisClass) {
 					[tempArray addObject:*current];
 				}
 				++current;
